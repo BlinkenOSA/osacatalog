@@ -11,6 +11,7 @@ The catalog uses the Artificial Reason Responsive Template. The template could b
 https://wrapbootstrap.com/theme/artificial-reason-responsive-full-pack-WB0307B17
 
 Upon extraction, files should be placed under:
+    
     .
     ├── ...
     ├── vendor                    
