@@ -1,0 +1,38 @@
+$('[rel="tooltip"]').tooltip();
+$('[rel="popover"]').popover({html : true, container: "body", trigger: "hover" });
+$('.dropdown-toggle').dropdown();
+$('body').plugGoogleBookContent();
+
+$('body').liveLookup();
+$('.image-filmstrip').renderFilmstrip();
+$('*[data-accordion-section-target]').accordionSection();
+$('*[data-behavior="embed-browse"]').embedBrowse();
+
+$("#browselist").listnav({
+    includeAll: false,
+    includeOther: true,
+    includeNums: false,
+    prefixes: ['the','a']
+});
+
+$("#browselist_all").listnav({
+    includeAll: true,
+    includeOther: true,
+    includeNums: false,
+    prefixes: ['the','a']
+});
+
+$(window).load(function(){
+    $('#cover').fadeOut(1000);
+});
+
+if ($("h2.item-title").length) {
+    $(window).scroll(function() {
+      var windowpos = $(window).scrollTop();
+      if (windowpos >= $("h2.item-title").position().top + 130 ) {
+        $('#titlebox').fadeIn (400);
+      } else {
+        $('#titlebox').fadeOut(400);
+      }
+    });
+}

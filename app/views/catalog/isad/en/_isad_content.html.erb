@@ -1,0 +1,23 @@
+<% document ||= @document %>
+<% scopeAndContentAbstract_field = render_isad_field(document, "scopeAndContentAbstract", "Scope and Content (Abstract)") %>
+<% scopeAndContentNarrative_field = render_isad_field(document, "scopeAndContentNarrative", "Scope and Content (Narrative)") %>
+<% appraisal_field = render_isad_field(document, "appraisal", "Appraisal, destruction and scheduling information") %>
+<% accruals_field = render_isad_accruals(document) %>
+<% systemOfArrangementInformation_field = render_isad_field(document, "systemOfArrangementInformation", "System of arrangement") %>
+
+<% if scopeAndContentAbstract_field != '' ||
+      scopeAndContentNarrative_field != '' ||
+      appraisal_field != '' ||
+      accruals_field != '' ||
+      systemOfArrangementInformation_field != '' %>
+  <h4 class="show-page-section"><i class="fa fa-list"></i>Content and structure</h4>
+  <dl class="dl-horizontal dl-invert data-details">
+
+    <%= scopeAndContentAbstract_field %>
+    <%= scopeAndContentNarrative_field %>
+    <%= appraisal_field %>
+    <%= accruals_field %>
+    <%= systemOfArrangementInformation_field %>
+
+  </dl>
+<% end %>

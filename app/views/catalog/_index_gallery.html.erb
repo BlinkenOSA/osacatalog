@@ -1,0 +1,26 @@
+<div class="gallery-document <%= render_document_class document %>" data-preview-in-gallery="true" data-doc-id=<%= document.id %> >
+  <div class="item-thumb">
+    <div class="cover-image-wrapper" >
+      <% if document[:record_origin] == "Library" %>
+        <%= render_book_cover(document) %>
+      <% elsif document[:record_origin] == "Film Library" %>
+        <%= render_movie_cover(document) %>
+      <% elsif document[:record_origin] == "Archives" %>
+        <% if document[:archival_level] == "Archival Unit" %>
+          <%= render 'catalog/archives/index_gallery_thumbnail_archival_unit', :document => document %>
+        <% else %>
+          <%= render 'catalog/archives/index_gallery_thumbnail_finding_aids', :document => document %>
+        <% end %>
+      <% elsif document[:record_origin] == "Digital Repository" %>
+        <%= render_dr_cover(document) %>
+      <% end %>
+    </div>
+  </div>
+  <div class="caption">
+   <%= render_document_partials document, blacklight_config.view_config(:gallery).partials, document_counter: document_counter %>
+ </div>
+  <% # bookmark functions for items/docs and preview button %>
+  <div class="gallery-buttons">
+    <%= render_index_doc_actions document, :wrapping_class => "index-document-functions" %>
+  </div>
+</div>

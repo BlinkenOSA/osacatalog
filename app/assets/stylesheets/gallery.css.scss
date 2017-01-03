@@ -1,0 +1,119 @@
+.gallery .gallery-document {
+    border: 1px solid #e3dfd5;
+    border-bottom: 1px solid #e3dfd5;
+    position: relative;
+    margin: 0px 0px 15px 15px;
+    float: left;
+    display: inline;
+    background-color: white;
+    width: 170px;
+    height: 400px;
+}
+
+.gallery .callnumber-bar {
+    background-color: #555555;
+    color: #fbfbf9;
+    height: 30px;
+    font-weight: 300;
+    font-size: .9em;
+    text-align: center;
+    padding: 3px 0;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.gallery .item-thumb {
+    height: 190px;
+    width: 170px;
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.gallery .cover-image {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    max-height: 195px !important;
+    max-width: 150px !important;
+    border: none !important;
+    height: 190px;
+}
+
+.gallery .gallery-document h3.index_title {
+    font-family: "Open Sans", sans-serif;
+    font-size: 1.1em;
+    line-height: 1.4em;
+    margin: .5em;
+    text-align: center;
+}
+
+.gallery .main-title-date {
+    font-size: 12px;
+}
+
+.gallery .index-author {
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+    padding: 5px;
+}
+
+.gallery div.gallery-buttons {
+    background-color: #f3f3f3;
+    height: 30px;
+    width: 100%;
+    position: absolute;
+    bottom: 0px;
+    display: inline-block;
+}
+
+.gallery div.gallery-buttons form {
+    position: absolute;
+    left: 55px;
+    font-size: .9em;
+}
+
+.gallery .index-author {
+    line-height: 1.4em;
+}
+
+.gallery .gallery-document h3.index_title a {
+  text-decoration: none;
+  border-bottom: 1px dotted #999999;
+}
+
+
+.container-location-gallery {
+    font-size: 1em;
+    width: 140px;
+    height: 190px;
+    background-color: #FFFFFF;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.container-location-inner-gallery {
+    background-color: #CCC;
+    width: 140px;
+    height: 190px;
+}
+
+.container-number-gallery {
+    background-color: #666;
+    color: #FFF;
+    padding: 5px;
+}
+
+.sequence-number-gallery {
+    background-color: #999;
+    color: #FFF;
+    padding: 5px;
+}
+
+.series-reference-number-gallery {
+    display: block;
+    background-color: #444;
+    color: #FFF;
+    margin-bottom: 20px;
+    padding: 5px;
+}

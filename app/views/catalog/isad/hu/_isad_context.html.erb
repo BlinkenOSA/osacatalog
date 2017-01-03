@@ -1,0 +1,20 @@
+<% document ||= @document %>
+<% creators_field = render_isad_creators(document, lang: 'hu') %>
+<% administrativeHistory_field = render_isad_field(document, "administrativeHistory", "Szervtörténet/Életrajz", lang: 'hu') %>
+<% archivalHistory_field = render_isad_field(document, "archivalHistory", "A megőrzés története", lang: 'hu') %>
+<% sourceOfAcquisition_field = render_isad_field(document, "sourceOfAcquisition", "Levéltárba kerülés/Gyarapodás", lang: 'hu') %>
+
+<% if creators_field != '' ||
+      administrativeHistory_field != '' ||
+      archivalHistory_field != '' ||
+      sourceOfAcquisition_field != '' %>
+  <h4 class="show-page-section"><i class="fa fa-paperclip"></i>Kontextusra vonatkozó adatcsoport</h4>
+  <dl class="dl-horizontal dl-invert data-details">
+
+    <%= creators_field %>
+    <%= administrativeHistory_field %>
+    <%= archivalHistory_field %>
+    <%= sourceOfAcquisition_field %>
+
+  </dl>
+<% end %>

@@ -1,0 +1,26 @@
+<% document ||= @document %>
+<% referenceCode_field = render_isad_field(document, "referenceCode", "Jelzet", lang: "hu") %>
+<% title_field = render_isad_field(document, "title", "Cím", lang: "hu") %>
+<% date_field = render_isad_dates(document, lang: "hu") %>
+<% descriptionLevel_field = render_isad_field(document, "descriptionLevel", "Leírás szintje", capitalize: true, lang: "hu") %>
+<% extentEstimated_field = render_isad_field(document, "extent_estimated", "Terjedelem, adathordozók (becsült)", lang: "hu") %>
+<% extent_field = render_isad_field(document, "extent", "Terjedelem, adathordozók (feldolgozott)", separator: "<br/>", lang: 'hu') %>
+
+<% if referenceCode_field != "" ||
+      title_field != "" ||
+      date_field != "" ||
+      descriptionLevel_field != "" ||
+      extentEstimated_field != "" ||
+      extent_field != "" %>
+  <h4 class="show-page-section"><i class="fa fa-info"></i>Azonosítási Adatcsoport</h4>
+  <dl class="dl-horizontal dl-invert data-details">
+
+    <%= referenceCode_field %>
+    <%= title_field %>
+    <%= date_field %>
+    <%= descriptionLevel_field %>
+    <%= extentEstimated_field %>
+    <%= extent_field %>
+
+  </dl>
+<% end %>

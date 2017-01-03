@@ -1,0 +1,21 @@
+<% document ||= @document %>
+<% locationOfOriginals_field = render_related_units(document, "locationOfOriginals", "Existence and location of originals", lang: 'hu') %>
+<% locationOfCopies_field = render_related_units(document, "locationOfCopies", "Exitence and location of copies", lang: 'hu') %>
+<% relatedUnits_field = render_related_units(document, "relatedUnits", "Related Units", lang: 'hu') %>
+<% publicationNote_field = render_isad_field(document, "publicationNote", "Publication note", lang: 'hu') %>
+
+<% if locationOfOriginals_field != "" ||
+      locationOfCopies_field != "" ||
+      relatedUnits_field != "" ||
+      publicationNote_field != "" %>
+
+  <h4 class="show-page-section"><i class="fa fa-paperclip"></i>Kapcsolódó anyagokra vonatkozó adatcsoport</h4>
+  <dl class="dl-horizontal dl-invert data-details">
+
+    <%= locationOfOriginals_field %>
+    <%= locationOfCopies_field %>
+    <%= relatedUnits_field %>
+    <%= publicationNote_field %>
+
+  </dl>
+<% end %>

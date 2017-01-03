@@ -1,0 +1,26 @@
+<%
+  document ||= @document
+  num_callnumbers_to_show = 3
+%>
+
+<% if document[:call_number].present? %>
+  <h4 class="show-page-section"><i class="fa fa-align-justify"></i>Browse related items</h4>
+  <div class="row">
+    <div class="col-md-9 col-sm-12">
+      Start at call number:
+        <span class="callnumber">
+          <%= link_to_callnumber_browse(document) %>
+        </span>
+    </div>
+  </div>
+
+  <div id="callnumber" class="embed-callnumber-browse-container" style="">
+    <div class="embedded-items"><div class="gallery"></div></div>
+    <a class="left embed-browse-control" href="#" data-slide="prev">
+      <span class="glyphicon glyphicon-chevron-left"></span>
+    </a>
+    <a class="right embed-browse-control" href="#" data-slide="next">
+      <span class="glyphicon glyphicon-chevron-right"></span>
+    </a>
+  </div>
+<% end %>

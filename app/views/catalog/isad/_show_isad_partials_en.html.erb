@@ -1,0 +1,30 @@
+<div class="row">
+  <div class="col-xs-12">
+    <ul id="<%= document["id"] %>-tab" class="nav nav-tabs">
+      <li class="active"><a href="#context" data-toggle="tab">Context</a></li>
+      <li><a href="#hierarchy" data-toggle="tab">Hierarchy</a></li>
+      <% if document["description_level"] == "Series" %>
+          <li><a href="#findingaids-en" data-toggle="tab">Folders / Items</a></li>
+      <% end %>
+    </ul>
+    <div class="tab-content">
+      <div class="tab-pane active" id="context">
+        <%= render 'catalog/isad/en/isad_identity' %>
+        <%= render 'catalog/isad/en/isad_context' %>
+        <%= render 'catalog/isad/en/isad_content' %>
+        <%= render 'catalog/isad/en/isad_access' %>
+        <%= render 'catalog/isad/en/isad_allied_materials' %>
+        <%= render 'catalog/isad/en/isad_notes' %>
+        <%= render 'catalog/isad/en/isad_description_control' %>
+      </div>
+      <div class="tab-pane" id="hierarchy">
+        <%= render 'catalog/isad/common/isad_structure' %>
+      </div>
+      <% if document["description_level"] == "Series" %>
+          <div class="tab-pane" id="findingaids-en">
+            <%= render 'catalog/isad/common/isad_fa' %>
+          </div>
+      <% end %>
+    </div>
+  </div>
+</div>

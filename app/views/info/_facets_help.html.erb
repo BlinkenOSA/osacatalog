@@ -1,0 +1,14 @@
+<% content = %Q(
+  <strong>Record Origin:</strong>
+  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+  Morbi dapibus mollis risus vel aliquet. Sed id nisi vel justo pulvinar scelerisque.</p>
+  <strong>Archival Description Level:</strong>
+  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+  Morbi dapibus mollis risus vel aliquet. Sed id nisi vel justo pulvinar scelerisque.</p>
+
+).html_safe %>
+
+<%= link_to(%Q(<i class="fa fa-question"></i>).html_safe, '#',
+  :class => "btn btn-xs btn-default facet-help",
+  "rel" => "popover",
+  "data-content" => content) %>

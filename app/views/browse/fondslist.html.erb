@@ -1,0 +1,35 @@
+<div class="container margin-bottom">
+    <div class="col-md-12">
+      <div class="item-toolbar row">
+        <div class="item-pagination col-sm-5">
+          <a class="btn btn-sm btn-danger back-to-results" href="<%= catalog_index_path %>">Back to Catalog</a>
+        </div>
+        <div class="item-menu col-sm-7">
+          <ul class="item-tools">
+            <li class="item-tools-listitem">
+              <select class="form-control" id="archivalUnitThemes">
+                <option value="All">- Every Themes -</option>
+                <option value="Communism and Cold War">Communism and Cold War</option>
+                <option value="Human Rights">Human Rights</option>
+                <option value="Civil Society">Civil Society</option>
+              </select>
+            </li>
+            <li class="item-tools-listitem">
+              <a id="filter-theme" class="btn btn-danger btn-sm">Filter Themes</a>
+            </li>
+            <li class="item-tools-listitem">
+              <a id="jstree-open" class="btn btn-default btn-sm"><i class="fa fa-plus"></i> Open all</a>
+            </li>
+            <li class="item-tools-listitem">
+              <a id="jstree-close" class="btn btn-default btn-sm"><i class="fa fa-minus"></i> Close all</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="row">
+        <h3>List of Fonds</h3>
+        <div id="fondslist_all" class="fondslist-full">
+        </div>
+      </div>
+    </div>
+</div>

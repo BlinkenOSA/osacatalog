@@ -1,0 +1,105 @@
+var page = 1;
+var timeline;
+
+function makeTimeline(page, collection_id, year, month) {
+  $('#drtimeline-embed').empty();
+
+  timeline_url = 'http://catalog.osaarchivum.org/vis/dr_timeline/data/' + collection_id + '/' + year + '/' + month
+
+  timeline_options = {
+    hash_bookmark: false,
+    timenav_position: 'bottom'
+  }
+
+  timeline = new TL.Timeline('drtimeline-embed',
+    timeline_url,
+    timeline_options);
+
+  timeline.on("change", function(data) {
+    event_array = timeline.config.events;
+
+    for (i = 0; i < event_array.length; i++) {
+      if (event_array[i].unique_id == timeline.current_id) {
+        current_id_index = i;
+      }
+    }
+
+    if (current_id_index == 29) {
+      page = page + 1;
+
+
+      $.getJSON(timeline_url + '?page=' + page + '&dir=forward', function(data) {
+        for (i = current_id_index-1; i>=0; i--) {
+          timeline.remove(i);
+          if (typeof data["events"][i] !== 'undefined') {
+            timeline.add(data["events"][i]);
+          }
+        }
+        /*
+        $.each(data["events"], function(index, value) {
+          timeline.add(value);
+        });
+        */
+      });
+
+    }
+
+    if (current_id_index == 0 && page!= 1) {
+      page = page - 1;
+
+      $.getJSON(timeline_url + '?page=' + page + '&dir=back', function(data) {
+        for (i = 29; i > current_id_index; i--) {
+          timeline.remove(i);
+        }
+        $.each(data["events"], function(index, value) {
+          timeline.add(value);
+        });
+      });
+    }
+  });
+}
+
+function initYearSelector() {
+    $('#yearTimeline')
+      .empty()
+      .append('<option selected value="0">- Every Year -</option>');
+
+    var collection = $('#digialCollectionTimeline').val();
+    $.getJSON('http://catalog.osaarchivum.org/vis/dr_timeline/data/' + collection + '/dates', function(data) {
+      start_date = data["start_date"];
+      end_date = data["end_date"];
+
+      for (i = start_date["year"]; i <= end_date["year"]; i++) {
+        $('#yearTimeline').append($("<option></option>").text(i));
+      }
+    });
+}
+
+$('#digialCollectionTimeline').change(function() {
+    initYearSelector();
+    month = $('#monthTimeline').val();
+});
+
+$('#showSelectedTimeline').click(function() {
+    collection = $('#digialCollectionTimeline').val();
+    year = $('#yearTimeline').val();
+    month = $('#monthTimeline').val();
+
+    if (year == '0' &&  month != '0') {
+      $('#yearTimeline').focus();
+    } else {
+      makeTimeline(1, collection, year, month);
+    }
+
+});
+
+if ( $( "#drtimeline-embed" ).length ) {
+    initYearSelector();
+    makeTimeline(1, "all", 0, 0)
+}
+
+window.onresize = function(event) {
+    if (timeline) {
+        timeline.updateDisplay();
+    }
+}

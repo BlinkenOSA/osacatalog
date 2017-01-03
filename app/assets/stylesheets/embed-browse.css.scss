@@ -1,0 +1,84 @@
+.embed-callnumber-browse-container {
+    background-color: white;
+    border: 1px solid #e5e5e5;
+    height: auto;
+    margin-top: 15px;
+    overflow: hidden;
+    padding-top: 17px;
+    position: relative;
+}
+
+.embed-callnumber-browse-container .embedded-items {
+    width: 20000px;
+    height: 430px;
+}
+
+.embed-callnumber-browse-container .gallery {
+    position: relative;
+}
+
+.embed-callnumber-browse-container .left.embed-browse-control,
+.embed-callnumber-browse-container .right.embed-browse-control {
+    background-color: #555555;
+    background-image: none;
+}
+
+.embed-callnumber-browse-container a.embed-browse-control {
+    border-bottom: 0;
+}
+
+.embed-browse-control {
+    top: 0px;
+    bottom: 0px;
+    opacity: 0.65;
+    width: 5%;
+    position: absolute;
+    opacity: 0.5;
+    font-size: 20px;
+    color: white;
+    text-align: center;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.6);
+}
+
+.left.embed-browse-control {
+    background-repeat: repeat-x;
+}
+
+.right.embed-browse-control {
+    left: auto;
+    right: 0;
+    background-repeat: repeat-x;
+}
+
+.embed-browse-control .glyphicon-chevron-left {
+    margin-left: -15px;
+    left: 50%;
+    width: 30px;
+    height: 30px;
+    margin-top: -15px;
+    font-size: 30px;
+    position: absolute;
+    top: 50%;
+    z-index: 5;
+    display: inline-block;
+}
+
+.embed-browse-control .glyphicon-chevron-right {
+    margin-right: -15px;
+    right: 50%;
+    width: 30px;
+    height: 30px;
+    margin-top: -15px;
+    font-size: 30px;
+    position: absolute;
+    top: 50%;
+    z-index: 5;
+    display: inline-block;
+}
+
+.embed-browse-control:hover, .embed-browse-control:focus {
+    outline: 0;
+    color: white;
+    text-decoration: none;
+    opacity: 0.9;
+}

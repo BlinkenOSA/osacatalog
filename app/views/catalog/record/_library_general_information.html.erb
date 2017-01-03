@@ -1,0 +1,81 @@
+<% document ||= @document %>
+
+<h4 class="show-page-section"><i class="fa fa-info-circle"></i>General Information</h4>
+  <dl class="dl-horizontal  dl-invert data-details">
+    <!--
+    <dt><%= render_document_show_field_label(document, :field => 'author') %></dt>
+    <dd><%= render_document_show_field_value(document, :field => 'author') %></dd>
+    -->
+    <!-- ORIGINAL TITLE -->
+    <%- original_title = get_data_with_label(document, "Original Title", 'title_original') -%>
+    <%- unless original_title.nil? -%>
+      <%= render "catalog/field_from_index", :fields => original_title %>
+    <%- end -%>
+
+    <!-- UNIFORM TITLE -->
+    <%- uniform_title = get_data_with_label_from_marc(document.to_marc, "Uniform Title", '240', {:sub_fields => ["a"]}) -%>
+    <%- unless uniform_title.nil? -%>
+      <%= render "catalog/field_from_marc", :fields => uniform_title %>
+    <%- end -%>
+
+    <!-- AUTHOR -->
+    <%- author_creator = link_to_author_from_marc(document.to_marc) -%>
+    <%- unless author_creator.blank? -%>
+      <%= render_field_from_marc(author_creator) %>
+    <%- end -%>
+
+    <!-- LANGUAGE -->
+    <%- language = get_data_with_label(document, "Language", 'language') -%>
+    <%- marc_language = get_data_with_label_from_marc(document.to_marc, "Language", '546') -%>
+    <%- unless (language.nil? and marc_language.nil?) -%>
+      <dt>Language</dt>
+      <%- languages = [] -%>
+      <%- unless (language.nil? or language[:fields].nil?) -%>
+        <%- languages << language[:fields] unless language[:fields].blank? -%>
+        <%- languages << language[:vernacular] unless language[:vernacular].blank? -%>
+        <%- languages << language[:unmatched_vernacular] unless language[:unmatched_vernacular].nil? -%>
+      <%- end -%>
+      <%- languages.flatten!
+          languages.compact! -%>
+
+      <%- marc_languages = [] -%>
+      <%- unless (marc_language.nil? or marc_language[:fields].nil?) -%>
+        <%- marc_language[:fields].each do |lang| -%>
+          <%- marc_languages << lang[:field] -%>
+          <%- marc_languages << lang[:vernacular] unless lang[:vernacular].nil? -%>
+        <%- end -%>
+        <%- marc_languages << marc_language[:unmatched_vernacular] unless marc_language[:unmatched_vernacular].nil? -%>
+      <%- end -%>
+      <%- marc_languages.flatten!
+          marc_languages.compact! -%>
+      <dd><%= [languages.join(", "), marc_languages.join(", ")].compact.join(". ") %></dd>
+    <%- end -%>
+
+    <!-- SUBTITLES -->
+    <% subtitles = get_subtitles_languages(document.to_marc) %>
+    <% unless subtitles == "" %>
+      <dt class="title">Subtitles</dt>
+      <dd><%= subtitles %></dd>
+    <% end %>
+
+    <!-- PUBLISHED -->
+    <%- published = get_data_with_label_from_marc(document.to_marc, "Published", '260') -%>
+    <%- unless published.nil? -%>
+      <%= render "catalog/field_from_marc", :fields => published %>
+    <%- end -%>
+
+    <!-- DESCRIPTION -->
+    <%- description = get_data_with_label_from_marc(document.to_marc, "Physical Description", '300') -%>
+    <%- unless description.nil? -%>
+      <%= render "catalog/field_from_marc", :fields => description %>
+    <%- end -%>
+
+    <!-- SERIES -->
+    <% series = link_to_series_from_marc(document.to_marc) %>
+    <% if series.present? %>
+      <dt>Series</dt>
+      <dd>
+        <%= series.join("<br/>").html_safe %>
+      </dd>
+    <% end %>
+  </dl>

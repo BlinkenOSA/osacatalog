@@ -1,0 +1,26 @@
+<div class="document-data">
+
+  <% document_actions = capture do %>
+    <% # bookmark functions for items/docs -%>
+    <%= render_index_doc_actions document %>
+  <% end %>
+
+  <div class="select-item">
+    <%= document_actions %>
+  </div>
+
+  <div class="title-display">
+    <% if counter = document_counter_with_offset(document_counter) %>
+      <!--<%= render_type_icon document[document.type_field] %>-->
+      <span class="document-counter">
+        <%= t('blacklight.search.documents.counter', counter: counter) %>
+      </span>
+    <% end %>
+
+    <% if params[:view] == "gallery" %>
+      <%= link_to_document document, truncate(get_main_title(document)), :counter => counter %>
+    <% else %>
+      <%= link_to_document document, get_main_title(document), :counter => counter %>
+    <% end %>
+    <span class="document-date"><%= get_main_title_date(document) %></span>
+  </div>

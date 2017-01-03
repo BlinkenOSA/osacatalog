@@ -1,0 +1,23 @@
+<%# default partial to display solr document fields in catalog index view -%>
+  <% if document[:creator].present? %>
+    <span class="index-author">created by <span class="author"><%= document[:creator].join('; ').html_safe %></span></span>
+  <% end %>
+
+  <% if document[:digital_collection].present? %>
+    <span class="index-series"><span class="series"><%= document[:digital_collection].html_safe %></span></span>
+  <% end %>
+
+  <div class="data-block">
+    <% if document[:primary_type].present? %>
+      <span class="index-format"><%= render_type_icon(document[document.type_field]) %> <%= document[:primary_type].html_safe %></span>
+    <% end %>
+    <% if document[:description_level].present? %>
+      <span class="index-level">Description Level: <%= document[:description_level].html_safe %></span>
+    <% end %>
+    <% if document[:language].present? %>
+      <span class="index-language">Language: <%= document[:language].join(', ').html_safe %></span>
+    <% end %>
+    <p class="index-available">
+      Available: <span class="label label-available">Online</span>
+    </p>  </div>
+</div>

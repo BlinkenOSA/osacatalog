@@ -1,0 +1,19 @@
+<% if has_alternative_views? %>
+  <div id="view-type-dropdown" class="btn-group">
+    <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <%= render_view_type_group_icon current_view %>
+      <%= t("blacklight.search.view.#{current_view}").html_safe %> <span class="caret"></span>
+    </button>
+
+    <ul class="dropdown-menu">
+      <%  document_index_views.each do |view, config| %>
+      <li>
+        <%= link_to url_for(params.merge(:view => view)), :title => t("blacklight.search.view_title.#{view}", default: t("blacklight.search.view.#{view}", default: blacklight_config.view[view].title)), :class => "view-type-#{ view.to_s.parameterize }" do %>
+          <%= render_view_type_group_icon view %>
+          <span class="view-type-label"><%= t("blacklight.search.view.#{view}") %></span>
+        <% end %>
+      </li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>

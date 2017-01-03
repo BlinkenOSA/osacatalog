@@ -1,0 +1,33 @@
+<div class="container margin-bottom">
+  <div id="content" class="col-md-12">
+  <h3 class='page-heading'><%=t('blacklight.search_history.title')%></h3>
+  <%- if @searches.blank? -%>
+    <h4 class='section-heading'><%=t('blacklight.search_history.no_history')%></h4>
+  <%- else -%>
+    <%= link_to t('blacklight.search_history.clear.action_title'), clear_search_history_path, :method => :delete, :data => { :confirm => t('blacklight.search_history.clear.action_confirm') }, :class => 'btn btn-sm btn-default pull-right' %>
+    <a class="btn btn-sm btn-danger back-to-previous-page pull-right" href="javascript: history.go(-1)">Back</a>
+
+    <h4 class='search-history-heading'><%=t('blacklight.search_history.recent')%></h4>
+    <table class="table table-striped search_history">
+      <%-  @searches.each_with_index do |search,index| -%>
+      <%= content_tag :tr, :id => "document_#{index + 1}" do %>
+        <td class="query"><%= link_to_previous_search(search.query_params) %></td>
+
+        <!--
+        <%- if has_user_authentication_provider? -%>
+          <td class="actions">
+            <%- if current_or_guest_user && search.saved? -%>
+              <%= link_to t('blacklight.search_history.forget'), forget_search_path(search.id), :class => 'btn btn-xs btn-default' %>
+            <%- else -%>
+              <%= link_to t('blacklight.search_history.save'), save_search_path(search.id), :method => :put, :class => 'btn btn-xs btn-default' %>
+            <%- end -%>
+          </td>
+        <%- end -%>
+      -->
+
+      <% end #content_tag %>
+    <%- end -%>
+    </table>
+  <%- end -%>
+  </div>
+</div>

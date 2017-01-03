@@ -1,0 +1,86 @@
+<br/>
+<br/>
+
+<div class="content-box box-default">
+    <%= image_tag('catalog.jpg', class: 'img-responsive') %>
+    <h4 class="content-box-title">The Catalog</h4>
+    <p>OSA catalog offers an integrated search function built on
+    three major databases: archival item/ folder level
+    descriptions along with rich contextual descriptions (ISADG, ISAAR etc.),
+    standard bibliographic library records and film
+    library bibliographic records.</p></div>
+<br/>
+<div class="content-box box-default">
+    <div class="row">
+        <div class="col-md-8 content-box-text">
+            <h4 class="content-box-title">OSA Archival Holdings</h4>
+            <p>The holdings are fully available through the integrated
+            search. The Catalog is in English, with original titles in different
+            languages included in the folder and item-level descriptions. Contextual
+            information about particular collections (fonds), sub-collections
+            (sub-fonds) and records groups (series) is provided as part of the
+            archival hierarchy. The connections between digitized and born-digital
+            holdings are established by cross-reference links which appear in the
+            series level descriptions of archival records. For a detailed overview of
+            the scope and diversity of our holdings, please consult the
+            <a href="<%= browse_fondslist_path %>" target="_blank">OSA Collections list</a>.</p>
+        </div>
+        <div class="col-md-4 content-box-image">
+            <%= image_tag(randomized_archives_image, class: 'img-responsive') %>
+            <a href="<%= Constants::SITE_URL %>/?f[record_origin_facet][]=Archives" class="btn btn-danger btn-sm home-browse">Show Archival Holdings</a>
+        </div>
+    </div>
+</div>
+<br/>
+<div class="content-box box-default">
+    <div class="row">
+        <div class="col-md-8 content-box-text">
+            <h4 class="content-box-title">OSA Digital Repository</h4>
+            <p>The Open Society Archives' Digital Repository contains over 125,000 descriptions and visual depictions of the archives’
+              digitized items, including textual, still and moving images. As of January 2016, the Digital Repository holds 16 collections,
+              selected to represent the most prominent themes and highlight noteworthy archival collections held at the OSA. The rich descriptions
+              of the holdings in the Digital Repository, and their visual nature also support additional visual representations of this material,
+              including the <a href="<%= drtimeline_index_path %>">Digital Collection Timeline.</a>
+        </div>
+        <div class="col-md-4 content-box-image">
+            <%= image_tag(randomized_digitalrepository_image, class: 'img-responsive') %>
+            <a href="<%= Constants::SITE_URL %>/?f[record_origin_facet][]=Digital Repository" class="btn btn-danger btn-sm home-browse">Show Digital Repository</a>
+        </div>
+    </div>
+</div>
+<br/>
+<div class="content-box box-default">
+  <div class="row">
+    <div class="col-md-8 content-box-text">
+      <h4 class="content-box-title">OSA Library Collections</h4>
+      <p>The collection consist of periodicals and reference books
+        related to the Cold War, Human Rights and the archival/library profession. The library collections are searchable
+        through the integrated search and they can be viewed while <a href="<%= browse_library_collections_path %>">
+        browsing thematic special collections</a>. Additionally, short summaries and inventories of Special Collections on microfilm could be accessed
+        from <a href="http://www.osaarchivum.org/library" target="_blank">here.</a></p> Information about Central European language periodicals are
+      temporarily unaccessible to users.
+    </div>
+    <div class="col-md-4 content-box-image">
+      <%= image_tag(randomized_library_image, class: 'img-responsive') %>
+      <a href="<%= Constants::SITE_URL %>/?f[record_origin_facet][]=Library" class="btn btn-danger btn-sm home-browse">Show Library</a>
+    </div>
+  </div>
+</div>
+<br/>
+<div class="content-box box-default">
+    <div class="row">
+        <div class="col-md-8 content-box-text">
+            <h4 class="content-box-title">OSA Film Library</h4>
+            <p>The <span class="info-record-origin">OSA Film Library</span> contains approximately 4000 documentary and
+            propaganda films as well as selected fiction. The catalog is regularly
+            updated to reflect recent acquisitions. OSA Film Library is available
+            for on-site viewing in the OSA Research Room. In addition to the Film
+            Library, OSA has rich audiovisual collections in the OSA Archival
+            Holdings (see above).</p>
+        </div>
+        <div class="col-md-4 content-box-image">
+            <%= image_tag(randomized_filmlibrary_image, class: 'img-responsive') %>
+            <a href="<%= Constants::SITE_URL %>/?f[record_origin_facet][]=Film Library" class="btn btn-danger btn-sm home-browse">Show Film Library</a>
+        </div>
+    </div>
+</div>

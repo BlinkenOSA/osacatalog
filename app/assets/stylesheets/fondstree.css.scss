@@ -1,0 +1,35 @@
+.jstree-default .jstree-clicked {
+    color: #FFF;
+    background: #c9302c;
+}
+
+.jstree-default .jstree-hovered {
+    color: #FFF;
+    background: #d9534f;
+}
+
+/* jsTree */
+/*
+.jstree-default a {
+  white-space:normal !important; height: auto;
+}
+*/
+.jstree-anchor {
+  height: auto !important;
+}
+.jstree-default li > ins {
+  vertical-align:top;
+}
+.jstree-leaf {
+  height: auto;
+}
+.jstree-leaf a{
+  height: auto !important;
+}
+
+.jstree-clicked .unit-hu {
+  color: #CCC
+}
+.jstree-hovered .unit-hu {
+  color: #CCC;
+}

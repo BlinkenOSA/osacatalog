@@ -1,0 +1,23 @@
+<% document ||= @document %>
+<% scopeAndContentAbstract_field = render_isad_field(document, "scopeAndContentAbstract", "Tárgy és tartalom (Összefoglalás)", lang: 'hu') %>
+<% scopeAndContentNarrative_field = render_isad_field(document, "scopeAndContentNarrative", "Tárgy és tartalom (Narratív)", lang: 'hu') %>
+<% appraisal_field = render_isad_field(document, "appraisal", "Iratértékelés, selejtezés, tervezés", lang: 'hu') %>
+<% accruals_field = render_isad_accruals(document, lang: 'hu') %>
+<% systemOfArrangementInformation_field = render_isad_field(document, "systemOfArrangementInformation", "A leírási egység szerkezete", lang: 'hu') %>
+
+<% if scopeAndContentAbstract_field != '' ||
+      scopeAndContentNarrative_field != '' ||
+      appraisal_field != '' ||
+      accruals_field != '' ||
+      systemOfArrangementInformation_field != '' %>
+  <h4 class="show-page-section"><i class="fa fa-list"></i>A tartalomra és a szerkezetre vonatkozó adatcsoport</h4>
+  <dl class="dl-horizontal dl-invert data-details">
+
+    <%= scopeAndContentAbstract_field %>
+    <%= scopeAndContentNarrative_field %>
+    <%= appraisal_field %>
+    <%= accruals_field %>
+    <%= systemOfArrangementInformation_field %>
+
+  </dl>
+<% end %>

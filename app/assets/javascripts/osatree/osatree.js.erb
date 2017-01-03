@@ -1,0 +1,43 @@
+var treeUrl = '/collections'
+
+function createTree(url) {
+  $('#fondslist_all').jstree({
+      'core': {
+          'themes': {
+              'name': 'default',
+              'responsive': true
+          },
+          'data': {
+            'url' : url
+          }
+      }
+    }).on("select_node.jstree", function (e, data) {
+      document.location = '/catalog/' + data.instance.get_node(data.node, true)[0].id;
+  });
+}
+
+createTree(treeUrl);
+
+$('.fondslist_hierarchy').jstree({
+    'core': {
+        'themes': {
+            'name': 'default',
+            'responsive': true
+        }
+    }
+  }).on("select_node.jstree", function (e, data) {
+    document.location = data.instance.get_node(data.node, true).children('a').attr('href');;
+});
+
+$('#filter-theme').on('click', function() {
+  $('#fondslist_all').jstree('destroy');
+  createTree(treeUrl + '?theme=' + $('#archivalUnitThemes').val());
+});
+
+$('#jstree-open').on('click', function() {
+  $('#fondslist_all').jstree().open_all();
+});
+
+$('#jstree-close').on('click', function() {
+  $('#fondslist_all').jstree().close_all();
+});

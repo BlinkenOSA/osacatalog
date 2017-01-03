@@ -1,0 +1,130 @@
+.ui-dialog .ui-icon-closethick {
+	background-position: -80px -128px
+}
+.ui-dialog .ui-dialog-titlebar-close {
+	right: 0
+}
+.ui-dialog .ui-icon {
+	display: block;
+	margin: 1px
+}
+.ui-dialog .ui-dialog-titlebar-max:hover, .ui-dialog .ui-dialog-titlebar-rest:hover {
+	padding: 0
+}
+.ui-dialog .ui-dialog-titlebar-max, .ui-dialog .ui-dialog-titlebar-rest {
+	height: 18px;
+	margin: -10px 0 0;
+	padding: 1px;
+	position: absolute;
+	top: 50%;
+	width: 19px;
+	right: 18px
+}
+.ui-dialog a:link {
+	text-decoration: none
+}
+.ui-dialog .ui-dialog-titlebar {
+	padding: 0;
+	margin-bottom: 0;
+	border-radius: 0;
+	-webkit-border-radius: 0;
+	-moz-border-radius: 0;
+	background: 0;
+	border: 0;
+	height: 26px;
+	border-bottom: 1px solid #777;
+	margin: 0 10px
+}
+.ui-dialog {
+	position: fixed;
+	padding: 0;
+	padding-bottom: 7px;
+	border: 0;
+}
+.ui-dialog .ui-dialog-content {
+	width: 100%;
+	padding: 0
+}
+.mvo-buttons {
+	margin: 0
+}
+.mvo-buttons .mvo-icon-download.ui-state-hover .ui-button-icon-primary {
+	background: url(../images/download_fff_12x12_no_shadow.png) no-repeat center center transparent
+}
+.mvo-buttons .mvo-quick.ui-state-hover .ui-button-icon-primary {
+	background: url(../images/eye_fff_16x16_no_shadow.png) no-repeat center center transparent
+}
+.mvo-buttons .mvo-icon-download .ui-button-icon-primary {
+	background: url(../images/download_ccc_12x12_no_shadow.png) no-repeat center center transparent
+}
+.mvo-buttons .mvo-quick .ui-button-icon-primary {
+	background: url(../images/eye_ccc_16x16_no_shadow.png) no-repeat center center transparent
+}
+.mvo-buttons .mvo-icon-download, .mvo-buttons .mvo-quick {
+	height: 22px;
+	width: 40px;
+	margin: 0
+}
+.mvo-container {
+	vertical-align: top;
+	text-align: center;
+	display: inline-block;
+	zoom: 1;
+*display:inline;
+	padding: 4px
+}
+.mvo-container .mvo-caption {
+	text-decoration: none;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	padding: 4px;
+	color: #555;
+	width: 150px;
+	min-height: 16px;
+	word-wrap: break-word
+}
+.mvo-selection {
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px
+}
+.mvo-container .mvo-thumb, .mvo-container .mvo-unsupported {
+	text-align: center;
+	margin: auto;
+	position: relative;
+	padding: 10px;
+	margin-bottom: 4px
+}
+.mvo-container .mvo-thumb img {
+	vertical-align: bottom;
+	border: 1px solid #ccc;
+	border-radius: 1px;
+	-webkit-border-radius: 1px;
+	-moz-border-radius: 1px;
+	-moz-box-shadow: 2px 2px 4px #ccc;
+	-webkit-box-shadow: 2px 2px 4px #ccc;
+	-khtml-box-shadow: 2px 2px 4px #ccc;
+	box-shadow: 2px 2px 4px #ccc;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#cccccc')";
+filter:progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#cccccc');
+	cursor: pointer
+}
+.mvo-unsupported {
+	background-image: url("/img/rero_doc_file_type.png");
+	background-position: center -1px;
+	background-repeat: no-repeat
+}
+.mvo-ext {
+	color: white;
+	display: block;
+	font-family: arial, helvetica, sans-serif;
+	font-size: 12px;
+	left: 16px;
+	position: absolute;
+	text-align: center;
+	text-transform: uppercase;
+	top: 38px;
+	width: 42px;
+	line-height: normal
+}

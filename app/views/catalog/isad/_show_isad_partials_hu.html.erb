@@ -1,0 +1,30 @@
+<div class="row">
+  <div class="col-xs-12">
+    <ul id="<%= document["id"] %>-tab" class="nav nav-tabs">
+      <li class="active"><a href="#kontextus" data-toggle="tab">Kontextus</a></li>
+      <li><a href="#hierarchia" data-toggle="tab">Hierarchia</a></li>
+      <% if document["description_level"] == "Series" %>
+          <li><a href="#findingaids-hu" data-toggle="tab">Mappák / Tételek</a></li>
+      <% end %>
+    </ul>
+    <div class="tab-content">
+      <div class="tab-pane active" id="kontextus">
+        <%= render 'catalog/isad/hu/isad_identity' %>
+        <%= render 'catalog/isad/hu/isad_context' %>
+        <%= render 'catalog/isad/hu/isad_content' %>
+        <%= render 'catalog/isad/hu/isad_access' %>
+        <%= render 'catalog/isad/hu/isad_allied_materials' %>
+        <%= render 'catalog/isad/hu/isad_notes' %>
+        <%= render 'catalog/isad/hu/isad_description_control' %>
+      </div>
+      <div class="tab-pane" id="hierarchia">
+        <%= render 'catalog/isad/common/isad_structure' %>
+      </div>
+      <% if document["description_level"] == "Series" %>
+          <div class="tab-pane" id="findingaids-hu">
+            <%= render 'catalog/isad/common/isad_fa' %>
+          </div>
+      <% end %>
+    </div>
+  </div>
+</div>

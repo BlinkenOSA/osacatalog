@@ -1,0 +1,11 @@
+<% unless isbn.blank? %>
+  <img class="cover-image hide <%= css_class %>" alt="" data-isbn="<%= isbn %>"/>
+    <%= content_tag(:span, class:"fake-cover") do %>
+      <%# Wrapper needed for the way that Firefox handles display: table-cell %>
+      <%= content_tag(:div, class: "fake-cover-text-wrapper") do %>
+        <%= content_tag(:div, "", class: "fake-cover-text") %>
+      <% end %>
+    <% end %>
+<% else %>
+  <%= render_emtpy_cover(document) %>
+<% end %>

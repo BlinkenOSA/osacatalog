@@ -1,0 +1,20 @@
+<%# default partial to display solr document fields in catalog index view -%>
+  <% if document[:author].present? %>
+    <span class="index-author">by <span class="author"><%= document[:author].join('; ').html_safe %></span></span>
+  <% end %>
+
+  <div class="data-block">
+    <% if document[:primary_type].present? %>
+      <span class="index-format"><%= render_type_icon(document[document.type_field]) %> <%= document[:primary_type].html_safe %></span>
+    <% end %>
+    <% if document[:extent].present? %>
+      <span class="index-extent"><%= document[:extent].join(', ').html_safe %></span>
+    <% end %>
+    <% if document[:publisher].present? %>
+      <span class="index-publisher"><%= document[:publisher].join(', ').html_safe %></span>
+    <% end %>
+    <p class="index-available">
+      Available: <span class="label label-available">In the Research Room</span>
+    </p>
+  </div>
+</div>

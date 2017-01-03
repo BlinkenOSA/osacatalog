@@ -1,0 +1,30 @@
+en:
+  blacklight:
+    application_name: 'Blacklight'
+    search:
+      bookmarks:
+        present: "Selected"
+        absent: "Select"
+      view:
+        label: "View"
+      view_title:
+        list: "Normal"
+        gallery: "Gallery"
+        brief: "Brief"
+      facets:
+        title: 'Refine your search'
+    bookmarks:
+      page_heading: "Selections list"
+      add:
+        button: "Select"
+      remove:
+        button: "Selected"
+    tools:
+      email_html: "E-mail"
+      send_to_html: "Export"
+      cite_html: "Cite"
+      refworks_html: "RefWorks"
+      endnote_html: "EndNote"
+      printer_html: "Print"
+    range_limit:
+      submit_limit: 'Apply'

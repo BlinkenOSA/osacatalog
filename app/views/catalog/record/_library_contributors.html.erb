@@ -1,0 +1,8 @@
+<% document ||= @document %>
+<% contributors = link_to_contributor_from_marc(document.to_marc) %>
+<% if contributors %>
+  <h4 class="show-page-section"><i class="fa fa-user"></i>Contributors</h4>
+  <dl class="dl-horizontal dl-invert data-details">
+    <%= contributors %>
+  </dl>
+<% end %>

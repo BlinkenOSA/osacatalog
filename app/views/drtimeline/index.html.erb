@@ -1,0 +1,56 @@
+<div class="container margin-bottom">
+    <div class="col-md-12">
+        <div class="item-toolbar row">
+            <div class="item-pagination col-sm-3">
+                <a class="btn btn-sm btn-danger back-to-results" href="<%= catalog_index_path %>">Back to Catalog</a>
+            </div>
+          <div clas="item-menu col-sm-9">
+              <div class="item-tools">
+                  <div class="form-inline">
+                      <div class="form-group">
+                          <select class="form-control" id="digialCollectionTimeline">
+                            <option selected value='all'>- Every Collection -</option>
+                            <option value="osa:6f4d954a-481d-4e85-af9c-5af1cebee9a9">RFE/RL Background Reports</option>
+                            <option value="osa:8971ff25-e237-4b40-8713-c375c7c37e71">RFE/RL Hungarian Radio Monitoring</option>
+                            <option value="osa:484d852e-1334-4570-a2be-e41230b9e36a">RFE/RL Information Items</option>
+                            <option value="osa:f80cb1e2-fb79-4068-af0f-80c7a39465cb">RFE/RL Situation Reports</option>
+                            <option value="osa:ed645793-91bb-4168-9515-7a223fed242a">Soviet and Russian Television Monitoring</option>
+                            <option value="osa:693f36ae-56a5-4564-89ee-0bc7b20eb414">UN Special Committee Documents</option>
+                          </select>
+                      </div>
+                      <div class="form-group">
+                          <select class="form-control" id="yearTimeline">
+                            <option selected value='0'>- Every Year -</option>
+                          </select>
+                      </div>
+                      <div class="form-group">
+                          <select class="form-control" id="monthTimeline">
+                            <option selected value='0'>- Every Month -</option>
+                            <option value="1">January</option>
+                            <option value="2">Feburary</option>
+                            <option value="3">March</option>
+                            <option value="4">April</option>
+                            <option value="5">May</option>
+                            <option value="6">June</option>
+                            <option value="7">July</option>
+                            <option value="8">August</option>
+                            <option value="9">September</option>
+                            <option value="10">October</option>
+                            <option value="11">November</option>
+                            <option value="12">December</option>
+                          </select>
+                      </div>
+                      <div class="form-group">
+                        <a id="showSelectedTimeline" class="btn btn-sm btn-danger" href="#">Show Selected</a>
+                      </div>
+                  </div>
+              </div>
+          </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="row">
+            <div id='drtimeline-embed' style="width: 100%; height: 600px"></div>
+        </div>
+    </div>
+</div>

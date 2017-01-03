@@ -1,0 +1,60 @@
+.mvo-thumb {
+    display: inline-block;
+    border: 1px solid #CCC;
+    padding: 5px !important;
+}
+
+.mvo-container .mvo-thumb img {
+    border: none;
+    box-shadow: none;
+
+}
+
+.mvo-caption {
+    display: none;
+}
+
+.ui-dialog .ui-dialog-content {
+    padding: 0;
+}
+
+.ui-dialog .ui-dialog-titlebar-close {
+    right: 0px;
+    background-image: none;
+    background-color: transparent;
+    border: none;
+}
+
+.ui-dialog .ui-dialog-titlebar-close span {
+    margin: 0;
+    left: 0px;
+    top: 0px;
+}
+
+.ui-dialog .ui-dialog-titlebar-max {
+    padding: 0;
+    top: 45%;
+}
+
+.ui-dialog .ui-dialog-titlebar-max:hover{
+    border: none;
+    background: none;
+}
+
+.ui-dialog .ui-dialog-titlebar-rest {
+    padding: 0;
+    top: 50%;
+}
+
+.ui-dialog .ui-dialog-titlebar-rest:hover {
+    border: none;
+    background: none;
+}
+
+.ui-dialog .ui-resizable-se {
+    background-position: -80px -224px !important;
+}
+
+.ui-dialog {
+    outline: 1000px solid rgba(255 ,255 ,255, 0.7) !important;
+}

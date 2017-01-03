@@ -1,0 +1,17 @@
+{
+    "title": {
+            "media": {
+                "caption":      "",
+                "credit":       "",
+                "url":          "url_to_your_media.jpg",
+                "thumbnail":    "url_to_your_media.jpg"
+            },
+            "text": {
+                "headline": "Headline Goes Here",
+                "text":     "Your slide text goes here."
+            }
+    },
+    "events": {
+
+    }
+}

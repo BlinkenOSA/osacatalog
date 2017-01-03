@@ -1,0 +1,57 @@
+<div class="item-toolbar row">
+  <div class="item-pagination col-sm-5">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".toolbar-collapse">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="fa fa-bars"></span>
+    </button>
+    <% if @previous_document || @next_document %>
+      <%= link_back_to_catalog :class => 'btn btn-sm btn-danger back-to-results', :label => t('blacklight.back_to_search').html_safe %>
+
+      <% if @document["record_origin"] == "Archives" && (@document["description_level"] == "Folder" || @document["description_level"] == "Item") %>
+        <a href="<%= catalog_path(@document["series_id"]) %>" class="btn btn-sm btn-danger back-to-series">Back to Series</a>
+      <% else %>
+        <div class="record-page-info">
+          <%= link_to_previous_document @previous_document %> |
+          <span class="page-entries"><%= item_page_entry_info %> |</span>
+          <%= link_to_next_document @next_document %>
+        </div>
+      <% end %>
+
+    <% end %>
+  </div>
+
+  <div class="item-menu col-sm-7">
+    <ul class="item-tools">
+      <li class="item-tools-listitem">
+        <%= render(:partial => 'catalog/bookmark_control', :locals => {:document=> @document}) %>
+      </li>
+
+      <% if (@document.respond_to?(:export_as_mla_citation_txt) || @document.respond_to?(:export_as_apa_citation_txt)) %>
+        <li class="item-tools-listitem">
+          <%= link_to '<i class="fa fa-pencil"></i> '.html_safe + t('blacklight.tools.cite_html'), citation_catalog_path(:id => @document), {:id => 'citeLink', :data => {:ajax_modal => "trigger"}, :class => 'btn btn-default btn-sm'} %>
+        </li>
+      <% end %>
+
+      <% if @document.respond_to?( :to_email_text ) %>
+        <li class="item-tools-listitem">
+          <%= link_to '<i class="fa fa-envelope"></i> '.html_safe + t('blacklight.tools.email_html'), email_catalog_path(:id => @document), {:id => 'emailLink', :data => {:ajax_modal => "trigger"}, :class => 'btn btn-default btn-sm'} %>
+        </li>
+      <% end %>
+
+      <li class="dropdown item-tools-listitem">
+        <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fa fa-download"></i> <%= t('blacklight.tools.send_to_html').html_safe %> <span class="caret">
+        </button>
+        <ul class="dropdown-menu" role="menu">
+          <%= render "catalog/record/record_toolbar_tools_subset" %>
+        </ul>
+      </li>
+
+      <li class="item-tools-listitem">
+        <a href="javascript:if(window.print)window.print()" class="btn btn-default btn-sm"><i class="fa fa-print"></i> <%= t('blacklight.tools.printer_html') %></a>
+      </li>
+
+    </ul>
+  </div>
+
+</div>

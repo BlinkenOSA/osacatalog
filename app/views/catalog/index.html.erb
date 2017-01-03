@@ -1,0 +1,21 @@
+<% if has_search_parameters? %>
+  <div class="container margin-bottom">
+      <div id="searchbar" class="col-md-12 col-sm-12">
+          <%= render 'constraints' %>
+      </div>
+  </div>
+<% end %>
+
+<div class="container margin-bottom">
+  <div id="sidebar" class="col-md-4 col-sm-4">
+    <%= render 'search_sidebar' %>
+  </div>
+
+  <div id="content" class="col-md-8 col-sm-8">
+      <% unless has_search_parameters? %>
+        <%=render 'home_text' %>
+      <% else %>
+        <%= render 'search_results' %>
+      <% end %>
+  </div>
+</div>

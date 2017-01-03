@@ -1,0 +1,19 @@
+<% document ||= @document %>
+<% rightsAccess_field = render_isad_field(document, "rightsAccess", "Jogi helyzet", lang: 'hu') %>
+<% rightsRestrictionReason_field = render_isad_field(document, "rightsRestrictionReason", "Jogi helyzet indoklása", lang: 'hu') %>
+<% rightsReproduction_field = render_isad_field(document, "rightsReproduction", " Reprodukciós korlátozások", lang: 'hu') %>
+<% languages_field = render_isad_field(document, "languages", "Nyelv, írásrendszer", lang: 'hu') %>
+<% physicalCharacteristics_field = render_isad_field(document, "physicalCharacteristics", "Fizikai jellemzők, technikai követelmények", lang: 'hu') %>
+
+<% if rightsAccess_field != "" || rightsRestrictionReason_field != "" || rightsReproduction_field != "" || languages_field != "" || physicalCharacteristics_field != "" %>
+  <h4 class="show-page-section"><i class="fa fa-copyright"></i>A hozzáférésre és használatra vonatkozó adatcsoport</h4>
+  <dl class="dl-horizontal dl-invert data-details">
+
+    <%= rightsAccess_field %>
+    <%= rightsRestrictionReason_field %>
+    <%= rightsReproduction_field %>
+    <%= languages_field %>
+    <%= physicalCharacteristics_field %>
+
+  </dl>
+<% end %>

@@ -1,0 +1,31 @@
+<%# default partial to display solr document fields in catalog index view -%>
+  <% if document[:creator].present? %>
+    <span class="index-author">created by <span class="author"><%= document[:creator].join('; ').html_safe %></span></span>
+  <% end %>
+
+  <div class="data-block">
+    <div class="index-archivalunits">
+      <% if document[:fonds_name].present? %>
+        <span class="index-archivalunit"><%= document[:fonds_name].html_safe %></span>
+      <% end %>
+      <% if document[:subfonds_name].present? %>
+        <span class="index-archivalunit"><%= document[:subfonds_name].html_safe %></span>
+      <% end %>
+    </div>
+    <% if document[:primary_type].present? %>
+      <span class="index-format"><%= render_type_icon(document[document.type_field]) %> <%= document[:primary_type].html_safe %></span>
+    <% end %>
+    <% if document[:description_level].present? %>
+      <span class="index-level">Description Level: <%= document[:description_level].html_safe %></span>
+    <% end %>
+    <% if document[:language].present? %>
+      <span class="index-language">Language: <%= document[:language].join(', ').html_safe %></span>
+    <% end %>
+    <br/>
+    <% if document[:archival_unit_theme].present? %>
+      <% document[:archival_unit_theme].each do |theme| %>
+        <span class="label label-default"><%= theme.html_safe %></span>
+      <% end %>
+    <% end %>
+  </div>
+</div>

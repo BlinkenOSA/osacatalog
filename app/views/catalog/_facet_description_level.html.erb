@@ -1,0 +1,15 @@
+<ul class="facet-values list-unstyled">
+  <% paginator = facet_paginator(facet_field, display_facet) %>
+  <% Constants::DESCRIPTION_LEVEL_SORT.each do |dl| %>
+    <% item = paginator.items.select{ |facet| facet["value"] == dl }.first %>
+    <% if item %>
+      <li>
+        <% if facet_in_params?( solr_field, item.value ) %>
+            <%= render_selected_facet_value(solr_field, item) %>
+          <% else %>
+            <%= render_facet_value(solr_field, item) %>
+        <% end -%>
+      </li>
+    <% end %>
+  <% end %>
+</ul>

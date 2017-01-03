@@ -1,0 +1,25 @@
+<% document ||= @document %>
+<h4 class="show-page-section"><i class="fa fa-building-o"></i>Holdings</h4>
+<dl class="dl-horizontal dl-invert data-details">
+
+  <% holdings_info = get_holdings(document.to_marc) %>
+  <% if holdings_info %>
+  <div class="table-responsive">
+    <table class="table table-bordered table-hover">
+      <thead>
+        <tr class="active">
+          <th>Item Type</th>
+          <th>Current Location</th>
+          <th>Collection</th>
+          <th>Call Number</th>
+          <th>Volume Info</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= holdings_info %>
+      </tbody>
+    </table>
+  </div>
+  <% end %>
+</dl>

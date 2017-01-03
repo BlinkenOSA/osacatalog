@@ -1,0 +1,103 @@
+<nav class="navbar navbar-static-top navbar-default navbar-header-full navbar-dark yamm" role="navigation" id="header">
+    <div class="container">
+
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <i class="fa fa-bars"></i>
+            </button>
+            <a id="ar-brand" class="navbar-brand hidden-lg hidden-md hidden-sm" href="index.html">OSA <span>Catalog</span></a>
+        </div> <!-- navbar-header -->
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <div class="inv-logo">
+              <a href="http://www.osaarchivum.org"><%= image_tag "osa-logo-inv.png" %></a>
+          </div>
+            <div class="inv-header-title">
+              <a href="/"><h1>catal<span>o</span>g</h1></a>
+            </div>
+
+            <ul class="nav navbar-nav menu-list">
+                <li class="menu">
+                  <% if current_page?(controller: 'browse', action: 'fondslist') %>
+                    <span class="menu-icon current">
+                      OSA Collections
+                    </span>
+                  <% else %>
+                    <a href="/browse/fondslist" class="menu-icon" >
+                      OSA Collections
+                    </a>
+                  <% end %>
+                </li>
+                <li class="dropdown">
+                    <% if current_page?(controller: 'browse', action: 'authors') %>
+                      <a href="javascript:void(0);" class="dropdown-toggle menu-icon current" data-toggle="dropdown">
+                        Authors [A - Z]
+                      </a>
+                    <% elsif current_page?(controller: 'browse', action: 'directors') %>
+                      <a href="javascript:void(0);" class="dropdown-toggle menu-icon current" data-toggle="dropdown">
+                        Directors [A - Z]
+                      </a>
+                    <% elsif current_page?(controller: 'browse', action: 'languages') %>
+                      <a href="javascript:void(0);" class="dropdown-toggle menu-icon current" data-toggle="dropdown">
+                        Languages [A - Z]
+                      </a>
+                    <% elsif current_page?(controller: 'browse', action: 'library_collections') %>
+                      <a href="javascript:void(0);" class="dropdown-toggle menu-icon current" data-toggle="dropdown">
+                        Library Special Collections
+                      </a>
+                    <% elsif current_page?(controller: 'browse', action: 'digital_collections') %>
+                      <a href="javascript:void(0);" class="dropdown-toggle menu-icon current" data-toggle="dropdown">
+                        Digital Collections
+                      </a>
+                    <% else %>
+                      <a href="javascript:void(0);" class="dropdown-toggle menu-icon" data-toggle="dropdown">
+                        Browse
+                      </a>
+                    <% end %>
+                  <ul class="dropdown-menu dropdown-menu-left">
+                    <li>
+                      <a href="<%= browse_authors_path %>">Authors</a>
+                    </li>
+                    <li>
+                      <a href="<%= browse_directors_path %>">Directors</a>
+                    </li>
+                    <li>
+                      <a href="<%= browse_languages_path %>">Languages</a>
+                    </li>
+                    <li>
+                      <a href="<%= browse_library_collections_path %>">Library Special Collections</a>
+                    </li>
+                    <li>
+                      <a href="<%= browse_digital_collections_path %>">Digital Collections</a>
+                    </li>
+                  </ul>
+                </li>
+                <li class="dropdown">
+                  <% if current_page?(controller: 'drtimeline', action: 'index') %>
+                    <a href="javascript:void(0);" class="dropdown-toggle menu-icon current" data-toggle="dropdown">
+                      Digital Collection Timeline
+                    </a>
+                  <% else %>
+                    <a href="javascript:void(0);" class="dropdown-toggle menu-icon" data-toggle="dropdown">
+                      Visualization
+                    </a>
+                  <% end %>
+                  <ul class="dropdown-menu dropdown-menu-left">
+                    <li>
+                      <a href="<%= drtimeline_index_path %>">Digital Collection Timeline</a>
+                    </li>
+                  </ul>
+                </li>
+                <%= render_nav_actions do |config, action|%>
+                  <li class="menu">
+                    <%= action %>
+                  </li>
+                <% end %>
+            </ul>
+        </div><!-- navbar-collapse -->
+
+    </div>
+</nav>

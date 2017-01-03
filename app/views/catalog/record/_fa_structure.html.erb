@@ -1,0 +1,41 @@
+<% document ||= @document %>
+<% fa_list = render_fa_list(document[:series_id]) %>
+<dl id="fa_detailed" class="dl-horizontal dl-invert data-details">
+    <div id="faTableWrapper" class="table-responsive">
+      <table id="faTable" class="table">
+        <thead>
+          <tr>
+            <th>No.</th>
+            <th>Sequence</th>
+            <th>Title</th>
+            <th>ID</th>
+            <th>Navigate</th>
+            <th>Active</th>
+          </tr>
+        </thead>
+        <tbody>
+        <% fa_list.each do |fa_item| %>
+          <% if fa_item[:id_e] == document[:id] %>
+            <tr id="active-row" class="danger">
+              <td><%= fa_item[:container_type_e] %> #<%= fa_item[:container_number_e] %></td>
+              <td><%= fa_item[:sequence_number_e] %></td>
+              <td><%= render_fa_item(fa_item[:item_json_e]) %></td>
+              <td><%= fa_item[:id_e] %></td>
+              <td></td>
+              <td>Active</td>
+            </tr>
+          <% else %>
+            <tr>
+              <td><%= fa_item[:container_type_e] %> #<%= fa_item[:container_number_e] %></td>
+              <td><%= fa_item[:sequence_number_e] %></td>
+              <td><%= render_fa_item(fa_item[:item_json_e]) %></td>
+              <td><%= fa_item[:id_e] %></td>
+              <td><button class="btn btn-default btn-xs fa-show">Show</button></td>
+              <td></td>
+            </tr>
+          <% end %>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+</dl>

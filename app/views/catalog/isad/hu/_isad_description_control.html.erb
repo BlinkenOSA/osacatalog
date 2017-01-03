@@ -1,0 +1,23 @@
+<% document ||= @document %>
+<% archivistsNote_field = render_isad_field(document, "archivistsNote", "A feldolgozó megjegyzései", lang: 'hu') %>
+<% rulesConventions_field = render_isad_field(document, "rulesConventions", "Szabványok és szabályok", lang: 'hu') %>
+<% dateCreated_field = render_isad_field(document, "dateCreated", "A leírás készítése és készítője", lang: 'hu') %>
+<% dateUpdated_field = render_isad_field(document, "dateUpdated", "A leírás utolsó szerkesztése és szerkesztője", lang: 'hu') %>
+<% descriptionNotes_field = render_isad_field(document, "descriptionNotes", "Leírással kapcsolatos megjegyzések", lang: 'hu') %>
+
+<% if archivistsNote_field != '' ||
+      rulesConventions_field != '' ||
+      dateCreated_field != '' ||
+      dateUpdated_field != '' ||
+      descriptionNotes_field != '' %>
+  <h4 class="show-page-section"><i class="fa fa-unlock-alt"></i>Ellenőrző adatcsoport</h4>
+  <dl class="dl-horizontal dl-invert data-details">
+
+    <%= archivistsNote_field %>
+    <%= rulesConventions_field %>
+    <%= dateCreated_field %>
+    <%= dateUpdated_field %>
+    <%= descriptionNotes_field %>
+
+  </dl>
+<% end %>
