@@ -261,8 +261,9 @@ class CatalogController < ApplicationController
     # View type group config
     config.view.list.icon_class = "fa-th-list"
 
-    config.view.gallery.partials = [:index_content]
-    config.view.gallery.icon_class = "fa-th"
+    # Gallery settings
+    # config.view.gallery.partials = [:index_content]
+    # config.view.gallery.icon_class = "fa-th"
 
     # config.view.brief.partials = [:index_content]
     # config.view.brief.icon_class = "fa-align-justify"

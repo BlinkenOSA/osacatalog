@@ -38,7 +38,7 @@ module Osacatalog
 
     config.application_name = "osacatalog"
 
-    require 'constants'
+    require 'constants_custom'
     require 'holdings'
     require 'nearby_on_shelf'
     require 'fonds_structure'
