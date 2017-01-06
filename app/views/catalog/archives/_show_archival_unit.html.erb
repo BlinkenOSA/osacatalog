@@ -1,5 +1,5 @@
   <% content_for :head do %>
-    <meta property="og:title"       content="<%= get_archival_title(document)%>">
+    <meta property="og:title"       content="<%= get_archival_title_meta(document)%>">
     <meta property="og:url"         content="<%= request.url %>">
     <meta property="og:site_name"   content="OSA Archivum / Collections Catalog">
     <meta property="og:description" content="<%= render_archival_meta_value(document, 'scopeAndContentNarrative') %>">

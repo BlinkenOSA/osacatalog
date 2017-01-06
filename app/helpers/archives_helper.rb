@@ -7,6 +7,14 @@ module ArchivesHelper
     title.force_encoding("UTF-8").html_safe
   end
 
+  def get_archival_title_meta(document)
+    title = document["reference_code"] + ' ' + document["title"]
+    if document["title_original"]
+      title += ' (' + document["title_original"] + ')'
+    end
+    title.force_encoding("UTF-8")
+  end
+
   def get_archival_date(document)
     date = document["creation_date"]
     if date
