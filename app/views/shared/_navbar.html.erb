@@ -1,24 +1,18 @@
 <nav class="navbar navbar-static-top navbar-default navbar-header-full navbar-dark yamm" role="navigation" id="header">
     <div class="container">
-
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
                 <span class="sr-only">Toggle navigation</span>
                 <i class="fa fa-bars"></i>
             </button>
-            <a id="ar-brand" class="navbar-brand hidden-lg hidden-md hidden-sm" href="index.html">OSA <span>Catalog</span></a>
+            <a id="ar-brand" class="navbar-brand inv-header-title" href="index.html">
+              <h1>catal<span>o</span>g</h1>
+            </a>
         </div> <!-- navbar-header -->
 
         <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-          <div class="inv-logo">
-              <a href="http://www.osaarchivum.org"><%= image_tag "osa-logo-inv.png" %></a>
-          </div>
-            <div class="inv-header-title">
-              <a href="/"><h1>catal<span>o</span>g</h1></a>
-            </div>
-
+        <div class="collapse navbar-collapse" id="navbar-collapse-1">
             <ul class="nav navbar-nav menu-list">
                 <li class="menu">
                   <% if current_page?(controller: 'browse', action: 'fondslist') %>

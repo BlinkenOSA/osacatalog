@@ -24,17 +24,16 @@
 //= require jquery.live-lookup
 //= require preview-content
 //= require embedded-call-number-browse
-
 //= require jquery.stickytabs
 
 //= require datatables
 //= require jstree
 //= require listnav
 //= require spin
+//= require jquery.sticky-kit.min
 
 //= require jquery-ui
 //= require jquery.browser
 //= require multivio
 
 //= require 'blacklight_range_limit'
-//= require osacatalog

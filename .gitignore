@@ -129,3 +129,4 @@ bower.json
 # End of https://www.gitignore.io/api/osx,rubymine,rails
 
 /vendor/assets/artificial/artificial
+/public/

@@ -1,17 +1,16 @@
-<div class="row">
-  <div class="cover col-md-2">
-    <div class="container-location-big">
-        <div class="container-location-inner-fa-big" style="background: url('<%= render_fa_cover(@document) %>');">
-          <span class="thumbnail-call-number-big">Call Number<br/><%= document["series_reference_code"]%>:<%=document["container_number"]%>/<%=document["sequence_number"]%></span>
-        </div>
-    </div>
-    <div class="btn-access">
-      <button class="btn btn-sm btn-default"
-              rel="popover"
-              data-content="This document is located in the repository of Blinken Open Society Archives
-              and is available in the Research Room upon request.<br/><br/>
-              Please copy the Call Number on the Request Form provided in the Research Room or ask for the assistance
-              of the Reference Staff."
-              title="Access the material"><i class="fa fa-info-circle"></i> How to access</button>
-    </div>
+<div class="cover cover-sticky col-md-2">
+  <div class="container-location-big">
+      <div class="container-location-inner-fa-big" style="background: url('<%= render_fa_cover(@document) %>');">
+        <span class="thumbnail-call-number-big">Call Number<br/><%= document["series_reference_code"]%>:<%=document["container_number"]%>/<%=document["sequence_number"]%></span>
+      </div>
   </div>
+  <div class="btn-access">
+    <button class="btn btn-sm btn-default"
+            rel="popover"
+            data-content="This document is located in the repository of Blinken Open Society Archives
+            and is available in the Research Room upon request.<br/><br/>
+            Please copy the Call Number on the Request Form provided in the Research Room or ask for the assistance
+            of the Reference Staff."
+            title="Access the material"><i class="fa fa-info-circle"></i> How to access</button>
+  </div>
+</div>

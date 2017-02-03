@@ -1,21 +1,20 @@
-  <div class="cover col-md-10">
-    <% languages = collect_dr_languages(document) %>
-      <% if languages.length > 1 %>
-        <ul class="nav nav-pills change-language pull-right">
-          <% languages.each_with_index do |lang, index| %>
-            <li class="<%= index == 0 ? "active" : "" %>"><a href="#<%= lang %>" data-toggle="tab"><%= ISO_639.find(lang).english_name %></a></li>
-          <% end %>
-        </ul>
+<div class="document-show col-md-10">
+  <% languages = collect_dr_languages(document) %>
+    <% if languages.length > 1 %>
+      <ul class="nav nav-pills change-language pull-right">
+        <% languages.each_with_index do |lang, index| %>
+          <li class="<%= index == 0 ? "active" : "" %>"><a href="#<%= lang %>" data-toggle="tab"><%= ISO_639.find(lang).english_name %></a></li>
+        <% end %>
+      </ul>
 
-        <div class="tab-content">
-          <% languages.each do |lang| %>
-            <div class="tab-pane fade in <%= lang == 'en' ? 'active' : '' %>" id="<%= lang %>">
-                <%= render_dr_record(document, lang) %>
-            </div>
-          <% end %>
-        </div>
-      <% else %>
-        <%= render_dr_record(document, "en") %>
-      <% end %>
-  </div>
+      <div class="tab-content">
+        <% languages.each do |lang| %>
+          <div class="tab-pane fade in <%= lang == 'en' ? 'active' : '' %>" id="<%= lang %>">
+              <%= render_dr_record(document, lang) %>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <%= render_dr_record(document, "en") %>
+    <% end %>
 </div>

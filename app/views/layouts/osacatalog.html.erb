@@ -86,14 +86,13 @@
         <% end %>
 
           <%= render partial: 'shared/ajax_modal' %>
-          <%= content_tag :h1, application_name, class: 'sr-only application-heading' %>
           <%= render :partial=>'/flash_msg', layout: 'shared/flash_messages' %>
 
           <%= yield %>
 
           <%= render :partial => 'shared/footer' %>
           </div>
-        </div>
+        </div> <!-- content-wrap -->
       </div> <!-- boxed -->
     </div>
 
@@ -103,8 +102,8 @@
 
     <%= javascript_include_tag "application" %>
     <%= javascript_include_tag "app-tree" %>
-    <%= javascript_include_tag "app-tables" %>
     <%= javascript_include_tag "app-tabs" %>
+    <%= javascript_include_tag "app-tables" %>
     <%= javascript_include_tag "app-panels" %>
     <%= javascript_include_tag "app-multivio" %>
 
@@ -113,6 +112,7 @@
 
     <%= javascript_include_tag "//cdn.knightlab.com/libs/timeline3/latest/js/timeline.js" %>
     <%= javascript_include_tag "app-timeline" %>
+    <%= javascript_include_tag "osacatalog" %>
 
   </body>
 </html>

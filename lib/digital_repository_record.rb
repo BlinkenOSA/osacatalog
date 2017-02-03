@@ -37,7 +37,8 @@ class DigitalRepositoryRecord
 
   def get_datastream(id, lang)
     url = Constants::FEDORA_GETFOXML + id
-    foxml = Net::HTTP.get(URI.parse(url))
+    uri = URI.parse(url)
+    foxml = Net::HTTP.get(uri)
 
     repo = Rubydora.connect :url => Constants::FEDORA_URL, :user => 'fedoraAdmin', :password => 'QpwoI1209'
     obj = repo.find(id)

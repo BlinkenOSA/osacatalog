@@ -1,31 +1,59 @@
-  <% content_for :head do %>
-    <meta property="og:title"       content="<%= get_archival_title_meta(document)%>">
-    <meta property="og:url"         content="<%= request.url %>">
-    <meta property="og:site_name"   content="OSA Archivum / Collections Catalog">
-    <meta property="og:description" content="<%= render_archival_meta_value(document, 'scopeAndContentNarrative') %>">
-  <% end %>
+<% content_for :head do %>
+  <meta property="og:title"       content="<%= get_archival_title_meta(document)%>">
+  <meta property="og:url"         content="<%= request.url %>">
+  <meta property="og:site_name"   content="OSA Archivum / Collections Catalog">
+  <meta property="og:description" content="<%= render_archival_meta_value(document, 'scopeAndContentNarrative') %>">
+<% end %>
 
-  <div class="document-show col-md-10">
-    <% languages = collect_au_languages(document) %>
-    <% if languages.length > 1 %>
-        <ul class="nav nav-pills change-language pull-right">
-          <% languages.each_with_index do |lang, index| %>
-              <li class="<%= index == 0 ? "active" : "" %>"><a href="#<%= lang %>" data-toggle="tab"><%= ISO_639.find(lang).english_name %></a></li>
+<div class="document-show col-md-10">
+  <div class="row">
+
+    <div class="col-xs-12">
+      <ul id="<%= document["id"] %>-tab" class="nav nav-tabs">
+        <li class="active"><a href="#context" data-toggle="tab">Context</a></li>
+        <li><a href="#hierarchy" data-toggle="tab">Hierarchy</a></li>
+        <% if document["description_level"] == "Series" %>
+            <li><a href="#findingaids" data-toggle="tab">Folders / Items</a></li>
+        <% end %>
+      </ul>
+
+      <div class="tab-content">
+        <div class="tab-pane active" id="context">
+
+          <% languages = collect_au_languages(document) %>
+          <% if languages.length > 1 %>
+              <ul class="nav nav-pills change-language pull-right">
+                <% languages.each_with_index do |lang, index| %>
+                    <li class="<%= index == 0 ? "active" : "" %>"><a href="#<%= lang %>" data-toggle="tab"><%= ISO_639.find(lang).english_name %></a></li>
+                <% end %>
+              </ul>
           <% end %>
-        </ul>
-    <% end %>
 
-    <div class="tab-content">
-      <% languages.each do |lang| %>
-          <div class="tab-pane fade in <%= lang == 'en' ? 'active' : '' %>" id="<%= lang %>">
-            <% if lang == 'en' %>
-                <%= render 'catalog/isad/show_isad_partials_en', :document => document %>
-            <% else %>
-                <%= render 'catalog/isad/show_isad_partials_hu', :document => document %>
+          <div class="tab-content">
+            <% languages.each do |lang| %>
+              <div class="tab-pane fade in <%= lang == 'en' ? 'active' : '' %>" id="<%= lang %>">
+                <% if lang == 'en' %>
+                    <%= render 'catalog/isad/show_isad_partials_en', :document => document %>
+                <% else %>
+                    <%= render 'catalog/isad/show_isad_partials_hu', :document => document %>
+                <% end %>
+              </div>
             <% end %>
           </div>
-      <% end %>
-    </div>
 
+        </div>
+
+        <div class="tab-pane" id="hierarchy">
+          <%= render 'catalog/isad/common/isad_structure' %>
+        </div>
+
+        <% if document["description_level"] == "Series" %>
+            <div class="tab-pane" id="findingaids">
+              <%= render 'catalog/isad/common/isad_fa_2' %>
+            </div>
+        <% end %>
+
+      </div>
+    </div>
   </div>
 </div>

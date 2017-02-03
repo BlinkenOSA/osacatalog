@@ -13,15 +13,19 @@ module Osacatalog
 
     config.assets.paths << Rails.root.join("vendor", "assets", "artificial", "artificial", "images")
     config.assets.paths << Rails.root.join("vendor", "assets", "artificial", "artificial", "fonts")
+
     config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif)
     config.assets.precompile += %w(*.eot *.svg *.ttf *.woff *.woff2)
     config.assets.precompile += %w(*.xsl)
     config.assets.precompile += %w(*.json)
+
     config.assets.precompile += %w(artificial.css artificial.js artificial/*)
     config.assets.precompile += %w(datatables.css datatables.js datatables/*)
     config.assets.precompile += %w(jstree.css jstree.js jstree/*)
     config.assets.precompile += %w(listnav.css listnav.js)
     config.assets.precompile += %w(multivio.css multivio.js multivio/*)
+    config.assets.precompile += %w(stickyRows.css stickyRows.js stickyRows/*)
+
     config.assets.precompile += %w(app-tables.js)
     config.assets.precompile += %w(app-tree.js)
     config.assets.precompile += %w(app-tabs.js)
@@ -29,6 +33,7 @@ module Osacatalog
     config.assets.precompile += %w(app-multivio.js)
     config.assets.precompile += %w(app-multivideo.js)
     config.assets.precompile += %w(app-timeline.js)
+    config.assets.precompile += %w(osacatalog.js)
 
     config.assets.precompile += %w(timeline/*)
 

@@ -95,3 +95,4 @@ if ( $( ".faTable_isad" ).length ) {
       table.api().page.jumpToData( "Active", 5 );
   }
 }
+

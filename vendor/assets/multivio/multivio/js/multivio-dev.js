@@ -675,7 +675,7 @@ $.extend($.ui.dialog.prototype, {
         if (multivioPreview) {
 
           //create a container using a span
-          var container = $('<span>')
+          var container = $('<div>')
           .addClass('mvo-container')
           .addClass(options.className);
           var test = self.wrap(container);
@@ -702,8 +702,10 @@ $.extend($.ui.dialog.prototype, {
           .addClass("mvo-thumb");
 
           //display buttons under the thumbnails
+          var actionDiv = $('<div>')
+              .addClass('multivio_actions');
           var buttonGroup = $('<div>')
-          .addClass('btn-group multivio_actions');
+          .addClass('btn-group');
 
           //button to download
           var downloadTitle = downloadTranslate[options.language];
@@ -785,7 +787,8 @@ $.extend($.ui.dialog.prototype, {
 
           //add buttons if needed
           if(options.downloadButton | options.quickViewButton) {
-            buttonGroup.appendTo(container);
+            buttonGroup.appendTo(actionDiv);
+            actionDiv.appendTo(container);
           }
           // buttonGroup.buttonset();
           // buttonGroup.buttonset().hide();
@@ -801,9 +804,9 @@ $.extend($.ui.dialog.prototype, {
           });
 
           //adjust container size to the size of the label (can be multi-line)
-          if(container.height() > 0 && container.width() > 0) {
-            container.css({height:Math.floor(container.height()) + 1, width: Math.floor(container.width()) + 1});
-          }
+          // if(container.height() > 0 && container.width() > 0) {
+          //  container.css({height:Math.floor(container.height()) + 1, width: Math.floor(container.width()) + 1});
+          // }
 
           var caption = self;
 

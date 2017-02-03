@@ -1,8 +1,0 @@
-<% # container for all documents in index view -%>
-<% if params[:controller] == "shelf" && params[:action] == "nearby" %>
-  <%= render :collection => documents, :as => :document, :partial => 'index_gallery' %>
-<% else %>
-  <div id="documents" class="row gallery">
-    <%= render :collection => documents, :as => :document, :partial => 'index_gallery' %>
-  </div>
-<% end %>

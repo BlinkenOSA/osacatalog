@@ -177,7 +177,7 @@ class DigitalRepositoryViewer
     html << %Q(   <ul>)
 
     thumbnails.each_with_index do |thumbnail, index|
-      html << '<li class="thumb_' + sprintf("%03d", index) + '"><img width="160" class="thumb_' + sprintf("%03d", index) + '" src="' + thumbnail["xlink:href"] + '"></li>'
+      html << '<li class="thumb_' + sprintf("%03d", index) + '"><img width="140" class="thumb_' + sprintf("%03d", index) + '" src="' + thumbnail["xlink:href"] + '"></li>'
     end
 
     html << %Q(   </ul>)

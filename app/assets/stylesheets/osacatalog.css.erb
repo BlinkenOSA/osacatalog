@@ -7,7 +7,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h4 {
-    font-size: 1.3em;
+    font-size: 1.1em;
 }
 
 h2 {
@@ -16,7 +16,7 @@ h2 {
 
 /* General */
 .margin-bottom {
-    margin-bottom: 20px !important;
+    margin-bottom: 5px !important;
 }
 
 /* Main header */
@@ -24,8 +24,7 @@ h2 {
     background-color: #f1f1f1;
     border-bottom: solid 1px #ddd;
     color: #333;
-    margin-bottom: 20px;
-    padding: 20px 0;
+    padding: 10px 0;
     position: relative;
 }
 
@@ -77,10 +76,6 @@ h2 {
 
 .search_button_span {
     width: 1px !important;
-}
-
-.search-input {
-    width: 600px;
 }
 
 .form-inline .input-group {
@@ -366,12 +361,13 @@ a.facet_select:hover {
 
 .document-thumbnail {
     float: left;
-    margin-right: 1em;
+    width: 150px;
+    height: 100%;
 }
 
 .document-data {
-    float: left;
-    width: 78%;
+    margin-left: 150px;
+    height: 100%;
 }
 
 .document-date {
@@ -534,6 +530,7 @@ a.facet_select:hover {
     font-family: "Open Sans", sans-serif;
     text-decoration: none;
     color: #666;
+    text-align: center;
 }
 
 #document .cover-image {
@@ -601,8 +598,8 @@ a.facet_select:hover {
 }
 
 .data-details {
-    margin-top: 20px;
-    margin-bottom: 40px;
+    margin-top: 10px;
+    margin-bottom: 25px;
 }
 
 #document dt {
@@ -920,10 +917,6 @@ li.listNavShow a:hover {
     float: right;
 }
 
-.table>tbody>tr>td {
-    vertical-align: middle !important;
-}
-
 .info-record-origin {
     font-weight: 800;
 }
@@ -1020,11 +1013,11 @@ li.listNavShow a:hover {
 }
 
 .content-wrap-home {
-    padding-top: 200px;
+    padding-top: 180px;
 }
 
 .content-wrap {
-    padding-top: 135px;
+    padding-top: 115px;
 }
 
 .inv-logo {
@@ -1077,8 +1070,9 @@ li.listNavShow a:hover {
 }
 
 .singleThumbnail {
-    width: 200px;
+    width: auto;
     height: auto;
+    text-align: center;;
 }
 
 /* Thumbs */
@@ -1115,12 +1109,12 @@ div.thumbnailView ul li {
     display: inline-block;
     margin-top: 5px;
     padding-top: 5px;
-    width: 170px;
+    width: 150px;
     text-align: center;
 }
 
 .multiThumbs img {
-    margin: 0 3px;
+    margin: 0 2px;
     cursor: pointer;
 }
 
@@ -1309,3 +1303,67 @@ ul.change-language li.active a {
 .label-available {
     background-color: #6e887e;
 }
+
+.dual-lang {
+    padding-top: 5px;
+}
+
+.faTable2_isad td.call_number_column {
+    width: 150px;
+    text-align: center;
+    vertical-align: middle !important;
+}
+
+.faTable2_isad th {
+    vertical-align: middle !important;
+}
+
+tr.container_info {
+    background-color: #777 !important;
+    color: #FFF;
+    text-align: center;
+}
+
+.table_contents_summary {
+    padding: 10px 0px;
+}
+
+.table_technical_data {
+    font-style: italic;
+    color: #777;
+    font-size: 12px;
+}
+
+td.description-column {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.call_number_link {
+    font-weight: bold;
+}
+
+.is_stuck {
+    z-index: 9999;
+    background-color: #FFF
+}
+
+.cover {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+table th, table td {
+    vertical-align: middle !important;
+}
+
+.navbar-brand {
+    background-image: url(<%= asset_path 'osa-logo-inv.png' %>) !important;
+    background-repeat: no-repeat !important;
+    padding-left: 45px !important;
+}
+
+.navbar-brand h1 {
+  margin-left: 80px;
+}
+

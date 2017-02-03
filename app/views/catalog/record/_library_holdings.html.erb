@@ -4,7 +4,6 @@
 
   <% holdings_info = get_holdings(document.to_marc) %>
   <% if holdings_info %>
-  <div class="table-responsive">
     <table class="table table-bordered table-hover">
       <thead>
         <tr class="active">
@@ -20,6 +19,5 @@
         <%= holdings_info %>
       </tbody>
     </table>
-  </div>
   <% end %>
 </dl>

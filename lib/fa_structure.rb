@@ -18,7 +18,7 @@ class FaStructure
       :params => {
         :q => "series_id:" + series_id,
         :fl => "id_e,title_e,item_json_e,description_level_e,container_number_e,container_type_e,sequence_number_e",
-        :sort => "container_type_esort asc, container_number_esort asc, sequence_number_esort asc",
+        :sort => "container_number_esort asc, sequence_number_esort asc, container_type_esort asc",
         :wt => "json"
       }
     )

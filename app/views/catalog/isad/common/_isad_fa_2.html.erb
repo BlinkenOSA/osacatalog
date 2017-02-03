@@ -1,0 +1,41 @@
+<% document ||= @document %>
+<% container ||= '' %>
+<% fa_list = render_fa_list(document[:id]) %>
+
+<div id="faTableWrapper">
+
+  <table class="faTable2_isad table table-condensed">
+    <thead class="isad-thead-sticky">
+      <tr>
+        <th>Call Number</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <% fa_list.each_with_index do |fa_item, index| %>
+      <% container_current = fa_item[:container_type_e].force_encoding("UTF-8") + ' #' +
+          fa_item[:container_number_e].to_s %>
+      <% if container_current != container %>
+        <% if index != 0 %>
+          </tbody>
+        <% end %>
+        <tbody class="isad-tbody-sticky">
+          <tr class="container_info">
+            <td colspan="2"><%= container_current %></td>
+          </tr>
+        </tbody>
+        <tbody>
+        <% container = container_current %>
+      <% end %>
+        <tr>
+          <td class="call_number_column">
+            <a class="call_number_link" href="<%= fa_item[:id_e] %>">
+              <%= render_fa_call_number(fa_item[:item_json_e]) %>
+            </a>
+          </td>
+          <td class="description_column">
+            <%= render_fa_description(fa_item[:item_json_e]) %>
+          </td>
+        </tr>
+    <% end %>
+  </table>
+</div>

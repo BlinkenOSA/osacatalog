@@ -1,5 +1,0 @@
-<% if document[:archival_level] == "Archival Unit" %>
-  <%= render 'catalog/archives/index_content_gallery_archival_unit', :document => document, :document_counter => document_counter %>
-<% else %>
-  <%= render 'catalog/archives/index_content_gallery_finding_aids', :document => document, :document_counter => document_counter %>
-<% end %>
