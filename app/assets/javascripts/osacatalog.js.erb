@@ -27,34 +27,31 @@ $(window).load(function(){
 });
 
 function stickyParts() {
-  if (window.innerWidth > 1200) {
-    $('.item-title-sticky').stick_in_parent({
-      offset_top: 106,
-      bottoming: false
-    });
+  $('.item-title-sticky').stick_in_parent({
+    offset_top: 107,
+    bottoming: false
+  });
 
+  if (window.innerWidth > 1200) {
     $('.cover-sticky').stick_in_parent({
-      offset_top: 169,
-      parent: '.container.margin-bottom'
+      offset_top: 170,
+      parent: '#document'
     });
-  } else {
-    $('.item-title-sticky').trigger("sticky_kit:detach");
+  } else if (window.innerWidth <= 1200 && window.innerWidth > 991) {
+    $('.cover-sticky').stick_in_parent({
+      offset_top: 170,
+      parent: '#document',
+    });
+  } else if (window.innerWidth <= 991) {
     $('.cover-sticky').trigger("sticky_kit:detach");
   }
 }
 
 function stickyTableRows() {
-  if (window.innerWidth > 1200) {
     $('table.faTable2_isad').stickyRows({
       rows: ['.isad-thead-sticky', '.isad-tbody-sticky'],
-      offsetPixels: 169
+      offsetPixels: 170
     });
-  } else {
-    $('table.faTable2_isad').stickyRows({
-      rows: ['.isad-thead-sticky', '.isad-tbody-sticky'],
-      offsetPixels: 106
-    });
-  }
 }
 
 stickyTableRows();

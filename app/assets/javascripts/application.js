@@ -30,7 +30,7 @@
 //= require jstree
 //= require listnav
 //= require spin
-//= require jquery.sticky-kit.min
+//= require jquery.sticky-kit
 
 //= require jquery-ui
 //= require jquery.browser
