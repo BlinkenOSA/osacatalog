@@ -777,7 +777,7 @@ td.td-center {
 }
 
 .fondslist-full {
-    margin-top: 20px;
+    margin: 20px auto;
     min-height: 600px;
 }
 
@@ -1272,18 +1272,18 @@ ul.change-language li.active a {
 
 .container-location-inner-big {
     background-color: #CCC;
-    width: 120px;
-    height: 170px;
-    margin: 9px auto;
+    width: 130px;
+    height: 180px;
+    margin: 4px auto;
     padding-top: 32px;
 }
 
 .container-location-inner-fa-big {
     background-color: #CCC;
-    width: 120px;
-    height: 170px;
-    margin: 9px auto;
-    padding-top: 132px;
+    width: 130px;
+    height: 180px;
+    margin: 4px auto;
+    padding-top: 142px;
 }
 
 .thumbnail-call-number-big {
@@ -1364,6 +1364,43 @@ table th, table td {
 }
 
 .navbar-brand h1 {
-  margin-left: 80px;
+    margin-left: 80px;
 }
 
+@media (max-width: 768px) {
+    .top-panel-heading {
+        border-left: none !important;
+        border-right: none !important;
+    }
+}
+
+li.menu a {
+    border-bottom: solid 1px #555;
+}
+
+li.menu a:hover {
+    text-align: left !important;
+    background-color: #e73c3c !important;
+}
+
+li.dropdown a:hover {
+    text-align: left !important;
+}
+
+
+/* jsTree */
+.jstree-default a {
+  white-space:normal !important; height: auto;
+}
+.jstree-anchor {
+  height: auto !important;
+}
+.jstree-default li > ins {
+  vertical-align:top;
+}
+.jstree-leaf {
+  height: auto;
+}
+.jstree-leaf a{
+  height: auto !important;
+}

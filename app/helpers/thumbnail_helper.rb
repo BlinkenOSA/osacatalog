@@ -56,10 +56,12 @@ module ThumbnailHelper
       img = document['reference_code'].gsub(" ", "_").downcase() + '.jpg'
     end
 
-    cover = 'http://storage.osaarchivum.org/catalog/archival_unit_logo/' + img
+    # cover = 'http://storage.osaarchivum.org/catalog/archival_unit_logo/' + img
+    cover = 'archival-unit-icons/' + img
 
-    if url_exist?(cover)
-      return cover
+    #if url_exist?(cover)
+    if has_asset?(cover)
+      return image_path(cover)
     else
       case document['description_level']
         when 'Fonds'
@@ -70,6 +72,7 @@ module ThumbnailHelper
           asset_path("thumbnail_placeholder_series.jpg")
       end
     end
+
   end
 
   def render_emtpy_cover(document)

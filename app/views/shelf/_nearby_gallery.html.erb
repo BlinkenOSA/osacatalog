@@ -1,0 +1,34 @@
+<div class="gallery-document <%= render_document_class document %>" data-preview-in-gallery="true" data-doc-id=<%= document.id %> >
+  <div class="item-thumb">
+    <div class="cover-image-wrapper" >
+      <%= render_book_cover(document) %>
+    </div>
+  </div>
+  <div class="caption">
+    <div class="documentHeader">
+      <div class="callnumber-bar">
+        <% if document[:call_number].present? %>
+            <%= document[:call_number].first %>
+        <% else %>
+            (no call number)
+        <% end %>
+      </div>
+      <h3 class="index_title">
+        <% if counter = document_counter_with_offset(document_counter) %>
+      <span class="document-counter">
+        <%= t('blacklight.search.documents.counter', counter: counter) %>
+      </span>
+        <% end %>
+        <%= link_to_document document, truncate(get_main_title(document), length: 50), counter: counter %>
+        <span class="main-title-date"><%= get_main_title_date(document) %></span>
+      </h3>
+      <% if document[:author].present? %>
+          <span class="index-author">by <span class="author"><%= document[:author].join('; ').html_safe %></span></span>
+      <% end %>
+    </div>
+  </div>
+  <% # bookmark functions for items/docs and preview button %>
+  <div class="gallery-buttons">
+    <%= render_index_doc_actions document, :wrapping_class => "index-document-functions" %>
+  </div>
+</div>
