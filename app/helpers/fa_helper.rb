@@ -94,9 +94,11 @@ module FaHelper
         item << '<div class="col-xs-6">'
         item << '<strong>' + j['title'] + '</strong>'
         item << '</div>'
-        item << '<div class="col-xs-6">'
-        item << '<strong>' + j['titleOriginal'] + '</strong>'
-        item << '</div>'
+        if j['titleOriginal']
+          item << '<div class="col-xs-6">'
+          item << '<strong>' + j['titleOriginal'] + '</strong>'
+          item << '</div>'
+        end
       else
         if j['titleOriginal']
           item << '<div class="col-xs-12">'
