@@ -327,7 +327,8 @@ module MarcHelper
       end
 
       text << content_tag(:td, field["o"] ? field["h"] : "-")
-      text << content_tag(:td, field["7"] ? Constants::KOHA_NOT_FOR_LOAN[field["7"]] : "-")
+      text << content_tag(:td, field["c"] ? Constants::KOHA_SHELVING[field["c"]] : "-")
+      text << content_tag(:td, field["z"] ? field["z"] : "-")
       text << "</tr>".html_safe
     end
     return text.html_safe
