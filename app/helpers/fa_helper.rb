@@ -42,7 +42,7 @@ module FaHelper
   end
 
   def render_fa_call_number(item_json)
-    j = JSON.parse(Base64.decode64(item_json))
+    j = JSON.parse(Base64.decode64(item_json))['item_json_eng']
     call_number = j['seriesReferenceCode'] + ':' +
         j['containerNumber'].to_i.to_s + '/' + j['sequenceNumber'].to_i.to_s
     call_number.html_safe
@@ -50,8 +50,13 @@ module FaHelper
 
   def render_fa_description(item_json)
     item = ''
+    j_2nd = {}
 
     j = JSON.parse(Base64.decode64(item_json))
+    if j.has_key?('item_json_2nd')
+      j_2nd = j['item_json_2nd']
+    end
+    j = j['item_json_eng']
 
     # TEXTUAL
     if j['primaryType'] == 'Textual'
@@ -90,7 +95,7 @@ module FaHelper
     elsif j['primaryType'] == 'Moving Image'
 
       item << '<div class="row">'
-      if j['contentsSummaryOriginal']
+      if j_2nd.has_key?('contentsSummary')
         item << '<div class="col-xs-6">'
         item << '<strong>' + j['title'] + '</strong>'
         item << '</div>'
@@ -112,15 +117,15 @@ module FaHelper
       end
       item << '</div>'
 
-      if j['contentsSummary'] || j['contentsSummaryOriginal']
+      if j['contentsSummary'] || j_2nd.has_key?('contentsSummary')
         item << '<div class="row table_contents_summary">'
-        if j['contentsSummaryOriginal'] && j['contentsSummary']
+        if j_2nd.has_key?('contentsSummary') && j['contentsSummary']
           item << '<div class="col-xs-6">' + j['contentsSummary'] + '</div>'
-          item << '<div class="col-xs-6">' + j['contentsSummaryOriginal'] + '</div>'
+          item << '<div class="col-xs-6">' + j_2nd['contentsSummary'] + '</div>'
         elsif j['contentsSummary']
           item << '<div class="col-xs-12">' + j['contentsSummary'] + '</div>'
         else
-          item << '<div class="col-xs-12">' + j['contentsSummaryOriginal'] + '</div>'
+          item << '<div class="col-xs-12">' + j_2nd['contentsSummary'] + '</div>'
         end
         item << '</div>'
       end
@@ -156,12 +161,14 @@ module FaHelper
     series_html = '<dt>'
   end
 
-  def render_fa_field(document, field, label, cap = false, separator = ', ', facet_name = '')
+  def render_fa_field(document, field, label, cap: false, separator: ', ', facet_name: '', lang: 'eng')
     t = []
     fields = []
     fa_html = ''
 
-    fa = ActiveSupport::JSON.decode(document['item_json'])
+    partial = 'item_json_' + lang
+
+    fa = ActiveSupport::JSON.decode(document['item_json'])[partial]
     if fa[field].is_a?(Array)
       fa[field].each do |field_value|
         if cap
@@ -208,7 +215,7 @@ module FaHelper
 
   def render_fa_moving_image_dates(document)
     dates_html = ''
-    fa = ActiveSupport::JSON.decode(document['item_json'])
+    fa = ActiveSupport::JSON.decode(document['item_json'])['item_json_eng']
 
     fa['dates'].each do |date|
       dates_html << '<dt>' + date['dateType'] + '</dt>'
@@ -216,5 +223,33 @@ module FaHelper
     end
 
     dates_html.html_safe
+  end
+
+  def render_fa_moving_image_contents_summary(document)
+    fa_html = ''
+    fa = ActiveSupport::JSON.decode(document['item_json'])
+
+    fa_eng = fa['item_json_eng']
+    if fa.has_key?('item_json_2nd')
+      fa_2nd = fa['item_json_2nd']
+    end
+
+    fa_html << '<dt>' + 'Contents Summary' + '</dt>'
+    fa_html << '<dd>'
+
+    if fa_2nd
+      fa_html << '<div class="col-xs-6 moving-image-summary">'
+      fa_html << fa_eng['contentsSummary']
+      fa_html << '</div>'
+      fa_html << '<div class="col-xs-6 moving-image-summary">'
+      fa_html << fa_2nd['contentsSummary']
+      fa_html << '</div>'
+    else
+      fa_html << fa_eng['contentsSummary']
+    end
+
+    fa_html << '</dd>'
+
+    fa_html.html_safe
   end
 end

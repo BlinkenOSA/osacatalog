@@ -1,6 +1,6 @@
 <% document ||= @document %>
-<% form_genre = render_fa_field(document, "form_genre", "Form/Genre", cap = true, separator = nil, facet_name = "genre_facet") %>
-<% contents_summary = render_fa_field(document, "contentsSummary", "Contents Summary") %>
+<% form_genre = render_fa_field(document, "form_genre", "Form/Genre", cap: true, facet_name: "genre_facet") %>
+<% contents_summary = render_fa_moving_image_contents_summary(document) %>
 <% associated_country = render_fa_field(document, "associatedCountry", "Associated Country") %>
 
 <% if form_genre != '' %>
@@ -9,6 +9,5 @@
       <%= form_genre %>
       <%= contents_summary %>
       <%= associated_country %>
-
   </dl>
 <% end %>

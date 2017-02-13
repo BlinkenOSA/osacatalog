@@ -5,7 +5,6 @@
           <%= render 'catalog/record/fa_textual_general_information' %>
         <% elsif document["primary_type"] == "Moving Image" %>
           <%= render 'catalog/record/fa_moving_image_general_information' %>
-          <%= render 'catalog/record/fa_moving_image_dates' %>
           <%= render 'catalog/record/fa_moving_image_context' %>
         <% elsif document["primary_type"] == "Electronic Record" %>
           <%= render 'catalog/record/fa_er_general_information' %>

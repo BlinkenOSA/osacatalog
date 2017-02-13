@@ -1,9 +1,0 @@
-<% document ||= @document %>
-<% dates = render_fa_moving_image_dates(document) %>
-
-<% if dates != '' %>
-  <h4 class="show-page-section"><i class="fa fa-calendar"></i>Date(s)</h4>
-  <dl class="dl-horizontal dl-invert data-details">
-      <%= dates %>
-  </dl>
-<% end %>
