@@ -425,10 +425,12 @@ module MarcHelper
   def get_subtitles_languages(marc)
     data = []
     marc.find_all{|f| ("041") === f.tag}.each do |field|
-      if field["j"]
-        subtitle = ISO_639.find(field["j"]).english_name
-        if subtitle
-          data << subtitle
+      field.subfields.each do |subfield|
+        if subfield.code == "j"
+          subtitle = ISO_639.find(subfield.value).english_name
+          if subtitle
+            data << subtitle
+          end
         end
       end
     end
