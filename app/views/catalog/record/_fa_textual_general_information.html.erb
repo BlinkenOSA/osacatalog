@@ -1,14 +1,15 @@
 <% document ||= @document %>
 <% level = render_fa_field(document, "level", "Level") %>
+<% creator_personal = render_fa_field(document, "creatorPersonalFree", "Collector") %>
 <% title_original = render_fa_field(document, "titleOriginal", "Original Title") %>
-<% primary_type = render_fa_field(document, "primaryType", "Primary Type", capitalize = true) %>
+<% primary_type = render_fa_field(document, "primaryType", "Primary Type", cap: true) %>
 <% series_reference_code = document[:series_reference_code] %>
 <% container_number = document[:container_number] %>
 <% sequence_number = document[:sequence_number] %>
 <% series_name = document[:series_name] %>
 <% series_id = document[:series_id] %>
 <% dates = render_fa_date_field(document) %>
-<% notes = render_fa_field(document, "note", "Notes") %>
+<% physical_description = render_fa_field(document, "physicalDescription", "Physical Description", lang: language) %>
 
 <h4 class="show-page-section"><i class="fa fa-info"></i>General information</h4>
 <dl class="dl-horizontal dl-invert data-details">
@@ -18,12 +19,13 @@
   <dt>Part of series</dt>
   <dd><%= link_to(series_name, catalog_path(series_id)) %></dd>
 
+  <%= creator_personal %>
   <%= title_original %>
 
   <%= dates %>
 
   <%= level %>
   <%= primary_type %>
-  <%= notes %>
+  <%= physical_description %>
 
 </dl>

@@ -60,23 +60,95 @@ module FaHelper
 
     # TEXTUAL
     if j['primaryType'] == 'Textual'
-      item << '<strong>' + j['title'] + '</strong>'
-      if j['titleOriginal']
-        item << ' / <strong>' + j['titleOriginal'] + '</strong>'
+      item << '<div class="row">'
+      if j_2nd.has_key?('contentsSummary')
+        item << '<div class="col-xs-6">'
+        item << '<strong>' + j['title'] + '</strong>'
+        if j['dateFrom']
+          item << '., ' + j['dateFrom']
+        end
+        if j['dateTo'] && j['dateFrom'] != j['dateTo']
+          item << ' - ' + j['dateTo']
+        end
+        item << '</div>'
+        if j['titleOriginal']
+          item << '<div class="col-xs-6">'
+          item << '<strong>' + j['titleOriginal'] + '</strong>'
+          if j['dateFrom']
+            item << '., ' + j['dateFrom']
+          end
+          if j['dateTo'] && j['dateFrom'] != j['dateTo']
+            item << ' - ' + j['dateTo']
+          end
+          item << '</div>'
+        end
+      else
+        if j['titleOriginal']
+          item << '<div class="col-xs-12">'
+          item << '<strong>' + j['title'] + ' / ' + j['titleOriginal'] + '</strong>'
+          if j['dateFrom']
+            item << '., ' + j['dateFrom']
+          end
+          if j['dateTo'] && j['dateFrom'] != j['dateTo']
+            item << ' - ' + j['dateTo']
+          end
+          item << '</div>'
+        else
+          item << '<div class="col-xs-12">'
+          item << '<strong>' + j['title'] + '</strong>'
+          if j['dateFrom']
+            item << '., ' + j['dateFrom']
+          end
+          if j['dateTo'] && j['dateFrom'] != j['dateTo']
+            item << ' - ' + j['dateTo']
+          end
+          item << '</div>'
+        end
       end
-      if j['dateFrom']
-        item << '., ' + j['dateFrom']
-      end
-      if j['dateTo'] && j['dateFrom'] != j['dateTo']
-        item << ' - ' + j['dateTo']
-      end
-      item << '<br/>'
-      if j['note']
-        item << '<em>[' + j['note'] + ']</em>'
-        item << '<br/>'
+      item << '</div>'
+
+      item << '<div class="row">'
+      if j['contentsSummary'] || j_2nd.has_key?('contentsSummary')
+        if j_2nd.has_key?('contentsSummary') && j['contentsSummary']
+          item << '<div class="col-xs-6 textual_description">'
+          item << j['contentsSummary']
+          item << '</div>'
+          item << '<div class="col-xs-6 textual_description">'
+          item << j_2nd['contentsSummary']
+          item << '</div>'
+        elsif j['contentsSummary']
+          item << '<div class="col-xs-12 textual_description">'
+          item << j['contentsSummary']
+          item << '</div>'
+        else
+          item << '<div class="col-xs-12 textual_description">'
+          item << j_2nd['contentsSummary']
+          item << '</div>'
+        end
       end
 
-    # ELECTRONIC RECORDS
+      if j_2nd.has_key?('contentsSummary')
+        item << '<div class="col-xs-6">'
+        if j['note']
+          item << '<em>[' + j['note'] + ']</em>'
+        end
+        item << '</div>'
+        item << '<div class="col-xs-6">'
+        if j_2nd['note']
+          item << '<em>[' + j_2nd['note'] + ']</em>'
+        end
+        item << '</div>'
+      else
+        item << '<div class="col-xs-12">'
+        if j['note']
+          item << '<em>[' + j['note'] + ']</em>'
+        end
+        item << '</div>'
+      end
+      item << '</div>'
+
+
+      # ELECTRONIC RECORDS
     elsif j['primaryType'] == 'Electronic Record'
       item << '<strong>' + j['title'] + '</strong>'
       if j['dateFrom']
@@ -161,25 +233,37 @@ module FaHelper
     series_html = '<dt>'
   end
 
-  def render_fa_field(document, field, label, cap: false, separator: ', ', facet_name: '', lang: 'eng')
+  def render_fa_field(document, field, label, cap: false, separator: ', ', facet_name: '', lang: 'en')
     t = []
     fields = []
     fa_html = ''
 
-    partial = 'item_json_' + lang
+    if lang != 'en'
+      fa = ActiveSupport::JSON.decode(document['item_json'])['item_json_2nd']
+      fa_eng = ActiveSupport::JSON.decode(document['item_json'])['item_json_eng']
+    else
+      fa = ActiveSupport::JSON.decode(document['item_json'])['item_json_eng']
+    end
 
-    fa = ActiveSupport::JSON.decode(document['item_json'])[partial]
     if fa[field].is_a?(Array)
-      fa[field].each do |field_value|
+      fa[field].each_with_index do |field_value, index|
         if cap
           if facet_name != ''
-            fields << link_to(field_value.capitalize, catalog_index_path(('f[' + facet_name + '][]').to_sym => field_value))
+            if lang != 'en'
+              fields << link_to(field_value.capitalize, catalog_index_path(('f[' + facet_name + '][]').to_sym => fa_eng[field][index]))
+            else
+              fields << link_to(field_value.capitalize, catalog_index_path(('f[' + facet_name + '][]').to_sym => field_value))
+            end
           else
             fields << field_value.capitalize
           end
         else
           if facet_name != ''
-            fields << link_to(field_value, catalog_index_path(('f[' + facet_name + '][]').to_sym => field_value))
+            if lang != 'en'
+              fields << link_to(field_value.capitalize, catalog_index_path(('f[' + facet_name + '][]').to_sym => fa_eng[field][index]))
+            else
+              fields << link_to(field_value.capitalize, catalog_index_path(('f[' + facet_name + '][]').to_sym => field_value))
+            end
           else
             fields << field_value
           end
@@ -194,7 +278,11 @@ module FaHelper
       if fa[field] != ''
         if cap
           if facet_name != ''
-            fa_html << '<dd>' + link_to(fa[field].capitalize, catalog_index_path(('f[' + facet_name + '][]').to_sym => fa[field])) + '</dd>'
+            if lang != 'en'
+              fa_html << '<dd>' + link_to(fa[field].capitalize, catalog_index_path(('f[' + facet_name + '][]').to_sym => fa_eng[field])) + '</dd>'
+            else
+              fa_html << '<dd>' + link_to(fa[field].capitalize, catalog_index_path(('f[' + facet_name + '][]').to_sym => fa[field])) + '</dd>'
+            end
           else
             fa_html << '<dd>' + fa[field].capitalize + '</dd>'
           end
@@ -211,6 +299,94 @@ module FaHelper
     end
 
     fa_html.html_safe
+  end
+
+  def render_fa_associated_names(document, lang: 'en')
+    associated_names_html = ''
+
+    if lang != 'en'
+      fa = ActiveSupport::JSON.decode(document['item_json'])['item_json_2nd']
+      fa_eng = ActiveSupport::JSON.decode(document['item_json'])['item_json_eng']
+    else
+      fa = ActiveSupport::JSON.decode(document['item_json'])['item_json_eng']
+    end
+
+    if fa['associatedPersonal'] || fa['associatedCorporation']
+      associated_names_html << '<dt>Associated Names</dt>'
+      fa['associatedPersonal'].each_with_index do |ap, index|
+        associated_names_html << '<dd>'
+        if lang != 'en'
+          associated_names_html << link_to(ap['name'], catalog_index_path(('f[added_person_facet][]').to_sym => fa_eng['associatedPersonal'][index]['name']))
+        else
+          associated_names_html << link_to(ap['name'], catalog_index_path(('f[added_person_facet][]').to_sym => ap['name']))
+        end
+
+        if ap['role']
+          associated_names_html << ' '
+          associated_names_html << '('
+          associated_names_html << ap['role']
+          associated_names_html << ')'
+        end
+        associated_names_html << ' '
+        associated_names_html << '</dd>'
+      end
+      fa['associatedCorporation'].each_with_index do |ac, index|
+        associated_names_html << '<dd>'
+        if lang != 'en'
+          associated_names_html << link_to(ac['name'], catalog_index_path(('f[added_person_facet][]').to_sym => fa_eng['associatedCorporation'][index]['name']))
+        else
+          associated_names_html << link_to(ac['name'], catalog_index_path(('f[added_person_facet][]').to_sym => ap['name']))
+        end
+        if ac['role']
+          associated_names_html << ' '
+          associated_names_html << '('
+          associated_names_html << ac['role']
+          associated_names_html << ')'
+        end
+        associated_names_html << ' '
+        associated_names_html << '</dd>'
+      end
+
+    end
+
+    associated_names_html.html_safe
+  end
+
+  def render_fa_associated_places(document, lang: 'en')
+    associated_places_html = ''
+
+    if lang != 'en'
+      fa = ActiveSupport::JSON.decode(document['item_json'])['item_json_2nd']
+      fa_eng = ActiveSupport::JSON.decode(document['item_json'])['item_json_eng']
+    else
+      fa = ActiveSupport::JSON.decode(document['item_json'])['item_json_eng']
+    end
+
+    if fa['associatedPlace']
+      associated_places_html << '<dt>Associated Places</dt>'
+      fa['associatedPlace'].each_with_index do |ap, index|
+        associated_places_html << '<dd>'
+        if lang != 'en'
+          associated_places_html << link_to(ap, catalog_index_path(('f[added_geo_facet][]').to_sym => fa_eng['associatedPlace'][index]))
+        else
+          associated_places_html << link_to(ap, catalog_index_path(('f[added_geo_facet][]').to_sym => ap))
+        end
+        associated_places_html << '</dd>'
+      end
+    end
+
+    if fa['associatedCountry']
+      fa['associatedCountry'].each_with_index do |ac, index|
+        associated_places_html << '<dd>'
+        if lang != 'en'
+          associated_places_html << link_to(ac, catalog_index_path(('f[added_geo_facet][]').to_sym => fa_eng['associatedCountry'][index]))
+        else
+          associated_places_html << link_to(ac, catalog_index_path(('f[added_geo_facet][]').to_sym => ac))
+        end
+        associated_places_html << '</dd>'
+      end
+    end
+    associated_places_html.html_safe
   end
 
   def render_fa_moving_image_dates(document)
@@ -251,5 +427,17 @@ module FaHelper
     fa_html << '</dd>'
 
     fa_html.html_safe
+  end
+
+  def collect_fa_languages(document)
+    langauges = ['en']
+    fa = ActiveSupport::JSON.decode(document['item_json'])
+    if fa.key?('item_json_2nd')
+      if fa['item_json_2nd'].length > 3
+        langauges.push(fa['item_json_2nd']['metadataLanguage'])
+      end
+    end
+
+    return langauges
   end
 end

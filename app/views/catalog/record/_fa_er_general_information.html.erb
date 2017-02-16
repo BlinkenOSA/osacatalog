@@ -1,7 +1,7 @@
 <% document ||= @document %>
 <% level = render_fa_field(document, "level", "Level") %>
 <% title_original = render_fa_field(document, "titleOriginal", "Original Title") %>
-<% primary_type = render_fa_field(document, "primaryType", "Primary Type", capitalize = true) %>
+<% primary_type = render_fa_field(document, "primaryType", "Primary Type", capitalize: true) %>
 <% container_type = document[:container_type] %>
 <% container_number = document[:container_number] %>
 <% sequence_number = document[:sequence_number] %>

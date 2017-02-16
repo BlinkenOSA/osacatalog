@@ -60,7 +60,7 @@ module ThumbnailHelper
     # cover = 'archival-unit-icons/' + img
 
     if url_exist?(cover)
-    #if has_asset?(cover)
+    # if has_asset?(cover)
       return image_path(cover)
     else
       case document['description_level']

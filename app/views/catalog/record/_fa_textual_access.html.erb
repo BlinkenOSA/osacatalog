@@ -1,0 +1,9 @@
+<% document ||= @document %>
+<% archival_id = render_fa_field(document, "legacyID", "Archival ID", lang: language) %>
+
+<% if archival_id != ''%>
+    <h4 class="show-page-section"><i class="fa fa-copyright"></i>Access & Use</h4>
+    <dl class="dl-horizontal dl-invert data-details">
+      <%= archival_id %>
+    </dl>
+<% end %>
