@@ -41,8 +41,8 @@ class DrtimelineController < ApplicationController
       end
     end
 
-    if !date_filter.empty?
-      date_filter = "and (" + date_filter.join(' or ') + ")"
+    unless date_filter.empty?
+      date_filter = 'and (' + date_filter.join(' or ') + ')'
     end
 
     if params[:page]

@@ -5,7 +5,7 @@ module DrHelper
   end
 
   def get_dr_date(document)
-    date = document["creation_date"]
+    date = document["date_created"]
     if date
       date = "[" + date + "]"
     end

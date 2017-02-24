@@ -31,6 +31,9 @@
             <a class="call_number_link" href="<%= fa_item[:id_e] %>">
               <%= render_fa_call_number(fa_item[:item_json_e]) %>
             </a>
+            <div class="legacy_id">
+              <%= render_fa_legacy_id(fa_item[:item_json_e]) %>
+            </div>
           </td>
           <td class="description_column">
             <%= render_fa_description(fa_item[:item_json_e]) %>

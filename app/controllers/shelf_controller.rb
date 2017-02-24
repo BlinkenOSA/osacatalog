@@ -15,8 +15,8 @@ class ShelfController < ApplicationController
       respond_to do |format|
         format.html do
           @document_list = NearbyOnShelf.new(
-            "static",
-            {:original_doc_id => original_doc_id,
+              'static',
+              {:original_doc_id => original_doc_id,
              :call_number_key => callnum,
              :call_number_reversed_key => callnum_rev,
              :before => 10,

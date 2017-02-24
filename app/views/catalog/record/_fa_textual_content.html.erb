@@ -1,11 +1,13 @@
 <% document ||= @document %>
 <% contents_summary = render_fa_field(document, "contentsSummary", "Contents Summary", lang: language) %>
 <% notes = render_fa_field(document, "note", "Notes", lang: language) %>
+<% internal_notes = render_fa_field(document, "internalNote", "Notes", lang: language) %>
 
 <% if notes != '' || contents_summary != '' %>
     <h4 class="show-page-section"><i class="fa fa-list"></i>Content</h4>
     <dl class="dl-horizontal dl-invert data-details">
       <%= contents_summary %>
       <%= notes %>
+      <%= internal_notes %>
     </dl>
 <% end %>

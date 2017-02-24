@@ -8,13 +8,18 @@
 <% sequence_number = document[:sequence_number] %>
 <% series_name = document[:series_name] %>
 <% series_id = document[:series_id] %>
-<% dates = render_fa_date_field(document) %>
 <% physical_description = render_fa_field(document, "physicalDescription", "Physical Description", lang: language) %>
+<% languages = render_fa_field(document, "language", "Language", cap: false, facet_name: "language_facet") %>
+<% archival_id = render_fa_field(document, "legacyID", "Archival ID", lang: language) %>
+<% creation = render_fa_created(document) %>
+<% creator = render_fa_creator(document, lang: language) %>
 
 <h4 class="show-page-section"><i class="fa fa-info"></i>General information</h4>
 <dl class="dl-horizontal dl-invert data-details">
   <dt>Call No.:</dt>
   <dd class="show_call_number"><%= series_reference_code %>:<%= container_number %>/<%= sequence_number %></dd>
+
+  <%= archival_id %>
 
   <dt>Part of series</dt>
   <dd><%= link_to(series_name, catalog_path(series_id)) %></dd>
@@ -22,7 +27,9 @@
   <%= creator_personal %>
   <%= title_original %>
 
-  <%= dates %>
+  <%= languages %>
+  <%= creation %>
+  <%= creator %>
 
   <%= level %>
   <%= primary_type %>

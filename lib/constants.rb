@@ -1,8 +1,8 @@
 module Constants
 
-  SITE_URL = ''
-  FEDORA_URL = ''
-  FEDORA_GETFOXML = ''
+  SITE_URL = 'http://localhost:3000'
+  FEDORA_URL = 'http://172.31.12.60:8080/fedora'
+  FEDORA_GETFOXML = 'http://172.31.12.60/fedorahelper/getfoxml/'
   FEDORA_RISEARCH_URL = FEDORA_URL + '/risearch'
 
   TYPE_ICONS = {
@@ -69,6 +69,14 @@ module Constants
   KOHA_NOT_FOR_LOAN = {
     '0' => 'Not for loan',
     '1' => 'Available'
+  }
+
+  KOHA_SHELVING = {
+    'AV' => 'Audio Visual',
+    'GEN' => 'General Stacks',
+    'REP' => 'Repository',
+    'REF' => 'Reference',
+    'STAFF' => 'Staff Office'
   }
 
 end

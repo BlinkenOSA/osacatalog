@@ -1,4 +1,27 @@
-<%# default partial to display solr document fields in catalog index view -%>
+<div class="document-data">
+
+  <% document_actions = capture do %>
+      <% # bookmark functions for items/docs -%>
+      <%= render_index_doc_actions document %>
+  <% end %>
+
+  <div class="select-item">
+    <%= document_actions %>
+  </div>
+
+  <div class="title-display">
+    <% if counter = document_counter_with_offset(document_counter) %>
+        <!--<%= render_type_icon document[document.type_field] %>-->
+      <span class="document-counter">
+        <%= t('blacklight.search.documents.counter', counter: counter) %>
+      </span>
+    <% end %>
+
+    <%= link_to_document document, get_main_title(document), :counter => counter %>
+    <span class="document-date"><%= get_main_title_date(document) %></span>
+  </div>
+
+  <%# default partial to display solr document fields in catalog index view -%>
   <% if document[:director].present? %>
     <span class="index-author">directed by <span class="author"><%= document[:director].join('; ').html_safe %></span></span>
   <% end %>

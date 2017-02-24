@@ -1,32 +1,32 @@
 module ArchivesHelper
   def get_archival_title(document)
-    title = document["reference_code"] + ' ' + document["title"]
-    if document["title_original"]
-      title += ' <span class="unit-hu">(' + document["title_original"] + ')</span>'
+    title = document['reference_code'] + ' ' + document['title']
+    if document['title_original']
+      title += ' <span class="unit-hu">(' + document['title_original'] + ')</span>'
     end
-    title.force_encoding("UTF-8").html_safe
+    title.force_encoding('UTF-8').html_safe
   end
 
   def get_archival_title_meta(document)
-    title = document["reference_code"] + ' ' + document["title"]
-    if document["title_original"]
-      title += ' (' + document["title_original"] + ')'
+    title = document['reference_code'] + ' ' + document['title']
+    if document['title_original']
+      title += ' (' + document['title_original'] + ')'
     end
-    title.force_encoding("UTF-8")
+    title.force_encoding('UTF-8')
   end
 
   def get_archival_date(document)
-    date = document["creation_date"]
+    date = document['date_created']
     if date
-      date = "[" + date + "]"
+      date = '[' + date + ']'
     end
     return date
   end
 
   def collect_au_languages(document)
     langauges = ['en']
-    if document.key?("isad_json_hu")
-      isad_hu = ActiveSupport::JSON.decode(document["isad_json_hu"])
+    if document.key?('isad_json_hu')
+      isad_hu = ActiveSupport::JSON.decode(document['isad_json_hu'])
       if not isad_hu.empty?
         langauges.push('hu')
       end
@@ -39,14 +39,14 @@ module ArchivesHelper
     FondsStructure.new(document).fondslist
   end
 
-  def render_isad_field(document, field, label, capitalize: false, separator: ", ", subfield: nil, lang: 'en')
+  def render_isad_field(document, field, label, capitalize: false, separator: ', ', subfield: nil, lang: 'en')
     t = []
-    isad_html = "<dt>" + label + "</dt>"
+    isad_html = '<dt>' + label + '</dt>'
 
     if lang == 'en'
-      isad = ActiveSupport::JSON.decode(document["isad_json"])
+      isad = ActiveSupport::JSON.decode(document['isad_json'])
     else
-      isad = ActiveSupport::JSON.decode(document["isad_json_hu"])
+      isad = ActiveSupport::JSON.decode(document['isad_json_hu'])
     end
 
     if isad[field].is_a?(Array)
@@ -54,38 +54,40 @@ module ArchivesHelper
 
       else
         if capitalize
-          isad_html << "<dd>" + isad[field].map!(&:capitalize).join(separator) + "</dd>"
+          isad_html << '<dd>' + isad[field].map!(&:capitalize).join(separator) + '</dd>'
         else
-          isad_html << "<dd>" + isad[field].join(separator) + "</dd>"
+          isad_html << '<dd>' + isad[field].join(separator) + '</dd>'
         end
       end
     elsif isad[field].is_a?(String)
       if capitalize
-        isad_html << "<dd>" + isad[field].capitalize + "</dd>"
+        isad_html << '<dd>' + isad[field].capitalize + '</dd>'
       else
-        isad_html << "<dd>" + isad[field] + "</dd>"
+        isad_html << '<dd>' + isad[field] + '</dd>'
       end
     else
-      isad_html = ""
+      isad_html = ''
     end
     return isad_html.html_safe
   end
 
   def render_isad_dates(document, lang='en')
-    dates = ""
-    isad = ActiveSupport::JSON.decode(document["isad_json"])
-    dates << isad["dateFrom"].to_s
+    dates = ''
+    isad = ActiveSupport::JSON.decode(document['isad_json'])
+    dates << isad['dateFrom'].to_s
 
-    if isad["dateTo"]
-      dates << " - "
-      dates << isad["dateTo"].to_s
+    if isad['dateTo']
+      if isad['dateTo'] != isad['dateFrom']
+        dates << ' - '
+        dates << isad['dateTo'].to_s
+      end
     end
 
     if dates
       if lang == 'en'
-        date_html = "<dt>" + "Date(s)" + "</dt><dd>" + dates + "</dd>"
+        date_html = '<dt>' + 'Date(s)' + '</dt><dd>' + dates + '</dd>'
       else
-        date_html = "<dt>" + "Idő(kör)" + "</dt><dd>" + dates + "</dd>"
+        date_html = '<dt>' + 'Idő(kör)' + '</dt><dd>' + dates + '</dd>'
       end
     end
 
@@ -94,18 +96,18 @@ module ArchivesHelper
 
   def render_isad_accruals(document, lang: 'en')
     if lang == 'en'
-      accruals = "<dt>Accruals</dt>"
-      if document["accruals"]
-        accruals << "<dd><p>Expected</p></dd>"
+      accruals = '<dt>Accruals</dt>'
+      if document['accruals']
+        accruals << '<dd><p>Expected</p></dd>'
       else
-        accruals << "<dd><p>Not expected</p></dd>"
+        accruals << '<dd><p>Not expected</p></dd>'
       end
     else
-      accruals = "<dt>Jövőbeni gyarapodás</dt>"
-      if document["accruals"]
-        accruals << "<dd><p>Várható</p></dd>"
+      accruals = '<dt>Jövőbeni gyarapodás</dt>'
+      if document['accruals']
+        accruals << '<dd><p>Várható</p></dd>'
       else
-        accruals << "<dd><p>Nem várható</p></dd>"
+        accruals << '<dd><p>Nem várható</p></dd>'
       end
     end
 
@@ -114,28 +116,28 @@ module ArchivesHelper
 
   def render_isad_creators(document, lang: 'en')
     creators = []
-    creator_html = ""
-    isad = ActiveSupport::JSON.decode(document["isad_json"])
+    creator_html = ''
+    isad = ActiveSupport::JSON.decode(document['isad_json'])
 
-    if isad["creator"]
-      isad["creator"].each do |creator|
+    if isad['creator']
+      isad['creator'].each do |creator|
         creators << creator
       end
     end
 
     if !creators.blank?
-      creator_html << "<dd>"
+      creator_html << '<dd>'
       creators.uniq.each do |cre_unq|
-        creator_html << cre_unq + "<br/>"
+        creator_html << cre_unq + '<br/>'
       end
-      creator_html << "</dd>"
+      creator_html << '</dd>'
     end
 
-    if creator_html != ""
+    if creator_html != ''
       if lang == 'en'
-        creator_html = "<dt>" + "Name of creator(s)" + "</dt>" + creator_html
+        creator_html = '<dt>' + 'Name of creator(s)' + '</dt>' + creator_html
       else
-        creator_html = "<dt>" + "Az iratképző(k) neve" + "</dt>" + creator_html
+        creator_html = '<dt>' + 'Az iratképző(k) neve' + '</dt>' + creator_html
       end
     end
 
@@ -144,24 +146,24 @@ module ArchivesHelper
 
   def render_related_units(document, field, label, lang: 'en')
     units = []
-    units_html = ""
+    units_html = ''
 
     if lang == 'en'
-      isad = ActiveSupport::JSON.decode(document["isad_json"])
+      isad = ActiveSupport::JSON.decode(document['isad_json'])
     else
-      isad = ActiveSupport::JSON.decode(document["isad_json_hu"])
+      isad = ActiveSupport::JSON.decode(document['isad_json_hu'])
     end
 
-    if field == "relatedUnits"
-      tfield = "name"
+    if field == 'relatedUnits'
+      tfield = 'name'
     else
-      tfield = "info"
+      tfield = 'info'
     end
 
     if isad[field]
       isad[field].each do |unit|
-        if unit["url"] != ""
-          units << link_to(unit[tfield], catalog_path(unit["url"]))
+        if unit['url'] != ''
+          units << link_to(unit[tfield], catalog_path(unit['url']))
         else
           units << unit[tfield]
         end
@@ -169,11 +171,11 @@ module ArchivesHelper
     end
 
     if !units.blank?
-      units_html << "<dd>" + units.join('<br/>') + "</dd>"
+      units_html << '<dd>' + units.join('<br/>') + '</dd>'
     end
 
-    if units_html != ""
-      units_html = "<dt>" + label + "</dt>" + units_html
+    if units_html != ''
+      units_html = '<dt>' + label + '</dt>' + units_html
     end
 
     return units_html.html_safe

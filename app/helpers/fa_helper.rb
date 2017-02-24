@@ -4,13 +4,16 @@ module FaHelper
   end
 
   def get_fa_title_date(document)
-    if document['creation_date']
+    date = document['date_created']
+    if date
+      date = '[' + date + ']'
     end
+    return date
   end
 
   def render_fa_date_field(document)
     fa_html = ''
-    fa = ActiveSupport::JSON.decode(document['item_json'])
+    fa = ActiveSupport::JSON.decode(document['item_json'])['item_json_eng']
 
     if fa['dateFrom']
       fa_html = '<dt>' + 'Date(s)' + '</dt>'
@@ -48,6 +51,15 @@ module FaHelper
     call_number.html_safe
   end
 
+  def render_fa_legacy_id(item_json)
+    legacy_id = ""
+    j = JSON.parse(Base64.decode64(item_json))['item_json_eng']
+    if j.key?('legacyID')
+      legacy_id << j['legacyID']
+    end
+    legacy_id.html_safe
+  end
+
   def render_fa_description(item_json)
     item = ''
     j_2nd = {}
@@ -64,21 +76,15 @@ module FaHelper
       if j_2nd.has_key?('contentsSummary')
         item << '<div class="col-xs-6">'
         item << '<strong>' + j['title'] + '</strong>'
-        if j['dateFrom']
-          item << '., ' + j['dateFrom']
-        end
-        if j['dateTo'] && j['dateFrom'] != j['dateTo']
-          item << ' - ' + j['dateTo']
+        if j['dateCreated']
+          item << ', ' + j['dateCreated']
         end
         item << '</div>'
         if j['titleOriginal']
           item << '<div class="col-xs-6">'
           item << '<strong>' + j['titleOriginal'] + '</strong>'
-          if j['dateFrom']
-            item << '., ' + j['dateFrom']
-          end
-          if j['dateTo'] && j['dateFrom'] != j['dateTo']
-            item << ' - ' + j['dateTo']
+          if j['dateCreated']
+            item << ', ' + j['dateCreated']
           end
           item << '</div>'
         end
@@ -86,21 +92,15 @@ module FaHelper
         if j['titleOriginal']
           item << '<div class="col-xs-12">'
           item << '<strong>' + j['title'] + ' / ' + j['titleOriginal'] + '</strong>'
-          if j['dateFrom']
-            item << '., ' + j['dateFrom']
-          end
-          if j['dateTo'] && j['dateFrom'] != j['dateTo']
-            item << ' - ' + j['dateTo']
+          if j['dateCreated']
+            item << ', ' + j['dateCreated']
           end
           item << '</div>'
         else
           item << '<div class="col-xs-12">'
           item << '<strong>' + j['title'] + '</strong>'
-          if j['dateFrom']
-            item << '., ' + j['dateFrom']
-          end
-          if j['dateTo'] && j['dateFrom'] != j['dateTo']
-            item << ' - ' + j['dateTo']
+          if j['dateCreated']
+            item << ', ' + j['dateCreated']
           end
           item << '</div>'
         end
@@ -148,14 +148,11 @@ module FaHelper
       item << '</div>'
 
 
-      # ELECTRONIC RECORDS
+    # ELECTRONIC RECORDS
     elsif j['primaryType'] == 'Electronic Record'
       item << '<strong>' + j['title'] + '</strong>'
-      if j['dateFrom']
-        item << '., ' + j['dateFrom']
-      end
-      if j['dateTo'] && j['dateFrom'] != j['dateTo']
-        item << ' - ' + j['dateTo']
+      if j['dateCreated']
+        item << ', ' + j['dateCreated']
       end
       item << '<br/>'
       if j['note']
@@ -176,6 +173,7 @@ module FaHelper
           item << '<strong>' + j['titleOriginal'] + '</strong>'
           item << '</div>'
         end
+
       else
         if j['titleOriginal']
           item << '<div class="col-xs-12">'
@@ -234,7 +232,6 @@ module FaHelper
   end
 
   def render_fa_field(document, field, label, cap: false, separator: ', ', facet_name: '', lang: 'en')
-    t = []
     fields = []
     fa_html = ''
 
@@ -260,9 +257,9 @@ module FaHelper
         else
           if facet_name != ''
             if lang != 'en'
-              fields << link_to(field_value.capitalize, catalog_index_path(('f[' + facet_name + '][]').to_sym => fa_eng[field][index]))
+              fields << link_to(field_value, catalog_index_path(('f[' + facet_name + '][]').to_sym => fa_eng[field][index]))
             else
-              fields << link_to(field_value.capitalize, catalog_index_path(('f[' + facet_name + '][]').to_sym => field_value))
+              fields << link_to(field_value, catalog_index_path(('f[' + facet_name + '][]').to_sym => field_value))
             end
           else
             fields << field_value
@@ -299,6 +296,27 @@ module FaHelper
     end
 
     fa_html.html_safe
+  end
+
+  def render_fa_created(document, lang: 'en')
+    created = ''
+
+    fa = ActiveSupport::JSON.decode(document['item_json'])['item_json_eng']
+
+    if fa.key?('placeOfCreation')
+      created << fa['placeOfCreation'].join(', ')
+      created << ', '
+    end
+
+    if fa['dateCreated']
+      created << fa['dateCreated']
+    end
+
+    if created
+      created = '<dt>Created</dt><dd>' + created + '</dd>'
+    end
+
+    created.html_safe
   end
 
   def render_fa_associated_names(document, lang: 'en')
@@ -387,6 +405,59 @@ module FaHelper
       end
     end
     associated_places_html.html_safe
+  end
+
+  def render_fa_creator(document, lang: 'en')
+    creators_html = ''
+
+    if lang != 'en'
+      fa = ActiveSupport::JSON.decode(document['item_json'])['item_json_2nd']
+      fa_eng = ActiveSupport::JSON.decode(document['item_json'])['item_json_eng']
+    else
+      fa = ActiveSupport::JSON.decode(document['item_json'])['item_json_eng']
+    end
+
+    if fa['creatorPersonal'] || fa['creatorCorporation']
+      role = ""
+      creators_html << '<dt>Creators</dt>'
+
+      if fa.key?('creatorPersonal')
+        creators_html << '<dd>'
+        fa['creatorPersonal'].each_with_index do |cp, index|
+          if lang != 'en'
+            creators_html << link_to(cp['name'], catalog_index_path(('f[creator_facet][]').to_sym => fa_eng['creatorPersonal'][index]['name']))
+          else
+            creators_html << link_to(cp['name'], catalog_index_path(('f[creator_facet][]').to_sym => cp['name']))
+          end
+
+          if index == fa['creatorPersonal'].length - 1
+            if cp['role']
+              creators_html << ' ('
+              creators_html << cp['role']
+              creators_html << ')'
+            end
+          else
+            creators_html << '; '
+          end
+
+        end
+        creators_html << '</dd>'
+      end
+
+      if fa.key?('creatorCorporation')
+        creators_html << '<dd>'
+        fa['creatorCorporation'].each_with_index do |cc, index|
+          if lang != 'en'
+            creators_html << link_to(cc['name'], catalog_index_path(('f[creator_facet][]').to_sym => fa_eng['creatorCorporation'][index]['name']))
+          else
+            creators_html << link_to(cc['name'], catalog_index_path(('f[creator_facet][]').to_sym => cc['name']))
+          end
+        end
+        creators_html << '</dd>'
+      end
+    end
+
+    creators_html.html_safe
   end
 
   def render_fa_moving_image_dates(document)
