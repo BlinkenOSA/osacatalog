@@ -481,21 +481,23 @@ module FaHelper
       fa_2nd = fa['item_json_2nd']
     end
 
-    fa_html << '<dt>' + 'Contents Summary' + '</dt>'
-    fa_html << '<dd>'
+    if fa_eng['contentsSummary']
+      fa_html << '<dt>' + 'Contents Summary' + '</dt>'
+      fa_html << '<dd>'
 
-    if fa_2nd
-      fa_html << '<div class="col-xs-6 moving-image-summary">'
-      fa_html << fa_eng['contentsSummary']
-      fa_html << '</div>'
-      fa_html << '<div class="col-xs-6 moving-image-summary">'
-      fa_html << fa_2nd['contentsSummary']
-      fa_html << '</div>'
-    else
-      fa_html << fa_eng['contentsSummary']
+        if fa_2nd
+          fa_html << '<div class="col-xs-6 moving-image-summary">'
+          fa_html << fa_eng['contentsSummary']
+          fa_html << '</div>'
+          fa_html << '<div class="col-xs-6 moving-image-summary">'
+          fa_html << fa_2nd['contentsSummary']
+          fa_html << '</div>'
+        else
+          fa_html << fa_eng['contentsSummary']
+        end
+
+      fa_html << '</dd>'
     end
-
-    fa_html << '</dd>'
 
     fa_html.html_safe
   end
