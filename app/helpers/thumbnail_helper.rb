@@ -49,30 +49,31 @@ module ThumbnailHelper
   end
 
   def render_archives_cover(document)
-    c = document['reference_code'].index('-')
-    if c
-      img = document['reference_code'][0..c-1].gsub(" ", "_").downcase() + '.jpg'
-    else
-      img = document['reference_code'].gsub(" ", "_").downcase() + '.jpg'
-    end
+    # c = document['reference_code'].index('-')
+    # if c
+    #   img = document['reference_code'][0..c-1].gsub(" ", "_").downcase() + '.jpg'
+    # else
+    #   img = document['reference_code'].gsub(" ", "_").downcase() + '.jpg'
+    # end
 
-    cover = 'http://storage.osaarchivum.org/catalog/archival_unit_logo/' + img
-    # cover = 'archival-unit-icons/' + img
+    ref_codes = document['reference_code'].gsub('HU OSA ', '').split('-')
+    ref_codes_len = ref_codes.length
 
-    if url_exist?(cover)
-    # if has_asset?(cover)
-      return image_path(cover)
-    else
-      case document['description_level']
-        when 'Fonds'
-          asset_path("thumbnail_placeholder_fonds.jpg")
-        when 'Subfonds'
-          asset_path("thumbnail_placeholder_subfonds.jpg")
-        when 'Series'
-          asset_path("thumbnail_placeholder_series.jpg")
+    ref_codes_len.downto(0).each { |i|
+      cover = 'archival-unit-icons/hu_osa_' + ref_codes[0..i-1].join("-") + '.jpg'
+      if has_asset?(cover)
+        return image_path(cover)
       end
-    end
+    }
 
+    case document['description_level']
+      when 'Fonds'
+        return asset_path("thumbnail_placeholder_fonds.jpg")
+      when 'Subfonds'
+        return asset_path("thumbnail_placeholder_subfonds.jpg")
+      when 'Series'
+        return asset_path("thumbnail_placeholder_series.jpg")
+    end
   end
 
   def render_emtpy_cover(document)
@@ -92,24 +93,24 @@ module ThumbnailHelper
   end
 
   def render_fa_cover(document)
-    c = document['series_reference_code'].index('-')
-    if c
-      img = 'hu_osa_' + document['series_reference_code'][0..c-1].gsub(" ", "_").downcase() + '.jpg'
-    else
-      img = 'hu_osa_' + document['series_reference_code'].gsub(" ", "_").downcase() + '.jpg'
-    end
+    ref_codes = document['series_reference_code'].gsub('HU OSA ', '').split('-')
+    ref_codes.push(document['container_number'])
+    ref_codes.push(document['sequence_number'])
+    ref_codes_len = ref_codes.length
 
-    cover = 'http://storage.osaarchivum.org/catalog/archival_unit_logo/' + img
-
-    if url_exist?(cover)
-      return cover
-    else
-      case document['description_level']
-        when 'Folder'
-          asset_path("thumbnail_placeholder_folder.jpg")
-        when 'Item'
-          asset_path("thumbnail_placeholder_item.jpg")
+    ref_codes_len.downto(0).each { |i|
+      cover = 'archival-unit-icons/hu_osa_' + ref_codes[0..i-1].join("-") + '.jpg'
+      if has_asset?(cover)
+        return image_path(cover)
       end
+    }
+
+    case document['description_level']
+      when 'Folder'
+        return asset_path("thumbnail_placeholder_folder.jpg")
+      when 'Item'
+        return asset_path("thumbnail_placeholder_item.jpg")
     end
   end
 end
+
