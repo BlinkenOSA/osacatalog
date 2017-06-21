@@ -11,7 +11,7 @@ module ThumbnailHelper
     }
 
     begin
-      render partial: "catalog/thumbnails/index_thumbnail_helper_library", locals: locals
+      render partial: 'catalog/thumbnails/index_thumbnail_helper_library', locals: locals
     rescue ActionView::MissingTemplate
       nil
     end
@@ -19,21 +19,30 @@ module ThumbnailHelper
   end
 
   def render_movie_cover(document)
+    fl_call_number = ''
+    marc = document.to_marc
+
+    marc.find_all{|f| ('099') === f.tag}.each do |field|
+      if not field['f'].nil?
+        fl_call_number = field['f']
+      end
+    end
+
     title = document['title']
     title = I18n.transliterate(title)
-    title = title.gsub(".", "")
-    title = title.gsub(":", "")
-    title = title.gsub(",", "")
-    title = title.gsub("#", "_")
-    title = title.gsub("'", "_")
-    title = title.gsub('"', "")
-    title = title.downcase.gsub(" ", "_")
+    title = title.gsub('.', '')
+    title = title.gsub(':', '')
+    title = title.gsub(',', '')
+    title = title.gsub('#', '_')
+    title = title.gsub("'", '_')
+    title = title.gsub('"', '')
+    title = title.downcase.gsub(' ', '_')
 
-    cover = 'http://storage.osaarchivum.org/catalog/film_library/thumbnail/' + title[0] + '/' + title + '.jpg'
+    cover = 'film-library-icons/' + fl_call_number + '_' + title + '.jpg'
 
     begin
-      if url_exist?(cover)
-        image_tag(cover, class: "cover-image show")
+      if has_asset?(cover)
+        return image_tag(cover, class: 'cover-image show')
       else
         render_emtpy_cover(document)
       end
@@ -49,13 +58,6 @@ module ThumbnailHelper
   end
 
   def render_archives_cover(document)
-    # c = document['reference_code'].index('-')
-    # if c
-    #   img = document['reference_code'][0..c-1].gsub(" ", "_").downcase() + '.jpg'
-    # else
-    #   img = document['reference_code'].gsub(" ", "_").downcase() + '.jpg'
-    # end
-
     ref_codes = document['reference_code'].gsub('HU OSA ', '').split('-')
     ref_codes_len = ref_codes.length
 
@@ -68,28 +70,28 @@ module ThumbnailHelper
 
     case document['description_level']
       when 'Fonds'
-        return asset_path("thumbnail_placeholder_fonds.jpg")
+        return asset_path('thumbnail_placeholder_fonds.jpg')
       when 'Subfonds'
-        return asset_path("thumbnail_placeholder_subfonds.jpg")
+        return asset_path('thumbnail_placeholder_subfonds.jpg')
       when 'Series'
-        return asset_path("thumbnail_placeholder_series.jpg")
+        return asset_path('thumbnail_placeholder_series.jpg')
     end
   end
 
   def render_emtpy_cover(document)
     case document['primary_type']
       when 'Book'
-        image_tag("thumbnail_placeholder_book.jpg", class: "cover-image show")
+        image_tag('thumbnail_placeholder_book.jpg', class: 'cover-image show')
       when 'Continuing Resource'
-        image_tag("thumbnail_placeholder_newspaper.jpg", class: "cover-image show")
+        image_tag('thumbnail_placeholder_newspaper.jpg', class: 'cover-image show')
       when 'Moving Image'
-        image_tag("thumbnail_placeholder_movie.jpg", class: "cover-image show")
+        image_tag('thumbnail_placeholder_movie.jpg', class: 'cover-image show')
     end
   end
 
   def render_dr_cover(document)
-    item_id = document['id'].gsub("osa:", "")
-    return image_tag("http://storage.osaarchivum.org/thumbnail/" + item_id[0,2] + "/" + item_id[2,2] + '/' + item_id + '_t_001.jpg', class: "cover-image show")
+    item_id = document['id'].gsub('osa:', '')
+    return image_tag('http://storage.osaarchivum.org/thumbnail/' + item_id[0, 2] + '/' + item_id[2, 2] + '/' + item_id + '_t_001.jpg', class: 'cover-image show')
   end
 
   def render_fa_cover(document)
@@ -107,9 +109,9 @@ module ThumbnailHelper
 
     case document['description_level']
       when 'Folder'
-        return asset_path("thumbnail_placeholder_folder.jpg")
+        return asset_path('thumbnail_placeholder_folder.jpg')
       when 'Item'
-        return asset_path("thumbnail_placeholder_item.jpg")
+        return asset_path('thumbnail_placeholder_item.jpg')
     end
   end
 end

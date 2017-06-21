@@ -147,7 +147,16 @@ class DigitalRepositoryViewer
 
     low_level_handle = xml.xpath("//mets:fileGrp[@USE='low_level']//mets:fLocat").first["xlink:href"]
     thumbnails = xml.xpath("//mets:fileGrp[@USE='thumbnail']//mets:fLocat")
-    low_level_video = 'http://storage.osaarchivum.org/low/' + guid[0,2] + '/' + guid[2,2] + '/' + guid + '_l.flv'
+
+    types = detect_types(xml)
+
+    mime = types[0]
+    case mime
+    when "video/x-flv"
+      low_level_video = 'http://storage.osaarchivum.org/low/' + guid[0,2] + '/' + guid[2,2] + '/' + guid + '_l.flv'
+    when "video/mp4"
+      low_level_video = 'http://storage.osaarchivum.org/low/' + guid[0,2] + '/' + guid[2,2] + '/' + guid + '_l.mp4'
+    end
 
     transparent = ActionController::Base.helpers.asset_path('transparent.png')
     logo = ActionController::Base.helpers.asset_path('multivideo_logo_180x29_bw.png')

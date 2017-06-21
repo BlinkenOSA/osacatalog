@@ -311,7 +311,9 @@ module MarcHelper
 
     # FL Call Number
     marc.find_all{|f| ('099') === f.tag}.each do |field|
-      fl_call_number = "FL Record " +  field["f"]
+      if not field['f'].nil?
+        fl_call_number = 'FL Record ' + field['f']
+      end
     end
 
     marc.find_all{|f| ('952') === f.tag}.each do |field|
