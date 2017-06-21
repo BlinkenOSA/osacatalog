@@ -42,6 +42,8 @@ class DigitalRepositoryViewer
       case mime
       when "video/x-flv"
         html << multivideo_multiThumbnail(xml)
+      when "video/mp4"
+        html << multivideo_multiThumbnail(xml)
       when "audio/mpeg"
         html << multivideo_singleThumbnail(xml)
       when "application/pdf"
