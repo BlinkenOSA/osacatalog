@@ -36,6 +36,12 @@ module ThumbnailHelper
     title = title.gsub('#', '_')
     title = title.gsub("'", '_')
     title = title.gsub('"', '')
+    title = title.gsub('/', '_')
+    title = title.gsub('?', '')
+    title = title.gsub('!', '')
+    title = title.gsub('|', '')
+    title = title.gsub('[', '')
+    title = title.gsub(']', '')
     title = title.downcase.gsub(' ', '_')
 
     cover = 'film-library-icons/' + fl_call_number + '_' + title + '.jpg'
@@ -44,7 +50,7 @@ module ThumbnailHelper
       if has_asset?(cover)
         return image_tag(cover, class: 'cover-image show')
       else
-        render_emtpy_cover(document)
+        render_emtpy_cover(document, options=cover)
       end
 
     rescue
@@ -78,14 +84,14 @@ module ThumbnailHelper
     end
   end
 
-  def render_emtpy_cover(document)
+  def render_emtpy_cover(document, options=nil)
     case document['primary_type']
       when 'Book'
         image_tag('thumbnail_placeholder_book.jpg', class: 'cover-image show')
       when 'Continuing Resource'
         image_tag('thumbnail_placeholder_newspaper.jpg', class: 'cover-image show')
       when 'Moving Image'
-        image_tag('thumbnail_placeholder_movie.jpg', class: 'cover-image show')
+        image_tag('thumbnail_placeholder_movie.jpg', class: 'cover-image show', 'data-image-path': options)
     end
   end
 
