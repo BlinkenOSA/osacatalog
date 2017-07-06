@@ -10,6 +10,7 @@
 <% language = render_fa_field(document, "language", "Language", cap: true, facet_name: "language_facet") %>
 <% language_statement = render_fa_field(document, "languageStatement", "Language Statement") %>
 <% dates = render_fa_moving_image_dates(document) %>
+<% duration = render_fa_field(document, "duration", "Duration") %>
 
 <h4 class="show-page-section"><i class="fa fa-info"></i>General information</h4>
 <dl class="dl-horizontal dl-invert data-details">
@@ -26,4 +27,5 @@
   <%= language %>
   <%= language_statement %>
   <%= dates %>
+  <%= duration %>
 </dl>

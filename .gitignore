@@ -130,5 +130,5 @@ bower.json
 
 /vendor/assets/artificial/artificial
 /public/
-/app/assets/images/archival-unit-icons
-/app/assets/images/film-library-icons
+/app/assets/images/archival-unit-icons/
+/app/assets/images/film-library-icons/

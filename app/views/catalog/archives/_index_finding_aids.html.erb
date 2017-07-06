@@ -32,7 +32,10 @@
 
   <div class="data-block">
       <% if document[:primary_type].present? %>
-          <span class="index-format"><%= render_type_icon(document[document.type_field]) %> <%= document[:primary_type].html_safe %></span>
+          <span class="index-format">
+            <%= render_type_icon(document[document.type_field]) %>
+            <%= document[:primary_type].html_safe %><% if document[:duration].present? %>, <%= document[:duration].html_safe %><% end %>
+          </span>
       <% end %>
       <% if document[:title_original].present? %>
           <span class="index-original-title">Original Title: <%= document[:title_original].html_safe %></span>
