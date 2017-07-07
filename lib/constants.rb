@@ -76,7 +76,11 @@ module Constants
     'GEN' => 'General Stacks',
     'REP' => 'Repository',
     'REF' => 'Reference',
-    'STAFF' => 'Staff Office'
+    'STAFF' => 'Staff Office',
+    'Albanian Periodicals' => 'Albanian Periodicals',
+    'BulPer' => 'Bulgarian Periodicals',
+    'PolPer' => 'Polish Periodicals',
+    'RomPer' => 'Romanian Periodicals'
   }
 
 end
