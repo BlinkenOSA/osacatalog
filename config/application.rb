@@ -25,6 +25,7 @@ module Osacatalog
     config.assets.precompile += %w(listnav.css listnav.js)
     config.assets.precompile += %w(multivio.css multivio.js multivio/*)
     config.assets.precompile += %w(stickyRows.css stickyRows.js stickyRows/*)
+    config.assets.precompile += %w(timeline.css timeline.js timeline/*)
 
     config.assets.precompile += %w(app-tables.js)
     config.assets.precompile += %w(app-tree.js)
@@ -34,8 +35,6 @@ module Osacatalog
     config.assets.precompile += %w(app-multivideo.js)
     config.assets.precompile += %w(app-timeline.js)
     config.assets.precompile += %w(osacatalog.js)
-
-    config.assets.precompile += %w(timeline/*)
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
