@@ -24,6 +24,9 @@
     <%= opensearch_description_tag application_name, opensearch_catalog_url(:format => 'xml') %>
     <%= favicon_link_tag 'favicon.ico' %>
 
+    <%= stylesheet_link_tag 'http://fonts.googleapis.com/css?family=Vollkorn:400italic,400' %>
+    <%= stylesheet_link_tag 'http://fonts.googleapis.com/css?family=Unica+One' %>
+    <%= stylesheet_link_tag 'http://fonts.googleapis.com/css?family=Lato:300,400|Open+Sans:400italic,400,600|Muli:300|Indie+Flower:400' %>
     <%= stylesheet_link_tag 'application', media: 'all' %>
 
     <%= csrf_meta_tags %>
@@ -98,15 +101,6 @@
     <%= javascript_include_tag "app-timeline" %>
     <%= javascript_include_tag "osacatalog" %>
 
-    <%= javascript_include_tag "https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" %>
-    <script>
-      WebFont.load({
-        google: {
-          families: ['Vollkorn', 'Unica One', 'Lato']
-        }
-      });
-    </script>
-
     <!-- Google Analitycs -->
     <% if Rails.env.production? %>
       <script>
@@ -118,7 +112,7 @@
         ga('create', 'UA-36640942-7', 'auto');
         ga('send', 'pageview');
       </script>
-  <% end %>
+    <% end %>
 
   </body>
 </html>
