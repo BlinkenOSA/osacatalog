@@ -96,15 +96,21 @@ module ArchivesHelper
 
   def render_isad_accruals(document, lang: 'en')
     if lang == 'en'
+      isad = ActiveSupport::JSON.decode(document['isad_json'])
+    else
+      isad = ActiveSupport::JSON.decode(document['isad_json_hu'])
+    end
+
+    if lang == 'en'
       accruals = '<dt>Accruals</dt>'
-      if document['accruals']
+      if isad['accruals'] == 'Expected'
         accruals << '<dd><p>Expected</p></dd>'
       else
         accruals << '<dd><p>Not expected</p></dd>'
       end
     else
       accruals = '<dt>Jövőbeni gyarapodás</dt>'
-      if document['accruals']
+      if isad['accruals'] == 'Expected'
         accruals << '<dd><p>Várható</p></dd>'
       else
         accruals << '<dd><p>Nem várható</p></dd>'
