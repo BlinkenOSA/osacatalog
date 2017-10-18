@@ -91,7 +91,7 @@ class DigitalRepositoryRecord
     html = ""
     html << "<dt>Part of</dt>"
     html << "<dd>"
-    html << link_to(collection_name, catalog_index_path("f[digital_collection][]".to_sym => collection_name))
+    html << link_to(collection_name, search_catalog_path("f[digital_collection][]".to_sym => collection_name))
     html << ' (<a href="http://www.osaarchivum.org/digital-repository/' + collection_id + '" class="btn-view-collection">view collection record</a>)'
     html << "</dd>"
 

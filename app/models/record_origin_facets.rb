@@ -34,7 +34,7 @@ class RecordOriginFacets
           :"f[record_origin_facet][]" => facet
         }
 
-        html << %Q(<a href="#{catalog_index_path(html_params)}" class="feature-icon">)
+        html << %Q(<a href="#{search_catalog_path(html_params)}" class="feature-icon">)
         html << %Q(<span class="origin-icon"><strong>)
         html << Constants::ORIGIN_ICONS[facet]
         html << %Q(</strong></span>)

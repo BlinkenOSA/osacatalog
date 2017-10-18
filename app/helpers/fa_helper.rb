@@ -247,9 +247,9 @@ module FaHelper
         if cap
           if facet_name != ''
             if lang != 'en'
-              fields << link_to(field_value.capitalize, catalog_index_path(('f[' + facet_name + '][]').to_sym => fa_eng[field][index]))
+              fields << link_to(field_value.capitalize, search_catalog_path(('f[' + facet_name + '][]').to_sym => fa_eng[field][index]))
             else
-              fields << link_to(field_value.capitalize, catalog_index_path(('f[' + facet_name + '][]').to_sym => field_value))
+              fields << link_to(field_value.capitalize, search_catalog_path(('f[' + facet_name + '][]').to_sym => field_value))
             end
           else
             fields << field_value.capitalize
@@ -257,9 +257,9 @@ module FaHelper
         else
           if facet_name != ''
             if lang != 'en'
-              fields << link_to(field_value, catalog_index_path(('f[' + facet_name + '][]').to_sym => fa_eng[field][index]))
+              fields << link_to(field_value, search_catalog_path(('f[' + facet_name + '][]').to_sym => fa_eng[field][index]))
             else
-              fields << link_to(field_value, catalog_index_path(('f[' + facet_name + '][]').to_sym => field_value))
+              fields << link_to(field_value, search_catalog_path(('f[' + facet_name + '][]').to_sym => field_value))
             end
           else
             fields << field_value
@@ -276,9 +276,9 @@ module FaHelper
         if cap
           if facet_name != ''
             if lang != 'en'
-              fa_html << '<dd>' + link_to(fa[field].capitalize, catalog_index_path(('f[' + facet_name + '][]').to_sym => fa_eng[field])) + '</dd>'
+              fa_html << '<dd>' + link_to(fa[field].capitalize, search_catalog_path(('f[' + facet_name + '][]').to_sym => fa_eng[field])) + '</dd>'
             else
-              fa_html << '<dd>' + link_to(fa[field].capitalize, catalog_index_path(('f[' + facet_name + '][]').to_sym => fa[field])) + '</dd>'
+              fa_html << '<dd>' + link_to(fa[field].capitalize, search_catalog_path(('f[' + facet_name + '][]').to_sym => fa[field])) + '</dd>'
             end
           else
             fa_html << '<dd>' + fa[field].capitalize + '</dd>'
@@ -334,9 +334,9 @@ module FaHelper
       fa['associatedPersonal'].each_with_index do |ap, index|
         associated_names_html << '<dd>'
         if lang != 'en'
-          associated_names_html << link_to(ap['name'], catalog_index_path(('f[added_person_facet][]').to_sym => fa_eng['associatedPersonal'][index]['name']))
+          associated_names_html << link_to(ap['name'], search_catalog_path(('f[added_person_facet][]').to_sym => fa_eng['associatedPersonal'][index]['name']))
         else
-          associated_names_html << link_to(ap['name'], catalog_index_path(('f[added_person_facet][]').to_sym => ap['name']))
+          associated_names_html << link_to(ap['name'], search_catalog_path(('f[added_person_facet][]').to_sym => ap['name']))
         end
 
         if ap['role']
@@ -351,9 +351,9 @@ module FaHelper
       fa['associatedCorporation'].each_with_index do |ac, index|
         associated_names_html << '<dd>'
         if lang != 'en'
-          associated_names_html << link_to(ac['name'], catalog_index_path(('f[added_person_facet][]').to_sym => fa_eng['associatedCorporation'][index]['name']))
+          associated_names_html << link_to(ac['name'], search_catalog_path(('f[added_person_facet][]').to_sym => fa_eng['associatedCorporation'][index]['name']))
         else
-          associated_names_html << link_to(ac['name'], catalog_index_path(('f[added_person_facet][]').to_sym => ap['name']))
+          associated_names_html << link_to(ac['name'], search_catalog_path(('f[added_person_facet][]').to_sym => ap['name']))
         end
         if ac['role']
           associated_names_html << ' '
@@ -385,9 +385,9 @@ module FaHelper
       fa['associatedPlace'].each_with_index do |ap, index|
         associated_places_html << '<dd>'
         if lang != 'en'
-          associated_places_html << link_to(ap, catalog_index_path(('f[added_geo_facet][]').to_sym => fa_eng['associatedPlace'][index]))
+          associated_places_html << link_to(ap, search_catalog_path(('f[added_geo_facet][]').to_sym => fa_eng['associatedPlace'][index]))
         else
-          associated_places_html << link_to(ap, catalog_index_path(('f[added_geo_facet][]').to_sym => ap))
+          associated_places_html << link_to(ap, search_catalog_path(('f[added_geo_facet][]').to_sym => ap))
         end
         associated_places_html << '</dd>'
       end
@@ -397,9 +397,9 @@ module FaHelper
       fa['associatedCountry'].each_with_index do |ac, index|
         associated_places_html << '<dd>'
         if lang != 'en'
-          associated_places_html << link_to(ac, catalog_index_path(('f[added_geo_facet][]').to_sym => fa_eng['associatedCountry'][index]))
+          associated_places_html << link_to(ac, search_catalog_path(('f[added_geo_facet][]').to_sym => fa_eng['associatedCountry'][index]))
         else
-          associated_places_html << link_to(ac, catalog_index_path(('f[added_geo_facet][]').to_sym => ac))
+          associated_places_html << link_to(ac, search_catalog_path(('f[added_geo_facet][]').to_sym => ac))
         end
         associated_places_html << '</dd>'
       end
@@ -425,9 +425,9 @@ module FaHelper
         creators_html << '<dd>'
         fa['creatorPersonal'].each_with_index do |cp, index|
           if lang != 'en'
-            creators_html << link_to(cp['name'], catalog_index_path(('f[creator_facet][]').to_sym => fa_eng['creatorPersonal'][index]['name']))
+            creators_html << link_to(cp['name'], search_catalog_path(('f[creator_facet][]').to_sym => fa_eng['creatorPersonal'][index]['name']))
           else
-            creators_html << link_to(cp['name'], catalog_index_path(('f[creator_facet][]').to_sym => cp['name']))
+            creators_html << link_to(cp['name'], search_catalog_path(('f[creator_facet][]').to_sym => cp['name']))
           end
 
           if index == fa['creatorPersonal'].length - 1
@@ -448,9 +448,9 @@ module FaHelper
         creators_html << '<dd>'
         fa['creatorCorporation'].each_with_index do |cc, index|
           if lang != 'en'
-            creators_html << link_to(cc['name'], catalog_index_path(('f[creator_facet][]').to_sym => fa_eng['creatorCorporation'][index]['name']))
+            creators_html << link_to(cc['name'], search_catalog_path(('f[creator_facet][]').to_sym => fa_eng['creatorCorporation'][index]['name']))
           else
-            creators_html << link_to(cc['name'], catalog_index_path(('f[creator_facet][]').to_sym => cc['name']))
+            creators_html << link_to(cc['name'], search_catalog_path(('f[creator_facet][]').to_sym => cc['name']))
           end
         end
         creators_html << '</dd>'

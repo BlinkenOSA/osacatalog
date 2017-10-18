@@ -22,7 +22,7 @@ class FaStructure
         :wt => "json"
       }
     )
-    documents = solr_response[:response][:docs]
+    documents = solr_response["response"]["docs"]
     return documents
   end
 end

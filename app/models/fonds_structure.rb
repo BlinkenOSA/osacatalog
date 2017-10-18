@@ -39,7 +39,7 @@ class FondsStructure
         else
           html << %Q(<li data-jstree='{"opened": true, "icon":"fa fa-archive"}'>)
         end
-        html << link_to((doc[:reference_code_e].force_encoding("UTF-8") + ' ' + doc[:title_e].force_encoding("UTF-8") + ' ' + title_original_e).html_safe, catalog_path(doc[:id_e]))
+        html << link_to((doc[:reference_code_e].force_encoding("UTF-8") + ' ' + doc[:title_e].force_encoding("UTF-8") + ' ' + title_original_e).html_safe, solr_document_path(doc[:id_e]))
         prev_level = "Fonds"
       end
 
@@ -58,7 +58,7 @@ class FondsStructure
           html << %Q(<li data-jstree='{"opened": false, "icon":"fa fa-folder-o"}'>)
         end
 
-        html << link_to((doc[:reference_code_e].force_encoding("UTF-8") + ' ' + doc[:title_e].force_encoding("UTF-8") + ' ' + title_original_e).html_safe, catalog_path(doc[:id_e]))
+        html << link_to((doc[:reference_code_e].force_encoding("UTF-8") + ' ' + doc[:title_e].force_encoding("UTF-8") + ' ' + title_original_e).html_safe, solr_document_path(doc[:id_e]))
         prev_level = "Subfonds"
       end
 
@@ -75,7 +75,7 @@ class FondsStructure
           html << %Q(<li data-jstree='{"opened": true, "icon":"fa fa-folder-o"}'>)
         end
 
-        html << link_to((doc[:reference_code_e].force_encoding("UTF-8") + ' ' + doc[:title_e].force_encoding("UTF-8") + ' ' + title_original_e).html_safe, catalog_path(doc[:id_e]))
+        html << link_to((doc[:reference_code_e].force_encoding("UTF-8") + ' ' + doc[:title_e].force_encoding("UTF-8") + ' ' + title_original_e).html_safe, solr_document_path(doc[:id_e]))
         prev_level = "Series"
       end
     end

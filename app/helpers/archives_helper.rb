@@ -169,7 +169,7 @@ module ArchivesHelper
     if isad[field]
       isad[field].each do |unit|
         if unit['url'] != ''
-          units << link_to(unit[tfield], catalog_path(unit['url']))
+          units << link_to(unit[tfield], solr_document_path(unit['url']))
         else
           units << unit[tfield]
         end

@@ -22,7 +22,7 @@
   <%= archival_id %>
 
   <dt>Part of series</dt>
-  <dd><%= link_to(series_name, catalog_path(series_id)) %></dd>
+  <dd><%= link_to(series_name, solr_document_path(series_id)) %></dd>
 
   <%= creator_personal %>
   <%= title_original %>

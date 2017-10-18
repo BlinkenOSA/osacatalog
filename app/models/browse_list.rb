@@ -41,7 +41,7 @@ class BrowseList
         html_params[params] = facet
 
         html << %Q(<li>)
-        html << %Q(<a href="#{catalog_index_path(html_params)}">)
+        html << %Q(<a href="#{search_catalog_path(html_params)}">)
         html << facet
       else
         html << " (" + facet.to_s + ")"

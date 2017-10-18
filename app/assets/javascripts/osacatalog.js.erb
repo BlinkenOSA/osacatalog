@@ -46,23 +46,8 @@ function stickyParts() {
   }
 }
 
-function stickyTableRows() {
-    var topHeight = $('div.fixed-top').height();
-    var titleHeight = $('div.item-title-sticky').height();
-
-    $('table.faTable2_isad').stickyRows({
-      rows: ['.isad-thead-sticky', '.isad-tbody-sticky'],
-      offsetPixels: topHeight + titleHeight
-    });
-}
-
 $( window ).resize(function() {
   stickyParts();
-  stickyTableRows();
 });
 $(window).trigger('resize');
-
-$(document).on('shown.bs.tab', 'a[href="#findingaids"]', function (e) {
-  stickyTableRows();
-})
 
