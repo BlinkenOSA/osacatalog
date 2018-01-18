@@ -1,5 +1,6 @@
 <% document ||= @document %>
 <% level = render_fa_field(document, "level", "Level") %>
+<% archival_id = render_fa_field(document, "legacyID", "Legacy ID", lang: language) %>
 <% title_original = render_fa_field(document, "titleOriginal", "Original Title") %>
 <% primary_type = render_fa_field(document, "primaryType", "Primary Type", cap: true) %>
 <% container_type = document[:container_type] %>
@@ -19,6 +20,8 @@
 
   <dt>Located at</dt>
   <dd><%= container_type %> #<%= container_number %> / No. <%= sequence_number %></dd>
+
+  <%= archival_id %>
 
   <%= title_original %>
 
