@@ -21,7 +21,7 @@ class CatalogController < ApplicationController
         :qt => 'document',
         :fl => '*',
         :rows => 1,
-        :q => '{!raw f=id v=$id}'
+        :q => '{!terms f=id v=$id}'
     }
 
     # solr field configuration for search results/index views
