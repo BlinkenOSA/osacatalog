@@ -30,7 +30,8 @@ class FondsStructure
     documents = solr_response[:response][:docs]
     documents.each do |doc|
       title_original_e = ""
-      if doc[:title_original_e].length > 0
+      doc=doc.symbolize_keys()
+      if doc.key?(:title_original_e)
         title_original_e = ' <span class="unit-hu">(' + doc[:title_original_e].force_encoding("UTF-8") + ')</span>'
       end
       if doc[:description_level_e] == "Fonds"

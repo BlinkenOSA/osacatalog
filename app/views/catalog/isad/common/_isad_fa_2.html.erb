@@ -12,6 +12,7 @@
       </tr>
     </thead>
     <% fa_list.each_with_index do |fa_item, index| %>
+      <% fa_item=fa_item.symbolize_keys() %>
       <% container_current = fa_item[:container_type_e].force_encoding("UTF-8") + ' #' +
           fa_item[:container_number_e].to_s %>
       <% if container_current != container %>
