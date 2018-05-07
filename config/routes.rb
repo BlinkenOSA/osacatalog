@@ -36,6 +36,7 @@ Rails.application.routes.draw do
   get "browse/languages", to: "browse#languages", as: "browse_languages"
   get "browse/library_collections", to: "browse#library_collections", as: "browse_library_collections"
   get "browse/digital_collections", to: "browse#digital_collections", as: "browse_digital_collections"
+  get "browse/privacy_policy", to: "browse#privacy_policy", as: "privacy_policy"
 
   get "db/fa/:lookup", to: "falookup#lookup", as: "falookup_lookup"
   get "falist/:id", to: "falist#index", as: "falist_index"
