@@ -43,4 +43,7 @@ class BrowseController < ApplicationController
     render digital_collections: @digital_collections
   end
 
+  def privacy_policy
+  end
+
 end

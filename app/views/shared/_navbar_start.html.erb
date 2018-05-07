@@ -71,7 +71,20 @@
                     <%= action %>
                   </li>
                 <% end %>
-            </ul>
+              </ul>
+              <ul class="nav navbar-nav menu-list pull-right">
+                <li class="menu">
+                  <% if current_page?(controller: 'browse', action: 'privacy_policy') %>
+                      <span class="menu-icon current">
+                        Privacy Policy
+                      </span>
+                  <% else %>
+                      <a href="/browse/privacy_policy" class="menu-icon" >
+                        Privacy Policy
+                      </a>
+                  <% end %>
+                </li>
+              </ul>
         </div><!-- navbar-collapse -->
 
     </div>
