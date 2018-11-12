@@ -233,7 +233,7 @@ module FaHelper
       if j['digital_version_exists'] and j['digital_version_container_barcode']
         item << '<div class="row table_digital_version">'
         item << '<div class="col-xs-12">'
-        item << '<span class="label label-default">Digital version available | '
+        item << '<span class="label label-danger">Digital version available | '
         item << j['digital_version_container_barcode']
         item << '</span></div>'
         item << '</div>'
