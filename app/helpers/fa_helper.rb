@@ -201,16 +201,22 @@ module FaHelper
       end
 
       item << '<div class="table_technical_data">'
+
       if j['form_genre']
-        item << j['form_genre'] + ', '
+        if j['form_genre'].instance_of? Array
+          item << j['form_genre'].join(', ') + ', '
+        elsif j['form_genre'].instance_of? String
+          item << j['form_genre'] + ', '
+        end
       end
+
       if j['language']
         item << j['language'].join(', ')
         item << ' language, '
       end
       # item << '<br/>'
 
-      if !j['dates'].empty?
+      unless j['dates'].empty?
         j['dates'].each do |date|
           item << date['dateType'] + ': '
           item << date['date']
@@ -221,7 +227,18 @@ module FaHelper
       if j['duration']
         item << 'Duration: ' + j['duration']
       end
-      item << '</data>'
+      item << '</div>'
+
+      # Barcode
+      if j['digital_version_exists'] and j['digital_version_container_barcode']
+        item << '<div class="row table_digital_version">'
+        item << '<div class="col-xs-12">'
+        item << '<span class="label label-default">Digital version available | '
+        item << j['digital_version_container_barcode']
+        item << '</span></div>'
+        item << '</div>'
+        item << '</div>'
+      end
     end
 
     item.html_safe
@@ -331,38 +348,44 @@ module FaHelper
 
     if fa['associatedPersonal'] || fa['associatedCorporation']
       associated_names_html << '<dt>Associated Names</dt>'
-      fa['associatedPersonal'].each_with_index do |ap, index|
-        associated_names_html << '<dd>'
-        if lang != 'en'
-          associated_names_html << link_to(ap['name'], search_catalog_path(('f[added_person_facet][]').to_sym => fa_eng['associatedPersonal'][index]['name']))
-        else
-          associated_names_html << link_to(ap['name'], search_catalog_path(('f[added_person_facet][]').to_sym => ap['name']))
-        end
 
-        if ap['role']
+      if fa['associatedCorporation']
+        fa['associatedPersonal'].each_with_index do |ap, index|
+          associated_names_html << '<dd>'
+          if lang != 'en'
+            associated_names_html << link_to(ap['name'], search_catalog_path(('f[added_person_facet][]').to_sym => fa_eng['associatedPersonal'][index]['name']))
+          else
+            associated_names_html << link_to(ap['name'], search_catalog_path(('f[added_person_facet][]').to_sym => ap['name']))
+          end
+
+          if ap['role']
+            associated_names_html << ' '
+            associated_names_html << '('
+            associated_names_html << ap['role']
+            associated_names_html << ')'
+          end
           associated_names_html << ' '
-          associated_names_html << '('
-          associated_names_html << ap['role']
-          associated_names_html << ')'
+          associated_names_html << '</dd>'
         end
-        associated_names_html << ' '
-        associated_names_html << '</dd>'
       end
-      fa['associatedCorporation'].each_with_index do |ac, index|
-        associated_names_html << '<dd>'
-        if lang != 'en'
-          associated_names_html << link_to(ac['name'], search_catalog_path(('f[added_person_facet][]').to_sym => fa_eng['associatedCorporation'][index]['name']))
-        else
-          associated_names_html << link_to(ac['name'], search_catalog_path(('f[added_person_facet][]').to_sym => ap['name']))
-        end
-        if ac['role']
+
+      if fa['associatedCorporation']
+        fa['associatedCorporation'].each_with_index do |ac, index|
+          associated_names_html << '<dd>'
+          if lang != 'en'
+            associated_names_html << link_to(ac['name'], search_catalog_path(('f[added_corporation_facet][]').to_sym => fa_eng['associatedCorporation'][index]['name']))
+          else
+            associated_names_html << link_to(ac['name'], search_catalog_path(('f[added_corporation_facet][]').to_sym => ac['name']))
+          end
+          if ac['role']
+            associated_names_html << ' '
+            associated_names_html << '('
+            associated_names_html << ac['role']
+            associated_names_html << ')'
+          end
           associated_names_html << ' '
-          associated_names_html << '('
-          associated_names_html << ac['role']
-          associated_names_html << ')'
+          associated_names_html << '</dd>'
         end
-        associated_names_html << ' '
-        associated_names_html << '</dd>'
       end
 
     end
@@ -464,9 +487,11 @@ module FaHelper
     dates_html = ''
     fa = ActiveSupport::JSON.decode(document['item_json'])['item_json_eng']
 
-    fa['dates'].each do |date|
-      dates_html << '<dt>' + date['dateType'] + '</dt>'
-      dates_html << '<dd>' + date['date'] + '</dd>'
+    if fa.has_key?('dates')
+      fa['dates'].each do |date|
+        dates_html << '<dt>' + date['dateType'] + '</dt>'
+        dates_html << '<dd>' + date['date'] + '</dd>'
+      end
     end
 
     dates_html.html_safe
@@ -485,16 +510,16 @@ module FaHelper
       fa_html << '<dt>' + 'Contents Summary' + '</dt>'
       fa_html << '<dd>'
 
-        if fa_2nd
-          fa_html << '<div class="col-xs-6 moving-image-summary">'
-          fa_html << fa_eng['contentsSummary']
-          fa_html << '</div>'
-          fa_html << '<div class="col-xs-6 moving-image-summary">'
-          fa_html << fa_2nd['contentsSummary']
-          fa_html << '</div>'
-        else
-          fa_html << fa_eng['contentsSummary']
-        end
+      if fa_2nd
+        fa_html << '<div class="col-xs-6 moving-image-summary">'
+        fa_html << fa_eng['contentsSummary']
+        fa_html << '</div>'
+        fa_html << '<div class="col-xs-6 moving-image-summary">'
+        fa_html << fa_2nd['contentsSummary']
+        fa_html << '</div>'
+      else
+        fa_html << fa_eng['contentsSummary']
+      end
 
       fa_html << '</dd>'
     end
