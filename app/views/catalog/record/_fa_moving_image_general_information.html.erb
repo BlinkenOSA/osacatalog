@@ -1,6 +1,7 @@
 <% document ||= @document %>
 <% level = render_fa_field(document, "level", "Level") %>
 <% archival_id = render_fa_field(document, "legacyID", "Legacy ID", lang: language) %>
+<% digital_version_container_barcode = render_fa_field(document, "digital_version_container_barcode", "Digital ver. identifier") %>
 <% title_original = render_fa_field(document, "titleOriginal", "Original Title") %>
 <% primary_type = render_fa_field(document, "primaryType", "Primary Type", cap: true) %>
 <% container_type = document[:container_type] %>
@@ -8,7 +9,7 @@
 <% sequence_number = document[:sequence_number] %>
 <% series_name = document[:series_name] %>
 <% series_id = document[:series_id] %>
-<% language = render_fa_field(document, "language", "Language", cap: true, facet_name: "language_facet") %>
+<% language = render_fa_field(document, "language", "Language", cap: true) %>
 <% language_statement = render_fa_field(document, "languageStatement", "Language Statement") %>
 <% dates = render_fa_moving_image_dates(document) %>
 <% duration = render_fa_field(document, "duration", "Duration") %>
@@ -20,7 +21,7 @@
 
   <dt>Located at</dt>
   <dd><%= container_type %> #<%= container_number %> / No. <%= sequence_number %></dd>
-
+  <%= digital_version_container_barcode %>
   <%= archival_id %>
 
   <%= title_original %>
