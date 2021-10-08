@@ -94,7 +94,7 @@ class DrtimelineController < ApplicationController
 
       unique_id = element["pid"]
 
-      media["url"] = "http://hdl.handle.net/10891/" + element["pid"] + '_t_001'
+      media["url"] = "https://hdl.handle.net/10891/" + element["pid"] + '_t_001'
       media["thumbnail"] = media["url"]
 
       ymd = element["date"].split("-")

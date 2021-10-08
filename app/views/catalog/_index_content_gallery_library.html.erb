@@ -1,0 +1,21 @@
+<div class="documentHeader">
+  <div class="callnumber-bar">
+    <% if document[:call_number].present? %>
+      <%= document[:call_number].first %>
+    <% else %>
+      (no call number)
+    <% end %>
+  </div>
+  <h3 class="index_title">
+    <% if counter = document_counter_with_offset(document_counter) %>
+      <span class="document-counter">
+        <%= t('blacklight.search.documents.counter', counter: counter) %>
+      </span>
+    <% end %>
+    <%= link_to_document document, truncate(get_main_title(document), length: 50), counter: counter %>
+    <span class="main-title-date"><%= get_main_title_date(document) %></span>
+  </h3>
+  <% if document[:author].present? %>
+    <span class="index-author">by <span class="author"><%= document[:author].join('; ').html_safe %></span></span>
+  <% end %>
+</div>

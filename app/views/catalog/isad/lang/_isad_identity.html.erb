@@ -1,0 +1,29 @@
+<% document ||= @document %>
+<% lang ||= @lang %>
+
+<% label = render_group_label("identityStatement", lang: lang) %>
+<% referenceCode_field = render_isad_field(document, "referenceCode", lang: lang) %>
+<% title_field = render_isad_field(document, "title", lang: lang) %>
+<% date_field = render_isad_dates(document, lang: lang) %>
+<% descriptionLevel_field = render_isad_field(document, "descriptionLevel", lang: lang, capitalize: true) %>
+<% extentEstimated_field = render_isad_field(document, "extentEstimated", lang: lang) %>
+<% extent_field = render_isad_field(document, "extent", lang: lang, separator: "<br/>") %>
+
+<% if referenceCode_field != "" ||
+      title_field != "" ||
+      date_field != "" ||
+      descriptionLevel_field != "" ||
+      extentEstimated_field != "" ||
+      extent_field != "" %>
+  <h4 class="show-page-section"><i class="fa fa-info"></i><%= label %></i></h4>
+  <dl class="dl-horizontal dl-invert data-details">
+
+    <%= referenceCode_field %>
+    <%= title_field %>
+    <%= date_field %>
+    <%= descriptionLevel_field %>
+    <%= extentEstimated_field %>
+    <%= extent_field %>
+
+  </dl>
+<% end %>

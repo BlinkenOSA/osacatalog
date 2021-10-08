@@ -5,6 +5,6 @@
 <% end %>
 <% if @document.export_formats.keys.include?( :endnote ) %>
   <li class="endnote">
-    <%= link_to t('blacklight.tools.endnote_html'), solr_document_path(@document, :format => 'endnote') %>
+    <%= link_to t('blacklight.tools.endnote_html'), catalog_path(@document, :format => 'endnote') %>
   </li>
 <% end %>

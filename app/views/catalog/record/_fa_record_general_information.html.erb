@@ -1,0 +1,59 @@
+<% document ||= @document %>
+<% level = render_fa_field(document, "level", "Level") %>
+<% title_original = render_fa_field(document, "titleOriginal", "Original Title") %>
+<% primary_type = render_fa_field(document, "primaryType", "Primary Type", cap: true) %>
+
+<% series_reference_code = document[:series_reference_code] %>
+<% container_type = document[:container_type] %>
+<% container_number = document[:container_number] %>
+<% folder_number = document[:folder_number] %>
+<% sequence_number = document[:sequence_number] %>
+
+<% archival_id = render_fa_field(document, "legacyID", "Legacy ID", lang: language) %>
+<% container_barcode = render_fa_field(document, "digital_version_container_barcode", "Digital ver. identifier") %>
+
+<% series_name = document[:series_name] %>
+<% series_id = document[:series_id] %>
+
+<% languages = render_fa_field(document, "language", "Language", cap: true, facet_name: "language_facet") %>
+<% language_statement = render_fa_field(document, "languageStatement", "Language Statement") %>
+
+<% creator_personal = render_fa_field(document, "creatorPersonalFree", "Collector") %>
+<% creator = render_fa_creator(document, lang: language) %>
+
+<% date = render_fa_field(document, "dateCreated", "Date") %>
+<% dates = render_fa_dates(document) %>
+<% duration = render_fa_field(document, "duration", "Duration") %>
+<% notes = render_fa_field(document, "note", "Notes") %>
+
+<h4 class="show-page-section"><i class="fa fa-info"></i>General information</h4>
+<dl class="dl-horizontal dl-invert data-details">
+  <dt>Call No.:</dt>
+  <dd class="show_call_number">
+    <%= series_reference_code %>:<%= container_number %>/<%= folder_number %><% if sequence_number != 0 %>-<%= sequence_number %><% end %>
+  </dd>
+
+  <dt>Part of series</dt>
+  <dd><%= link_to(series_name, solr_document_path(series_id)) %></dd>
+
+  <dt>Located at</dt>
+  <dd><%= container_type %> #<%= container_number %> / No. <%= folder_number %></dd>
+
+  <%= container_barcode %>
+  <%= archival_id %>
+
+  <%= creator_personal %>
+  <%= title_original %>
+
+  <%= dates %>
+  <%= date %>
+
+  <%= level %>
+  <%= primary_type %>
+  <%= languages %>
+  <%= language_statement %>
+
+  <%= creator %>
+  <%= duration %>
+  <%= notes %>
+</dl>

@@ -1,5 +1,7 @@
 <div class="container-location">
     <div class="container-location-inner-fa" style="background: url('<%= render_fa_cover(document) %>'); background-size: cover;">
-      <span class="thumbnail-call-number">Call Number<br/><%= document["series_reference_code"]%>:<%=document["container_number"]%>/<%=document["sequence_number"]%></span>
+        <span class="thumbnail-call-number">
+          Call Number<br/><%= document["series_reference_code"]%>:<%=document["container_number"]%>/<%=document["folder_number"]%><% if document['sequence_number'] > 0%>-<%=document["folder_number"]%><% end %>
+        </span>
     </div>
 </div>

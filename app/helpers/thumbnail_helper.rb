@@ -97,7 +97,7 @@ module ThumbnailHelper
 
   def render_dr_cover(document)
     item_id = document['id'].gsub('osa:', '')
-    return image_tag('http://storage.osaarchivum.org/thumbnail/' + item_id[0, 2] + '/' + item_id[2, 2] + '/' + item_id + '_t_001.jpg', class: 'cover-image show')
+    return image_tag('https://storage.osaarchivum.org/thumbnail/' + item_id[0, 2] + '/' + item_id[2, 2] + '/' + item_id + '_t_001.jpg', class: 'cover-image show')
   end
 
   def render_fa_cover(document)

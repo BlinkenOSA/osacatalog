@@ -1,0 +1,14 @@
+<% document ||= @document %>
+<% lang ||= @lang %>
+
+<% label = render_group_label("notes", lang: lang) %>
+<% note_field = render_isad_field(document, "note", :lang => lang) %>
+
+<% if note_field != '' %>
+  <h4 class="show-page-section"><i class="fa fa-sticky-note-o"></i><%= label %></h4>
+  <dl class="dl-horizontal dl-invert data-details">
+
+    <%= note_field %>
+
+  </dl>
+<% end %>

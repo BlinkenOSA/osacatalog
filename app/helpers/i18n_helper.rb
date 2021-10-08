@@ -1,9 +1,13 @@
 module I18nHelper
 
-  def self.name_for_locale(locale)
-    I18n.with_locale(locale) { I18n.translate("i18n.language.name") }
-  rescue I18n::MissingTranslationData
-    locale.to_s
+  def self.translate(locale, field)
+    begin
+      I18n.with_locale(locale) do
+        I18n.translate(field, :raise => I18n::MissingTranslationData)
+      end
+    rescue I18n::MissingTranslationData
+      I18n.with_locale('en') { I18n.translate(field) }
+    end
   end
 
 end

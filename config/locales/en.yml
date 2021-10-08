@@ -1,25 +1,40 @@
-# Files in the config/locales directory are used for internationalization
-# and are automatically loaded by Rails. If you want to use locales other
-# than English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t 'hello'
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t('hello') %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# To learn more, please read the Rails Internationalization guide
-# available at http://guides.rubyonrails.org/i18n.html.
-
 en:
-  i18n:
-    language:
-      name: 'English'
+  identityStatement: "Identity Statement"
+  context: "Context"
+  contentAndStructure: "Content and Structure"
+  accessAndUse: "Conditions of Access and Use"
+  alliedMaterials: "Allied Materials"
+  notes: "Notes"
+  descriptionControl: "Description Control"
+  referenceCode: "Reference Code"
+  title: "Title"
+  dates: "Date(s)"
+  descriptionLevel: "Description Level"
+  extentEstimated: "Extent and medium (estimated)"
+  extent: "Extent and medium (processed)"
+  administrativeHistory: "Administrative / Biographical history"
+  archivalHistory: "Archival history"
+  sourceOfAcquisition: "Immediate source of acquisition or transfer"
+  scopeAndContentAbstract: "Scope and Content (Abstract)"
+  scopeAndContentNarrative: "Scope and Content (Narrative)"
+  appraisal: "Appraisal, destruction and scheduling information"
+  systemOfArrangementInformation: "System of arrangement"
+  rightsAccess: "Conditions governing access"
+  rightsRestrictionReason: "Rights restriction reason"
+  rightsReproduction: "Conditions governing reproduction"
+  languages: "Languages"
+  physicalCharacteristics: "Physical characteristics and technical requirements"
+  locationOfOriginals: "Existence and location of originals"
+  locationOfCopies: "Exitence and location of copies"
+  relatedUnits: "Related Units"
+  publicationNote: "Publication note"
+  note: "Note"
+  archivistsNote: "Archivist's note"
+  rulesConventions: "Rules or conventions"
+  dateCreated: "Created on"
+  dateUpdated: "Updated on"
+  descriptionNotes: "Description notes"
+  accruals: "Accruals"
+  accruals_expected: "Expected"
+  accruals_not_expected: "Not Expected"
+  creators: "Name of creator(s)"

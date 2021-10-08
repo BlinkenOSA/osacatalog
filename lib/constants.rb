@@ -1,6 +1,6 @@
 module Constants
 
-  SITE_URL = 'http://catalog.osaarcivum.org'
+  SITE_URL = 'http://catalog.osaarchivum.org'
   FEDORA_URL = 'http://172.31.12.60:8080/fedora'
   FEDORA_GETFOXML = 'http://172.31.12.60/fedorahelper/getfoxml/'
   FEDORA_RISEARCH_URL = FEDORA_URL + '/risearch'

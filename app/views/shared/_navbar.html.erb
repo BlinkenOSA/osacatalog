@@ -42,6 +42,10 @@
                       <a href="javascript:void(0);" class="dropdown-toggle menu-icon current" data-toggle="dropdown">
                         Library Special Collections
                       </a>
+                    <% elsif current_page?(controller: 'browse', action: 'av_collections') %>
+                      <a href="javascript:void(0);" class="dropdown-toggle menu-icon current" data-toggle="dropdown">
+                        Audio Visual Special Collections
+                      </a>
                     <% elsif current_page?(controller: 'browse', action: 'digital_collections') %>
                       <a href="javascript:void(0);" class="dropdown-toggle menu-icon current" data-toggle="dropdown">
                         Digital Collections
@@ -63,6 +67,9 @@
                     </li>
                     <li>
                       <a href="<%= browse_library_collections_path %>">Library Special Collections</a>
+                    </li>
+                    <li>
+                      <a href="<%= browse_av_collections_path %>">Audio Visual Special Collections</a>
                     </li>
                     <li>
                       <a href="<%= browse_digital_collections_path %>">Digital Collections</a>

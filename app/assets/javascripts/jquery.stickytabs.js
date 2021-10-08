@@ -17,15 +17,26 @@
 
         // Show the tab corresponding with the hash in the URL, or the first tab.
         var showTabFromHash = function() {
-          var hash = settings.selectorAttribute == "href" ? window.location.hash : window.location.hash.substring(1);
-          if (hash != '') {
-              var selector = hash ? 'a[' + settings.selectorAttribute +'="' + hash + '"]' : settings.initialTab;
-              var parent_tab_id = $(selector).parents('.tab-pane').attr('id');
-              if (parent_tab_id) {
-                  $('a[href="#' + parent_tab_id + '"').tab('show');
-              }
-              $(selector, context).tab('show');
-              setTimeout(backToTop, 1);
+        var hash = settings.selectorAttribute == "href" ? window.location.hash : window.location.hash.substring(1);
+        var selector, parentHash;
+
+          if (hash !== '') {
+            if (hash.indexOf("_") > 0) {
+              parentHash = (hash.substring(0, (hash.indexOf("_"))));
+              selector = parentHash ? 'a[' + settings.selectorAttribute +'="' + parentHash + '"]' : settings.initialTab;
+            } else {
+              selector = hash ? 'a[' + settings.selectorAttribute +'="' + hash + '"]' : settings.initialTab;
+            }
+
+            var parent_tab_id = $(selector).parents('.tab-pane').attr('id');
+            if (parent_tab_id) {
+              $('a[href="#' + parent_tab_id + '"').tab('show');
+            }
+            $(selector, context).tab('show');
+
+            if (!parentHash) {
+              setTimeout(function() { window.scrollTo(0, 0) }, 1000);
+            }
           }
         }
 
