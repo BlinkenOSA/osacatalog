@@ -1,0 +1,11 @@
+<% document ||= @document %>
+<% form_genre = render_fa_field(document, "form_genre", "Form/Genre", cap: true, facet_name: "genre_facet") %>
+<% contents_summary = render_fa_moving_image_contents_summary(document) %>
+
+<% if form_genre != '' || contents_summary != '' %>
+    <h4 class="show-page-section"><i class="fa fa-list"></i>Content</h4>
+    <dl class="dl-horizontal dl-invert data-details">
+      <%= form_genre %>
+      <%= contents_summary %>
+    </dl>
+<% end %>

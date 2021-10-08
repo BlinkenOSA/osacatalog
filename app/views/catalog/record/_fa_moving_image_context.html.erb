@@ -1,13 +1,11 @@
 <% document ||= @document %>
-<% form_genre = render_fa_field(document, "form_genre", "Form/Genre", cap: true, facet_name: "genre_facet") %>
-<% contents_summary = render_fa_moving_image_contents_summary(document) %>
-<% associated_country = render_fa_field(document, "associatedCountry", "Associated Country") %>
+<% note = render_fa_field(document, 'note', 'Note') %>
+<% associated_names = render_fa_associated_names(document, lang: language) %>
 
-<% if form_genre != '' || contents_summary != '' || associated_country != '' %>
-  <h4 class="show-page-section"><i class="fa fa-list"></i>Content</h4>
-  <dl class="dl-horizontal dl-invert data-details">
-      <%= form_genre %>
-      <%= contents_summary %>
-      <%= associated_country %>
-  </dl>
+<% if note != '' || associated_names != ''%>
+    <h4 class="show-page-section"><i class="fa fa-paperclip"></i>Context</h4>
+    <dl class="dl-horizontal dl-invert data-details">
+      <%= note %>
+      <%= associated_names %>
+    </dl>
 <% end %>
