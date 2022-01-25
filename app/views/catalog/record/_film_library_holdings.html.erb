@@ -1,0 +1,23 @@
+<% document ||= @document %>
+<h4 class="show-page-section"><i class="fa fa-building-o"></i>Holdings</h4>
+<dl class="dl-horizontal dl-invert data-details">
+
+  <% holdings_info = get_film_library_holdings(document.to_marc) %>
+  <% if holdings_info %>
+    <table class="table table-bordered table-hover">
+      <thead>
+        <tr class="active">
+          <th>Item Type</th>
+          <th>Current Location</th>
+	  <th>Call Number</th>
+	  <th>Status</th>
+	  <th>Shelving Location</th>
+          <th>Public Note</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= holdings_info %>
+      </tbody>
+    </table>
+  <% end %>
+</dl>
