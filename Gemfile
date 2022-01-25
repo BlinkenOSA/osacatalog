@@ -9,7 +9,7 @@ gem 'sqlite3', '~> 1.3.0'
 # gem 'mysql'
 
 # Fix error
-gem 'bootstrap-sass', ">= 3.4.1"
+gem 'bootstrap-sass', '=3.3.4.1'
 
 # Use SCSS for stylesheets
 #gem 'sass-rails', '~> 4.0.3'
