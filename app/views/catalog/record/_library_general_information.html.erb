@@ -70,6 +70,12 @@
       <%= render "catalog/field_from_marc", :fields => description %>
     <%- end -%>
 
+    <!-- BARCODE -->
+    <%- barcode = get_data_with_label(document, "Digital ver. identifier", 'digital_version_barcode') -%>
+    <%- unless barcode.nil? %>
+      <%= render "catalog/field_red_label", :fields => barcode %>
+    <%- end -%>
+
     <!-- SERIES -->
     <% series = link_to_series_from_marc(document.to_marc) %>
     <% if series.present? %>

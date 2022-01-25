@@ -2,28 +2,7 @@ Rails.application.routes.draw do
   Blacklight::Marc.add_routes(self)
   root to: "catalog#index"
 
-  concern :searchable, Blacklight::Routes::Searchable.new
-
-  resource :catalog, only: [:index], controller: 'catalog' do
-    concerns :searchable
-  end
-
-  concern :exportable, Blacklight::Routes::Exportable.new
-
-  resources :solr_documents, only: [:show], path: '/catalog', controller: 'catalog' do
-    concerns :exportable
-  end
-
-  resources :bookmarks do
-    concerns :exportable
-
-    collection do
-      delete 'clear'
-    end
-  end
-
-  mount Blacklight::Engine, at: '/'
-
+  blacklight_for :catalog
   devise_for :users
 
   get "shelf/nearby", to: "shelf#nearby", as: "shelf_nearby"
@@ -35,8 +14,8 @@ Rails.application.routes.draw do
   get "browse/directors", to: "browse#directors", as: "browse_directors"
   get "browse/languages", to: "browse#languages", as: "browse_languages"
   get "browse/library_collections", to: "browse#library_collections", as: "browse_library_collections"
+  get "browse/av_collections", to: "browse#av_collections", as: "browse_av_collections"
   get "browse/digital_collections", to: "browse#digital_collections", as: "browse_digital_collections"
-  get "browse/privacy_policy", to: "browse#privacy_policy", as: "privacy_policy"
 
   get "db/fa/:lookup", to: "falookup#lookup", as: "falookup_lookup"
   get "falist/:id", to: "falist#index", as: "falist_index"
@@ -44,6 +23,8 @@ Rails.application.routes.draw do
   get "vis/dr_timeline/data/:collection/:year/:month", to: "drtimeline#get_data_by_date", as: "drtimeline_data_by_date"
   get "vis/dr_timeline/data/:collection/dates", to: "drtimeline#get_dates_for_collection", as: "drtimeline_dates_for_collection"
   get "vis/dr_timeline", to: "drtimeline#index", as: "drtimeline_index"
+
+  get "browse/privacy_policy", to: "browse#privacy_policy", as: "privacy_policy"
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

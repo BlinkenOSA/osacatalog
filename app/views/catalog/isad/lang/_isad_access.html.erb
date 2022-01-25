@@ -1,0 +1,22 @@
+<% document ||= @document %>
+<% lang ||= @lang %>
+
+<% label = render_group_label("accessAndUse", lang: lang) %>
+<% rightsAccess_field = render_isad_field(document, "rightsAccess", :lang => lang) %>
+<% rightsRestrictionReason_field = render_isad_field(document, "rightsRestrictionReason", :lang => lang) %>
+<% rightsReproduction_field = render_isad_field(document, "rightsReproduction", :lang => lang) %>
+<% languages_field = render_isad_field(document, "languages", :lang => lang) %>
+<% physicalCharacteristics_field = render_isad_field(document, "physicalCharacteristics", :lang => lang) %>
+
+<% if rightsAccess_field != "" || rightsRestrictionReason_field != "" || rightsReproduction_field != "" || languages_field != "" || physicalCharacteristics_field != "" %>
+  <h4 class="show-page-section"><i class="fa fa-copyright"></i><%= label %></h4>
+  <dl class="dl-horizontal dl-invert data-details">
+
+    <%= rightsAccess_field %>
+    <%= rightsRestrictionReason_field %>
+    <%= rightsReproduction_field %>
+    <%= languages_field %>
+    <%= physicalCharacteristics_field %>
+
+  </dl>
+<% end %>

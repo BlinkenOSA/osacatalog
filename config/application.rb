@@ -43,6 +43,15 @@ module Osacatalog
     config.application_name = "osacatalog"
 
     require 'constants'
+    require 'holdings'
+    require 'nearby_on_shelf'
+    require 'fonds_structure'
+    require 'fa_structure'
+    require 'fa_structure_detailed'
+    require 'record_origin_facets'
+    require 'browse_list'
+    require 'fa_lookup'
+    require 'collections_structure'
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.

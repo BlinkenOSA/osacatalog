@@ -1,0 +1,26 @@
+<% document ||= @document %>
+<% lang ||= @lang %>
+
+<% label = render_group_label("contentAndStructure", lang: lang) %>
+<% scopeAndContentAbstract_field = render_isad_field(document, "scopeAndContentAbstract", :lang => lang) %>
+<% scopeAndContentNarrative_field = render_isad_field(document, "scopeAndContentNarrative", :lang => lang) %>
+<% appraisal_field = render_isad_field(document, "appraisal", :lang => lang) %>
+<% accruals_field = render_isad_accruals(document, :lang => lang) %>
+<% systemOfArrangementInformation_field = render_isad_field(document, "systemOfArrangement", :lang => lang) %>
+
+<% if scopeAndContentAbstract_field != '' ||
+      scopeAndContentNarrative_field != '' ||
+      appraisal_field != '' ||
+      accruals_field != '' ||
+      systemOfArrangementInformation_field != '' %>
+  <h4 class="show-page-section"><i class="fa fa-list"></i><%= label %></h4>
+  <dl class="dl-horizontal dl-invert data-details">
+
+    <%= scopeAndContentAbstract_field %>
+    <%= scopeAndContentNarrative_field %>
+    <%= appraisal_field %>
+    <%= accruals_field %>
+    <%= systemOfArrangementInformation_field %>
+
+  </dl>
+<% end %>

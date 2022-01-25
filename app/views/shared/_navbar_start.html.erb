@@ -34,6 +34,8 @@
                       Languages [A - Z]
                     <% elsif current_page?(controller: 'browse', action: 'library_collections') %>
                       Library Special Collections
+                    <% elsif current_page?(controller: 'browse', action: 'av_collections') %>
+                      Audio Visual Special Collections
                     <% else %>
                       Browse
                     <% end %>
@@ -50,6 +52,9 @@
                     </li>
                     <li>
                       <a href="<%= browse_library_collections_path %>">Library Special Collections</a>
+                    </li>
+                    <li>
+                      <a href="<%= browse_av_collections_path %>">Audio Visual Special Collections</a>
                     </li>
                     <li>
                       <a href="<%= browse_digital_collections_path %>">Digital Collections</a>

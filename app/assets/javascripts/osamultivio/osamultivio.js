@@ -4,6 +4,6 @@ $('a.repository-viewer').enableMultivio({
     previewHeight: 190,
 	thumbnailAlign: 'auto',
     supportedDocuments: 'hdl.handle.net|storage.osaarchivum.org',
-	multivioClientInstance: 'http://multivio.osaarchivum.org/client',
-	multivioServerInstance: 'http://multivio.osaarchivum.org/server',
+	multivioClientInstance: 'https://multivio.osaarchivum.org/client',
+	multivioServerInstance: 'https://multivio.osaarchivum.org/server',
 });

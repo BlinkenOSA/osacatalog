@@ -47,7 +47,11 @@ module FaHelper
   def render_fa_call_number(item_json)
     j = JSON.parse(Base64.decode64(item_json))['item_json_eng']
     call_number = j['seriesReferenceCode'] + ':' +
-        j['containerNumber'].to_i.to_s + '/' + j['sequenceNumber'].to_i.to_s
+        j['containerNumber'].to_i.to_s + '/' +
+        j['folderNumber'].to_i.to_s
+    if j.key?('sequenceNumber')
+      call_number += '-' + j['sequenceNumber'].to_i.to_s
+    end
     call_number.html_safe
   end
 
@@ -91,7 +95,11 @@ module FaHelper
       else
         if j['titleOriginal']
           item << '<div class="col-xs-12">'
-          item << '<strong>' + j['title'] + ' / ' + j['titleOriginal'] + '</strong>'
+          if j['title']
+            item << '<strong>' + j['title'] + ' / ' + j['titleOriginal'] + '</strong>'
+          else
+            item << '<strong>' + j['titleOriginal'] + '</strong>'
+          end
           if j['dateCreated']
             item << ', ' + j['dateCreated']
           end
@@ -149,19 +157,46 @@ module FaHelper
 
 
     # ELECTRONIC RECORDS
-    elsif j['primaryType'] == 'Electronic Record'
-      item << '<strong>' + j['title'] + '</strong>'
-      if j['dateCreated']
-        item << ', ' + j['dateCreated']
+    elsif j['primaryType'] == 'Electronic Record' || j['primaryType'] == 'Still Image'
+      item << '<div class="row">'
+      if j_2nd.has_key?('contentsSummary')
+        item << '<div class="col-xs-6">'
+        item << '<strong>' + j['title'] + '</strong>'
+        item << '</div>'
+        if j['titleOriginal']
+          item << '<div class="col-xs-6">'
+          item << '<strong>' + j['titleOriginal'] + '</strong>'
+          item << '</div>'
+        end
+
+      else
+        if j['titleOriginal']
+          item << '<div class="col-xs-12">'
+          item << '<strong>' + j['title'] + ' / ' + j['titleOriginal'] + '</strong>'
+          item << '</div>'
+        else
+          item << '<div class="col-xs-12">'
+          item << '<strong>' + j['title'] + '</strong>'
+          item << '</div>'
+        end
       end
-      item << '<br/>'
-      if j['note']
-        item << '<em>[' + j['note'] + ']</em>'
-        item << '<br/>'
+      item << '</div>'
+
+      if j['contentsSummary'] || j_2nd.has_key?('contentsSummary')
+        item << '<div class="row table_contents_summary">'
+        if j_2nd.has_key?('contentsSummary') && j['contentsSummary']
+          item << '<div class="col-xs-6">' + j['contentsSummary'] + '</div>'
+          item << '<div class="col-xs-6">' + j_2nd['contentsSummary'] + '</div>'
+        elsif j['contentsSummary']
+          item << '<div class="col-xs-12">' + j['contentsSummary'] + '</div>'
+        else
+          item << '<div class="col-xs-12">' + j_2nd['contentsSummary'] + '</div>'
+        end
+        item << '</div>'
       end
 
     # MOVING IMAGE
-    elsif j['primaryType'] == 'Moving Image'
+    elsif j['primaryType'] == 'Moving Image' || j['primaryType'] == 'Audio'
 
       item << '<div class="row">'
       if j_2nd.has_key?('contentsSummary')
@@ -216,12 +251,19 @@ module FaHelper
       end
       # item << '<br/>'
 
-      unless j['dates'].empty?
+      if j['dates']
         j['dates'].each do |date|
           item << date['dateType'] + ': '
           item << date['date']
+	  item << ', '
         end
-        item << ', '
+      end
+
+      if !j['dates']
+        if j['dateCreated']
+          item << j['dateCreated']
+          item << ', '
+        end
       end
 
       if j['duration']
@@ -264,9 +306,9 @@ module FaHelper
         if cap
           if facet_name != ''
             if lang != 'en'
-              fields << link_to(field_value.capitalize, search_catalog_path(('f[' + facet_name + '][]').to_sym => fa_eng[field][index]))
+              fields << link_to(field_value.capitalize, catalog_index_path(('f[' + facet_name + '][]').to_sym => fa_eng[field][index]))
             else
-              fields << link_to(field_value.capitalize, search_catalog_path(('f[' + facet_name + '][]').to_sym => field_value))
+              fields << link_to(field_value.capitalize, catalog_index_path(('f[' + facet_name + '][]').to_sym => field_value))
             end
           else
             fields << field_value.capitalize
@@ -274,9 +316,9 @@ module FaHelper
         else
           if facet_name != ''
             if lang != 'en'
-              fields << link_to(field_value, search_catalog_path(('f[' + facet_name + '][]').to_sym => fa_eng[field][index]))
+              fields << link_to(field_value, catalog_index_path(('f[' + facet_name + '][]').to_sym => fa_eng[field][index]))
             else
-              fields << link_to(field_value, search_catalog_path(('f[' + facet_name + '][]').to_sym => field_value))
+              fields << link_to(field_value, catalog_index_path(('f[' + facet_name + '][]').to_sym => field_value))
             end
           else
             fields << field_value
@@ -293,15 +335,19 @@ module FaHelper
         if cap
           if facet_name != ''
             if lang != 'en'
-              fa_html << '<dd>' + link_to(fa[field].capitalize, search_catalog_path(('f[' + facet_name + '][]').to_sym => fa_eng[field])) + '</dd>'
+              fa_html << '<dd>' + link_to(fa[field].capitalize, catalog_index_path(('f[' + facet_name + '][]').to_sym => fa_eng[field])) + '</dd>'
             else
-              fa_html << '<dd>' + link_to(fa[field].capitalize, search_catalog_path(('f[' + facet_name + '][]').to_sym => fa[field])) + '</dd>'
+              fa_html << '<dd>' + link_to(fa[field].capitalize, catalog_index_path(('f[' + facet_name + '][]').to_sym => fa[field])) + '</dd>'
             end
           else
             fa_html << '<dd>' + fa[field].capitalize + '</dd>'
           end
         else
-          fa_html << '<dd>' + fa[field] + '</dd>'
+          if field == 'digital_version_container_barcode'
+            fa_html << '<dd><span class="label label-danger">' + fa[field] + '</span></dd>'
+          else
+            fa_html << '<dd>' + fa[field] + '</dd>'
+          end
         end
       end
     else
@@ -348,16 +394,16 @@ module FaHelper
 
     if fa['associatedPersonal'] || fa['associatedCorporation']
       associated_names_html << '<dt>Associated Names</dt>'
-
-      if fa['associatedCorporation']
+	
+      if fa['associatedPersonal']
         fa['associatedPersonal'].each_with_index do |ap, index|
           associated_names_html << '<dd>'
           if lang != 'en'
-            associated_names_html << link_to(ap['name'], search_catalog_path(('f[added_person_facet][]').to_sym => fa_eng['associatedPersonal'][index]['name']))
+            associated_names_html << link_to(ap['name'], catalog_index_path(('f[added_person_facet][]').to_sym => fa_eng['associatedPersonal'][index]['name']))
           else
-            associated_names_html << link_to(ap['name'], search_catalog_path(('f[added_person_facet][]').to_sym => ap['name']))
+            associated_names_html << link_to(ap['name'], catalog_index_path(('f[added_person_facet][]').to_sym => ap['name']))
           end
-
+ 
           if ap['role']
             associated_names_html << ' '
             associated_names_html << '('
@@ -373,9 +419,9 @@ module FaHelper
         fa['associatedCorporation'].each_with_index do |ac, index|
           associated_names_html << '<dd>'
           if lang != 'en'
-            associated_names_html << link_to(ac['name'], search_catalog_path(('f[added_corporation_facet][]').to_sym => fa_eng['associatedCorporation'][index]['name']))
+            associated_names_html << link_to(ac['name'], catalog_index_path(('f[added_corporation_facet][]').to_sym => fa_eng['associatedCorporation'][index]['name']))
           else
-            associated_names_html << link_to(ac['name'], search_catalog_path(('f[added_corporation_facet][]').to_sym => ac['name']))
+            associated_names_html << link_to(ac['name'], catalog_index_path(('f[added_corporation_facet][]').to_sym => ac['name']))
           end
           if ac['role']
             associated_names_html << ' '
@@ -387,14 +433,13 @@ module FaHelper
           associated_names_html << '</dd>'
         end
       end
-
     end
 
     associated_names_html.html_safe
   end
 
-  def render_fa_associated_places(document, lang: 'en')
-    associated_places_html = ''
+  def render_fa_multi_value(document, fields, label, facet_field, lang: 'en')
+    html = ''
 
     if lang != 'en'
       fa = ActiveSupport::JSON.decode(document['item_json'])['item_json_2nd']
@@ -403,31 +448,37 @@ module FaHelper
       fa = ActiveSupport::JSON.decode(document['item_json'])['item_json_eng']
     end
 
-    if fa['associatedPlace']
-      associated_places_html << '<dt>Associated Places</dt>'
-      fa['associatedPlace'].each_with_index do |ap, index|
-        associated_places_html << '<dd>'
-        if lang != 'en'
-          associated_places_html << link_to(ap, search_catalog_path(('f[added_geo_facet][]').to_sym => fa_eng['associatedPlace'][index]))
-        else
-          associated_places_html << link_to(ap, search_catalog_path(('f[added_geo_facet][]').to_sym => ap))
-        end
-        associated_places_html << '</dd>'
+    # Add label
+    fields.each do |field|
+      if fa[field]
+        html = '<dt>' + label + '</dt>'
       end
     end
 
-    if fa['associatedCountry']
-      fa['associatedCountry'].each_with_index do |ac, index|
-        associated_places_html << '<dd>'
-        if lang != 'en'
-          associated_places_html << link_to(ac, search_catalog_path(('f[added_geo_facet][]').to_sym => fa_eng['associatedCountry'][index]))
-        else
-          associated_places_html << link_to(ac, search_catalog_path(('f[added_geo_facet][]').to_sym => ac))
+    # Add values
+    fields.each do |field|
+      if fa[field]
+        fa[field].each_with_index do |f, index|
+          html << '<dd>'
+          if lang != 'en'
+            if facet_field
+              html << link_to(f, catalog_index_path((facet_field).to_sym => fa_eng[field][index]))
+            else
+              html << fa_eng[field][index]
+            end
+          else
+            if facet_field
+              html << link_to(f, catalog_index_path((facet_field).to_sym => f))
+            else
+              html << fa[field][index]
+            end
+          end
+          html << '</dd>'
         end
-        associated_places_html << '</dd>'
       end
     end
-    associated_places_html.html_safe
+
+    html.html_safe
   end
 
   def render_fa_creator(document, lang: 'en')
@@ -448,9 +499,9 @@ module FaHelper
         creators_html << '<dd>'
         fa['creatorPersonal'].each_with_index do |cp, index|
           if lang != 'en'
-            creators_html << link_to(cp['name'], search_catalog_path(('f[creator_facet][]').to_sym => fa_eng['creatorPersonal'][index]['name']))
+            creators_html << link_to(cp['name'], catalog_index_path(('f[creator_facet][]').to_sym => fa_eng['creatorPersonal'][index]['name']))
           else
-            creators_html << link_to(cp['name'], search_catalog_path(('f[creator_facet][]').to_sym => cp['name']))
+            creators_html << link_to(cp['name'], catalog_index_path(('f[creator_facet][]').to_sym => cp['name']))
           end
 
           if index == fa['creatorPersonal'].length - 1
@@ -471,9 +522,9 @@ module FaHelper
         creators_html << '<dd>'
         fa['creatorCorporation'].each_with_index do |cc, index|
           if lang != 'en'
-            creators_html << link_to(cc['name'], search_catalog_path(('f[creator_facet][]').to_sym => fa_eng['creatorCorporation'][index]['name']))
+            creators_html << link_to(cc['name'], catalog_index_path(('f[creator_facet][]').to_sym => fa_eng['creatorCorporation'][index]['name']))
           else
-            creators_html << link_to(cc['name'], search_catalog_path(('f[creator_facet][]').to_sym => cc['name']))
+            creators_html << link_to(cc['name'], catalog_index_path(('f[creator_facet][]').to_sym => cc['name']))
           end
         end
         creators_html << '</dd>'
@@ -483,7 +534,7 @@ module FaHelper
     creators_html.html_safe
   end
 
-  def render_fa_moving_image_dates(document)
+  def render_fa_dates(document)
     dates_html = ''
     fa = ActiveSupport::JSON.decode(document['item_json'])['item_json_eng']
 
@@ -497,7 +548,7 @@ module FaHelper
     dates_html.html_safe
   end
 
-  def render_fa_moving_image_contents_summary(document)
+  def render_fa_contents_summary(document)
     fa_html = ''
     fa = ActiveSupport::JSON.decode(document['item_json'])
 
@@ -522,6 +573,15 @@ module FaHelper
       end
 
       fa_html << '</dd>'
+    else
+      if fa_2nd
+        if fa_2nd['contentsSummary']
+          fa_html << '<dt>' + 'Contents Summary' + '</dt>'
+          fa_html << '<dd>'
+          fa_html << fa_2nd['contentsSummary']
+          fa_html << '</dd>'
+        end
+      end
     end
 
     fa_html.html_safe

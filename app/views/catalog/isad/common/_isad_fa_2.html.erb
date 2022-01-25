@@ -21,7 +21,10 @@
         <% end %>
         <tbody class="isad-tbody-sticky">
           <tr class="container_info">
-            <td colspan="2"><%= container_current %></td>
+            <td colspan="2">
+              <a class="anchor" id="findingaids_<%= fa_item[:container_number_e].to_s %>"></a>
+              <%= container_current %>
+            </td>
           </tr>
         </tbody>
         <tbody>

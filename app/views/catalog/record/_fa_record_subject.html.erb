@@ -1,0 +1,13 @@
+<% document ||= @document %>
+<% spatial_coverage = render_fa_multi_value(document, %w(spatialCoveragePlace spatialCoverageCountry), 'Spatial Coverage', nil) %>
+<% subject_names = render_fa_multi_value(document, %w(subjectPeople subjectCorporation), 'Subject', nil) %>
+<% collection_specific_tags = render_fa_field(document, "collectionSpecificTags", "Collection Specific Tags", cap: false, facet_name: 'subject_facet',  lang: language) %>
+
+<% if collection_specific_tags != '' || subject_names != '' || spatial_coverage != '' %>
+  <h4 class="show-page-section"><i class="fa fa-globe"></i>Subject / Coverage</h4>
+  <dl class="dl-horizontal dl-invert data-details">
+    <%= spatial_coverage %>
+    <%= subject_names %>
+    <%= collection_specific_tags %>
+  </dl>
+<% end %>

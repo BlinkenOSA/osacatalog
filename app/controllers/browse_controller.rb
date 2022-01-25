@@ -38,6 +38,11 @@ class BrowseController < ApplicationController
     render library_collections: @library_collections
   end
 
+  def av_collections
+    @av_collections = BrowseList.new('av_collection', 'browselist_all').browselist
+    render av: @av_collections
+  end
+
   def digital_collections
     @digital_collections = BrowseList.new('digital_collection', 'browselist_all').browselist
     render digital_collections: @digital_collections

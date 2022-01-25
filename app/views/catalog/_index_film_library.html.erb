@@ -42,7 +42,11 @@
       <span class="index-publisher"><%= document[:publisher].join(', ').html_safe %></span>
     <% end %>
     <p class="index-available">
-      <span class="label label-available">Available in the Research Room</span>
+      <% if document[:digital_version_barcode].present? %>
+        <span class="label label-danger">Digital version available | <%= document[:digital_version_barcode] %></span>
+      <% else %>
+        <span class="label label-available">Available in the Research Room</span>
+      <% end %>
     </p>
   </div>
 </div>

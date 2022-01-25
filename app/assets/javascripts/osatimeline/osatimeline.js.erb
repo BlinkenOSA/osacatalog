@@ -4,7 +4,7 @@ var timeline;
 function makeTimeline(page, collection_id, year, month) {
   $('#drtimeline-embed').empty();
 
-  timeline_url = 'http://catalog.osaarchivum.org/vis/dr_timeline/data/' + collection_id + '/' + year + '/' + month
+  timeline_url = 'https://catalog.osaarchivum.org/vis/dr_timeline/data/' + collection_id + '/' + year + '/' + month
 
   timeline_options = {
     hash_bookmark: false,
@@ -65,7 +65,7 @@ function initYearSelector() {
       .append('<option selected value="0">- Every Year -</option>');
 
     var collection = $('#digialCollectionTimeline').val();
-    $.getJSON('http://catalog.osaarchivum.org/vis/dr_timeline/data/' + collection + '/dates', function(data) {
+    $.getJSON('https://catalog.osaarchivum.org/vis/dr_timeline/data/' + collection + '/dates', function(data) {
       start_date = data["start_date"];
       end_date = data["end_date"];
 

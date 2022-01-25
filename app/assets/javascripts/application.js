@@ -31,7 +31,6 @@
 //= require listnav
 //= require spin
 //= require jquery.sticky-kit
-//= require clusterize
 
 //= require jquery-ui
 //= require jquery.browser

@@ -1,0 +1,13 @@
+<% document ||= @document %>
+<% publication_note = render_fa_field(document, "publicationNote", "Publication Note", lang: language) %>
+<% associated_names = render_fa_associated_names(document, lang: language) %>
+<% associated_place = render_fa_multi_value(document, %w(associatedPlace associatedCountry), 'Associated Places', 'f[added_geo_facet][]') %>
+
+<% if publication_note != '' || associated_names != '' || associated_place != '' %>
+  <h4 class="show-page-section"><i class="fa fa-paperclip"></i>Context</h4>
+  <dl class="dl-horizontal dl-invert data-details">
+    <%= publication_note %>
+    <%= associated_names %>
+    <%= associated_place %>
+  </dl>
+<% end %>

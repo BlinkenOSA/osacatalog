@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 class CatalogController < ApplicationController
-  include Blacklight::Catalog
   include Blacklight::Marc::Catalog
+  include Blacklight::Catalog
 
   configure_blacklight do |config|
     ## Default parameters to send to solr for all search-like requests. See also SearchBuilder#processed_parameters
@@ -21,7 +21,7 @@ class CatalogController < ApplicationController
         :qt => 'document',
         :fl => '*',
         :rows => 1,
-        :q => '{!terms f=id v=$id}'
+        :q => '{!raw f=id v=$id}'
     }
 
     # solr field configuration for search results/index views
@@ -55,9 +55,10 @@ class CatalogController < ApplicationController
     # :show may be set to false if you don't want the facet to be drawn in the
     # facet bar
     config.add_facet_field 'record_origin_facet', :label => 'Record Origin', collapse: false, partial: 'facet_record_origin'
+    config.add_facet_field 'availability_facet', :label => 'How Can I See It?', collapse: false
     # config.add_facet_field 'archival_level_facet', :label => 'Description Group', collapse: false, sort: 'index'
     config.add_facet_field 'primary_type_facet', :label => 'Record Type', collapse: false, partial: 'facet_primary_type'
-    config.add_facet_field 'description_level_facet', :label => 'Archival Description Level', collapse: false, sort: 'index', partial: 'facet_description_level'
+    config.add_facet_field 'description_level_facet', :label => 'Archival Description Level', sort: 'index', partial: 'facet_description_level'
     config.add_facet_field 'digital_collection', :label => 'Digital Collection', limit: 20
 
     config.add_facet_field 'date_created_facet', :label => 'Creation Date', :range => {
@@ -254,7 +255,7 @@ class CatalogController < ApplicationController
     # label in pulldown is followed by the name of the SOLR field to sort by and
     # whether the sort is ascending or descending (it must be asc or desc
     # except in the relevancy case).
-    config.add_sort_field 'score desc, fonds_sort asc, subfonds_sort asc, series_sort asc, container_number_sort asc, sequence_number_sort asc, digital_repository_sort asc, title_sort asc', :label => 'relevance'
+    config.add_sort_field 'score desc, fonds_sort asc, subfonds_sort asc, series_sort asc, container_number_sort asc, folder_number_sort asc, sequence_number_sort asc, digital_repository_sort asc, title_sort asc', :label => 'relevance'
     config.add_sort_field 'title_sort asc, score desc, fonds_sort asc, subfonds_sort asc, series_sort asc, container_number_sort asc, sequence_number_sort asc', :label => 'title'
     # config.add_sort_field 'fonds_sort asc, subfonds_sort asc, series_sort asc, container_number_sort asc, sequence_number_sort asc, title_sort asc', :label => 'archival hierarchy'
 

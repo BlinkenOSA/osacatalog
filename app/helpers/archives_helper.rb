@@ -25,10 +25,13 @@ module ArchivesHelper
 
   def collect_au_languages(document)
     langauges = ['en']
-    if document.key?('isad_json_hu')
-      isad_hu = ActiveSupport::JSON.decode(document['isad_json_hu'])
-      if not isad_hu.empty?
-        langauges.push('hu')
+    if document.key?('isad_json')
+      isad = ActiveSupport::JSON.decode(document['isad_json'])
+      if isad.key?('isad_json_2nd')
+        isad_2nd = ActiveSupport::JSON.decode(isad['isad_json_2nd'])
+        if isad_2nd.key?('metadataLanguageCode')
+          langauges.push(isad_2nd['metadataLanguageCode'])
+        end
       end
     end
 
@@ -39,14 +42,21 @@ module ArchivesHelper
     FondsStructure.new(document).fondslist
   end
 
-  def render_isad_field(document, field, label, capitalize: false, separator: ', ', subfield: nil, lang: 'en')
+  def render_group_label(field, lang: 'en')
+    label =  I18nHelper.translate(lang, field)
+    return label.html_safe
+  end
+
+  def render_isad_field(document, field, capitalize: false, separator: ', ', subfield: nil, lang: 'en')
     t = []
-    isad_html = '<dt>' + label + '</dt>'
+    isad_html = '<dt>' + I18nHelper::translate(lang, field) + '</dt>'
+
+    json = ActiveSupport::JSON.decode(document['isad_json'])
 
     if lang == 'en'
-      isad = ActiveSupport::JSON.decode(document['isad_json'])
+      isad = ActiveSupport::JSON.decode(json['isad_json_eng'])
     else
-      isad = ActiveSupport::JSON.decode(document['isad_json_hu'])
+      isad = ActiveSupport::JSON.decode(json['isad_json_2nd'])
     end
 
     if isad[field].is_a?(Array)
@@ -71,9 +81,12 @@ module ArchivesHelper
     return isad_html.html_safe
   end
 
-  def render_isad_dates(document, lang='en')
+  def render_isad_dates(document, lang: 'en')
     dates = ''
-    isad = ActiveSupport::JSON.decode(document['isad_json'])
+
+    json = ActiveSupport::JSON.decode(document['isad_json'])
+    isad = ActiveSupport::JSON.decode(json['isad_json_eng'])
+
     dates << isad['dateFrom'].to_s
 
     if isad['dateTo']
@@ -84,37 +97,21 @@ module ArchivesHelper
     end
 
     if dates
-      if lang == 'en'
-        date_html = '<dt>' + 'Date(s)' + '</dt><dd>' + dates + '</dd>'
-      else
-        date_html = '<dt>' + 'Idő(kör)' + '</dt><dd>' + dates + '</dd>'
-      end
+        date_html = '<dt>' + I18nHelper::translate(lang, 'dates') + '</dt><dd>' + dates + '</dd>'
     end
 
     return date_html.html_safe
   end
 
   def render_isad_accruals(document, lang: 'en')
-    if lang == 'en'
-      isad = ActiveSupport::JSON.decode(document['isad_json'])
-    else
-      isad = ActiveSupport::JSON.decode(document['isad_json_hu'])
-    end
+    json = ActiveSupport::JSON.decode(document['isad_json'])
+    isad = ActiveSupport::JSON.decode(json['isad_json_eng'])
 
-    if lang == 'en'
-      accruals = '<dt>Accruals</dt>'
-      if isad['accruals'] == 'Expected'
-        accruals << '<dd><p>Expected</p></dd>'
-      else
-        accruals << '<dd><p>Not expected</p></dd>'
-      end
+    accruals = '<dt>' + I18nHelper::translate(lang, 'accruals') + '</dt>'
+    if isad['accruals']
+      accruals << '<dd><p>' + I18nHelper::translate(lang, 'accruals_expected') + '</p></dd>'
     else
-      accruals = '<dt>Jövőbeni gyarapodás</dt>'
-      if isad['accruals'] == 'Expected'
-        accruals << '<dd><p>Várható</p></dd>'
-      else
-        accruals << '<dd><p>Nem várható</p></dd>'
-      end
+      accruals << '<dd><p>' + I18nHelper::translate(lang, 'accruals_not_expected') + '</p></dd>'
     end
 
     return accruals.html_safe
@@ -123,7 +120,8 @@ module ArchivesHelper
   def render_isad_creators(document, lang: 'en')
     creators = []
     creator_html = ''
-    isad = ActiveSupport::JSON.decode(document['isad_json'])
+    json = ActiveSupport::JSON.decode(document['isad_json'])
+    isad = ActiveSupport::JSON.decode(json['isad_json_eng'])
 
     if isad['creator']
       isad['creator'].each do |creator|
@@ -140,11 +138,7 @@ module ArchivesHelper
     end
 
     if creator_html != ''
-      if lang == 'en'
-        creator_html = '<dt>' + 'Name of creator(s)' + '</dt>' + creator_html
-      else
-        creator_html = '<dt>' + 'Az iratképző(k) neve' + '</dt>' + creator_html
-      end
+      creator_html = '<dt>' + I18nHelper::translate(lang, 'creators') + '</dt>' + creator_html
     end
 
     return creator_html.html_safe
@@ -154,22 +148,20 @@ module ArchivesHelper
     units = []
     units_html = ''
 
+    json = ActiveSupport::JSON.decode(document['isad_json'])
+
     if lang == 'en'
-      isad = ActiveSupport::JSON.decode(document['isad_json'])
+      isad = ActiveSupport::JSON.decode(json['isad_json_eng'])
     else
-      isad = ActiveSupport::JSON.decode(document['isad_json_hu'])
+      isad = ActiveSupport::JSON.decode(json['isad_json_2nd'])
     end
 
-    if field == 'relatedUnits'
-      tfield = 'name'
-    else
-      tfield = 'info'
-    end
+    tfield = 'info'
 
     if isad[field]
-      isad[field].each do |unit|
+      isad[field].map do |unit|
         if unit['url'] != ''
-          units << link_to(unit[tfield], solr_document_path(unit['url']))
+          units << link_to(unit[tfield], unit['url'])
         else
           units << unit[tfield]
         end
@@ -181,7 +173,7 @@ module ArchivesHelper
     end
 
     if units_html != ''
-      units_html = '<dt>' + label + '</dt>' + units_html
+      units_html = '<dt>' + I18nHelper::translate(lang, field) + '</dt>' + units_html
     end
 
     return units_html.html_safe

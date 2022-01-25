@@ -1,0 +1,26 @@
+<% document ||= @document %>
+<% lang ||= @lang %>
+
+<% label = render_group_label("descriptionControl", lang: lang) %>
+<% archivistsNote_field = render_isad_field(document, "archivistsNote", :lang => lang) %>
+<% rulesConventions_field = render_isad_field(document, "rulesConventions", :lang => lang) %>
+<% dateCreated_field = render_isad_field(document, "dateCreated", :lang => lang) %>
+<% dateUpdated_field = render_isad_field(document, "dateUpdated", :lang => lang) %>
+<% descriptionNotes_field = render_isad_field(document, "descriptionNotes", :lang => lang) %>
+
+<% if archivistsNote_field != '' ||
+      rulesConventions_field != '' ||
+      dateCreated_field != '' ||
+      dateUpdated_field != '' ||
+      descriptionNotes_field != '' %>
+  <h4 class="show-page-section"><i class="fa fa-unlock-alt"></i><%= label %></h4>
+  <dl class="dl-horizontal dl-invert data-details">
+
+    <%= archivistsNote_field %>
+    <%= rulesConventions_field %>
+    <%= dateCreated_field %>
+    <%= dateUpdated_field %>
+    <%= descriptionNotes_field %>
+
+  </dl>
+<% end %>

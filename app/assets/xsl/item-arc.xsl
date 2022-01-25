@@ -418,7 +418,6 @@
 							<xsl:when test=".//osa:sourceUnitURL!=''">
 								<a>
 								<xsl:attribute name="href">
-
 									<xsl:variable name="newurl">
 									    <xsl:call-template name="string-replace-all">
 									        <xsl:with-param name="text" select=".//osa:sourceUnitID" />
@@ -426,8 +425,7 @@
 									        <xsl:with-param name="by" select="''" />
 									    </xsl:call-template>
 									</xsl:variable>
-
-									http:.//catalog.osaarchivum.org/db/fa/<xsl:value-of select="$newurl" />
+								http://catalog.osaarchivum.org/db/fa/<xsl:value-of select="$newurl" />
 								</xsl:attribute>
 								<xsl:value-of select=".//osa:sourceUnitID" />
 								</a>
@@ -580,10 +578,10 @@
 								<xsl:text>, </xsl:text>
 							</xsl:when>
 							<xsl:otherwise>
-								<xsl:if test=".//osa:subjectCorporateFree!= '' or
-											.//osa:subjectTopicalFree!='' or
-											.//osa:subjectFree!=''">
-											<xsl:text>, </xsl:text>
+								<xsl:if test=".//osa:subjectCorporateFree != '' or
+										.//osa:subjectTopicalFree != '' or
+										.//osa:subjectFree != ''">
+										<xsl:text>, </xsl:text>
 								</xsl:if>
 							</xsl:otherwise>
 						</xsl:choose>
