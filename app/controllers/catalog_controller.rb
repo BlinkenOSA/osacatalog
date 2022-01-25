@@ -55,9 +55,10 @@ class CatalogController < ApplicationController
     # :show may be set to false if you don't want the facet to be drawn in the
     # facet bar
     config.add_facet_field 'record_origin_facet', :label => 'Record Origin', collapse: false, partial: 'facet_record_origin'
+    config.add_facet_field 'availability_facet', :label => 'How Can I See It?', collapse: false
     # config.add_facet_field 'archival_level_facet', :label => 'Description Group', collapse: false, sort: 'index'
     config.add_facet_field 'primary_type_facet', :label => 'Record Type', collapse: false, partial: 'facet_primary_type'
-    config.add_facet_field 'description_level_facet', :label => 'Archival Description Level', collapse: false, sort: 'index', partial: 'facet_description_level'
+    config.add_facet_field 'description_level_facet', :label => 'Archival Description Level', sort: 'index', partial: 'facet_description_level'
     config.add_facet_field 'digital_collection', :label => 'Digital Collection', limit: 20
 
     config.add_facet_field 'date_created_facet', :label => 'Creation Date', :range => {
