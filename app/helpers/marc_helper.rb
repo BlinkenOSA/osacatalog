@@ -309,13 +309,6 @@ module MarcHelper
     fl_call_number = ""
     text = ""
 
-    # FL Call Number
-    marc.find_all{|f| ('099') === f.tag}.each do |field|
-      if not field['f'].nil?
-        fl_call_number = 'FL Record ' + field['f']
-      end
-    end
-
     marc.find_all{|f| ('952') === f.tag}.each do |field|
       text << "<tr>".html_safe
       text << content_tag(:td, field["y"] ? Constants::KOHA_ITEM_TYPES[field["y"]] : "-")
@@ -329,6 +322,54 @@ module MarcHelper
       end
 
       text << content_tag(:td, field["o"] ? field["h"] : "-")
+      text << content_tag(:td, field["c"] ? Constants::KOHA_SHELVING[field["c"]] : "-")
+      text << content_tag(:td, field["z"] ? field["z"] : "-")
+      text << "</tr>".html_safe
+    end
+    return text.html_safe
+  end
+
+
+  def get_film_library_holdings(marc)
+    fl_call_number = ""
+    text = ""
+
+    # FL Call Number
+    marc.find_all{|f| ('099') === f.tag}.each do |field|
+      if not field['f'].nil?
+        fl_call_number = 'FL Record ' + field['f']
+      end
+    end
+
+    marc.find_all{|f| ('952') === f.tag}.each do |field|
+      text << "<tr>".html_safe
+      text << content_tag(:td, field["y"] ? Constants::KOHA_ITEM_TYPES[field["y"]] : "-")
+      text << content_tag(:td, field["a"] ? Constants::KOHA_LOCATIONS[field["b"]] : "-")
+
+      barcode = field["p"] ? field["p"] : ""
+      if fl_call_number != ""
+        if barcode != ""
+          barcode = "(" + barcode + ")"
+          display = fl_call_number + "<br/>" + barcode
+          text << content_tag(:td, display.html_safe)
+        else
+          text << content_tag(:td, fl_call_number)
+        end
+      else
+        if barcode != ""
+          text << content_tag(:td, field["o"] ? field["o"] : barcode)
+        else
+          text << content_tag(:td, field["o"] ? field["o"] : "-")
+        end
+      end
+
+      # Status
+      if field["5"]
+        text << content_tag(:td, field["5"] == "1" ? "Available<br/>(Restricted Access)".html_safe : "Available") 
+      else
+        text << content_tag(:td, "Available")
+      end
+
       text << content_tag(:td, field["c"] ? Constants::KOHA_SHELVING[field["c"]] : "-")
       text << content_tag(:td, field["z"] ? field["z"] : "-")
       text << "</tr>".html_safe
