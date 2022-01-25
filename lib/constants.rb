@@ -38,11 +38,14 @@ module Constants
   KOHA_ITEM_TYPES = {
     'BK' => 'Book',
     'BETA-SP' => 'Beta-SP',
+    'BLU-RAY' => 'Blu-Ray Disc',
     'CD-ROM' => 'CD-ROM',
     'CR' => 'Continuing resources',
+    'DIGIFILM' => 'Digital film',
     'EPHEMERA' => 'Digitized ephemera',
     'DIA' => 'Digitized filmstrips',
     'DVD-ROM' => 'DVD-ROM',
+    'HDD' => 'HDD',
     'VHS' => 'VHS'
   }
 
